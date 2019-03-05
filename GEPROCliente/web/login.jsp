@@ -22,6 +22,7 @@
     </head>
 
     <body>
+        <link rel="shortcut icon" href="<%=context%>/imagenes/geprologo.ico" />
     <center><img src="<%=context%>/imagenes/geprologo.png"></center>
 
     <div class="polig">
