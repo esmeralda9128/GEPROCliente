@@ -32,6 +32,8 @@
         <div class="offset-md-2 container">
             </br>
              <h1 style="float:left">Perfil</h1>
+             <h1>Hola Hugo</h1>
+             
                 
 
 
