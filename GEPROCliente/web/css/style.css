@@ -16,7 +16,7 @@
     width: 180px;
     height: 100%;
     background-color:#002E60;
-    
+
 }
 
 .card{
@@ -31,18 +31,26 @@
     background-color: #002E60;
     color: #FFFFFF;
     width: 120px;
-    height: 30px;
-     align-items: flex-start;
-     border-radius: 24px;
+    height: 35px;
+    align-items: flex-start;
+    border-radius: 20px;
+    border-color: transparent;
+    -webkit-box-shadow: 10px 10px 12px -13px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 12px -13px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 12px -13px rgba(0,0,0,0.75);
 }
 
 .btn-rojo{
     background-color: #E61A1A;
     color: #FFFFFF;
     width: 120px;
-    height: 30px;
-     align-items: flex-start;
-     border-radius: 24px;
+    height: 35px;
+    align-items: flex-start;
+    border-radius: 20px;
+    border-color: transparent;
+    -webkit-box-shadow: 10px 10px 12px -13px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 12px -13px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 12px -13px rgba(0,0,0,0.75);
 }
 
 .btn-sidebar{
@@ -54,12 +62,12 @@
     width: 183px;
     height: 50px;
     align-items: flex-start;
-    padding-right: 30px;
-    
+    padding-right: 70px;
 }
+
 .btn-sidebar2{
     background-color:transparent;
-   border-color: transparent;
+    border-color: transparent;
     font-family: 'Segoe UI';
     color: #fff;
     font-size: 15px;
@@ -68,9 +76,21 @@
     align-items: flex-start;
     padding-right: 20px;
     padding-left: 10px;
-    
 }
 
+.btn-sidebar:hover{
+    background-color:#009475;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+
+}
+.btn-sidebar2:hover{
+    background-color:#009475;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+}
 
 
 
