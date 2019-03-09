@@ -21,6 +21,7 @@
 
 .card{
     font-family: 'Segoe UI';
+    
 }
 .card-header{
     color: #FFFFFF;
@@ -103,12 +104,14 @@ h1 {
     text-align: center;
     font-family: 'Segoe UI';
     font-size: 20px;
+    font-weight: bold;
 }
 
 
 @font-face {
     font-family: 'Segoe';
-    src:  url('/fonts/segoe-ui/Segoe UI.ttf') format('ttf')
+    src:  url('/fonts/segoe-ui/Segoe UI.ttf') format('ttf'),url('/fonts/segoe-ui/Segoe UI Bold.ttf') format('ttf')
+        
 
 }
 
@@ -261,9 +264,17 @@ h1 {
     z-index:1000;
 }
 
-.main-menu>ul {
+.main-menu ul {
     margin:7px 0;
 }
+
+.label-form{
+    color: white;
+    font-family: 'Segoe UI';
+  
+}
+
+
 
 .main-menu li {
     position:relative;

@@ -23,7 +23,7 @@
             </br>
             <h1>Administrador</h1>
             <div class="side-Elements" >                
-                <button class="btn-sidebar" onclick="location.href='<%=context%>/Vistas/Administrador/inicioAdministrador.jsp'" ><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
+                <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/Administrador/inicioAdministrador.jsp'" ><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
                 <button class="btn-sidebar"><center><img src="<%=context%>/imagenes/user.png" height="22" style="padding: 0px 21px" />Perfil</center></button>
                 <button class="btn-sidebar2"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></button>
             </div>
@@ -31,12 +31,44 @@
 
         <div class="offset-md-2 container">
             </br>
-             <h1 style="float:left">Perfil</h1>
-             <h1>Hola Hugo</h1>
-             <h1>Hola Esme :D</h1>
-             
-                
-
+            <h1 style="float:left">Perfil</h1>
+            </br>
+            </br>
+            <form>
+                <div class="form-row">
+                    <label for="nombre"  class="label-form">Nombre</label> 
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" id="nombre">
+                    </div>
+                    <label class="label-form">  Grado Académico</label> 
+                    <div class="form-group col-md-2">
+                        <input type="text" class="form-control" id="grado">
+                    </div>
+                </div>
+                </br>
+                <div class="form-row">
+                    <label class="label-form">Carrera</label> 
+                    <div class="form-group col-md-5">
+                        <input type="text" class="form-control" id="carrera">
+                    </div>
+                    <label class="label-form">Usuario</label> 
+                    <div class="form-group col-md-4">
+                        <input type="text" class="form-control" id="usuario">
+                    </div>
+                </div>
+                <label class="label-form">Contraseña</label> 
+                <div class="form-group col-md-4">
+                    <input type="password" class="form-control" id="contraseña">
+                </div>
+                <label class="label-form">Nueva Contraseña</label>
+                <div class="form-group col-md-4">
+                    <input type="password" class="form-control" id="Nuevacontraseña">
+                </div>
+                <label class="label-form">Confirmar Contraseña</label>
+                <div class="form-group col-md-4">
+                    <input type="password" class="form-control" id="Confirmarcontraseña">
+                </div>
+            </form>
 
 
 
