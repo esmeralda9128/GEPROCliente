@@ -6,9 +6,10 @@
 package utilerias;
 
 /**
- *
- * @author horo_
- */
+ * @author Esmeralda Estefania Rodríguez Ramos
+ * @version 1 09/03/2019
+ * 
+ **/
 public class Conexion {
     
 }
