@@ -12,9 +12,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Perfil Administrador-GEPRO</title>
+        <script src="<%=context%>/js/jqBootstrapValidation.js"></script>
+        <script src="<%=context%>/js/sweetalert2.all.min.js"></script>
         <link rel="shortcut icon" href="<%=context%>/imagenes/geprologo.ico"/>
         <link rel="stylesheet" href="<%=context%>/css/bootstrap_4.css">  
         <link rel="stylesheet" href="<%=context%>/css/style.css"> 
+        <link rel="stylesheet" href="<%=context%>/css/sweetalert2.min.css">
+
     </head>
     <body>
         <div id="sidebar">
@@ -36,42 +40,68 @@
             </br>
             <form>
                 <div class="form-row">
-                    <label for="nombre"  class="label-form">Nombre</label> 
                     <div class="form-group col-md-6">
-                        <input type="text" class="form-control" id="nombre">
+                        <label for="nombre">Nombre</label>
+                        <input type="text"  pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="nombre" required>
+                        <p class="help-block"></p>
                     </div>
-                    <label class="label-form">  Grado Académico</label> 
-                    <div class="form-group col-md-2">
-                        <input type="text" class="form-control" id="grado">
+                    <div class="form-group col-md-3">
+                        <label for="grado">Grado Académico</label>
+                        <input type="text" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.]+" class="form-control" id="grado" required>
+                        <p class="help-block"></p>
                     </div>
                 </div>
-                </br>
                 <div class="form-row">
-                    <label class="label-form">Carrera</label> 
-                    <div class="form-group col-md-5">
-                        <input type="text" class="form-control" id="carrera">
+                    <div class="form-group  col-md-5">
+                        <label for="carrera">Carrera</label>
+                        <input type="text" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.]+" class="form-control" id="carrera" required>
+                        <p class="help-block"></p>
                     </div>
-                    <label class="label-form">Usuario</label> 
-                    <div class="form-group col-md-4">
-                        <input type="text" class="form-control" id="usuario">
+                </div> 
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="usuario">Usuario</label>
+                        <input type="text" pattern="[a-zA-Z0-9]+" class="form-control" id="usuario" required>
+                        <p class="help-block"></p>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="contrasenia">Contraseña</label>
+                        <input type="password"  pattern="[a-zA-Z0-9]+" class="form-control" id="contrasenia" required>
+                        <p class="help-block"></p>
                     </div>
                 </div>
-                <label class="label-form">Contraseña</label> 
-                <div class="form-group col-md-4">
-                    <input type="password" class="form-control" id="contraseña">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="nuevaContrasenia">Nueva Contraseña</label>
+                        <input type="password" pattern="[a-zA-Z0-9]+" class="form-control" id="nuevaContrasenia" >
+                        <p class="help-block"></p>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="nuevaConfirmarContrasenia">Confirmar Nueva Contraseña</label>
+                        <input   type="password" Passwordagain="#nuevaContrasenia" pattern="[a-zA-Z0-9]+" class="form-control" id="nuevaConfirmarContrasenia">
+                        <p class="help-block"></p>
+                    </div>
+
                 </div>
-                <label class="label-form">Nueva Contraseña</label>
-                <div class="form-group col-md-4">
-                    <input type="password" class="form-control" id="Nuevacontraseña">
-                </div>
-                <label class="label-form">Confirmar Contraseña</label>
-                <div class="form-group col-md-4">
-                    <input type="password" class="form-control" id="Confirmarcontraseña">
-                </div>
+                <center>
+                    
+                    <button  style="margin-right: 200px" class="btn-rojo">Cancelar</button>
+                    <button type="submit" class="btn-verde">Enviar</button>
+                </center>
             </form>
 
-
-
         </div>
+
+        <script>
+            Swal.fire(
+                    'Good job!',
+                    'You clicked the button!',
+                    'success'
+                    );
+        </script>
+
+
+
     </body>
 </html>

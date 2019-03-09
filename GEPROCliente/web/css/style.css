@@ -21,7 +21,7 @@
 
 .card{
     font-family: 'Segoe UI';
-    
+
 }
 .card-header{
     color: #FFFFFF;
@@ -30,6 +30,19 @@
 
 .btn-azul{
     background-color: #002E60;
+    color: #FFFFFF;
+    width: 120px;
+    height: 35px;
+    align-items: flex-start;
+    border-radius: 20px;
+    border-color: transparent;
+    -webkit-box-shadow: 10px 10px 12px -13px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 12px -13px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 12px -13px rgba(0,0,0,0.75);
+}
+
+.btn-verde{
+    background-color: #009475;
     color: #FFFFFF;
     width: 120px;
     height: 35px;
@@ -107,11 +120,14 @@ h1 {
     font-weight: bold;
 }
 
-
+label{
+    font-family: 'Segoe UI';
+    color: #fff;
+}
 @font-face {
     font-family: 'Segoe';
     src:  url('/fonts/segoe-ui/Segoe UI.ttf') format('ttf'),url('/fonts/segoe-ui/Segoe UI Bold.ttf') format('ttf')
-        
+
 
 }
 
@@ -271,7 +287,7 @@ h1 {
 .label-form{
     color: white;
     font-family: 'Segoe UI';
-  
+
 }
 
 
