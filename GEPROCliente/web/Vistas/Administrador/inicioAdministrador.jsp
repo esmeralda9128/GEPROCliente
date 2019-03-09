@@ -35,6 +35,7 @@
         <div class="offset-md-2 container " >
             <br>
             <h1  style="float:left">Proyectos</h1>
+            <button style="float:right; width: 160px"  class="btn-verde">Crear Proyecto</button>
             <br>
             <br>   
             <div class="card" style="width: 18rem;">

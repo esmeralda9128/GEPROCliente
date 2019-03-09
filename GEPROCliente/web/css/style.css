@@ -120,6 +120,19 @@ h1 {
     font-weight: bold;
 }
 
+h2 {
+    color: #fff;
+    text-align: center;
+    font-family: 'Segoe UI';
+    font-size: 16px;
+    font-weight: bold;
+}
+h3 {
+    color: #fff;
+    text-align: center;
+    font-family: 'Segoe UI';
+    font-size: 15px; 
+}
 label{
     font-family: 'Segoe UI';
     color: #fff;
