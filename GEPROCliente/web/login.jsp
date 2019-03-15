@@ -18,8 +18,7 @@
         <script src="js/sweetalert2.all.min.js"></script>
         <script src="js/bootstrap_4.min.js"></script>
         <script src="js/jqBootstrapValidation.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
-        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+            
         <link rel="stylesheet" href="css/sweetalert2.min.css">
         <link rel="stylesheet" href="css/style.css">  
     </head>
@@ -52,6 +51,6 @@
                 'success'
                 );
     </script>
-   
+
 </body>
 </html>
