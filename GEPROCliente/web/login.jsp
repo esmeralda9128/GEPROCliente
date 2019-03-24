@@ -15,10 +15,9 @@
         <meta charset="UTF-8">
         <title>Login-GEPRO</title>
         <script  src="js/index.js"></script>
-        <script src="js/sweetalert2.all.min.js"></script>
-        <script src="js/bootstrap_4.min.js"></script>
-        <script src="js/jqBootstrapValidation.js"></script>
-            
+        <script src="js/sweetalert/sweetalert2.all.min.js"></script>
+        <script src="js/bootstrap/bootstrap.min.js"></script>
+        <script src="js/jqBootstrapValidation.js"></script>            
         <link rel="stylesheet" href="css/sweetalert2.min.css">
         <link rel="stylesheet" href="css/style.css">  
     </head>

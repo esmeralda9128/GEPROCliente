@@ -137,6 +137,11 @@ label{
     font-family: 'Segoe UI';
     color: #fff;
 }
+
+.label-modal{
+    font-family: 'Segoe UI';
+    color: black;
+}
 @font-face {
     font-family: 'Segoe';
     src:  url('/fonts/segoe-ui/Segoe UI.ttf') format('ttf'),url('/fonts/segoe-ui/Segoe UI Bold.ttf') format('ttf')

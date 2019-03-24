@@ -796,7 +796,7 @@
 			passwordagain: {
 				name: "Passwordagain",
 				type: "match",
-				match: "password",
+				equalTo: "password",
 				message: "Does not match the given password<!-- data-validator-paswordagain-message to override -->"
 			},
 			positive: {

@@ -13,14 +13,14 @@ public class BeanActividad {
     private int idActividad;
     private String actividad;
     private String fechaActividad;
-    private BeanUsuario usuario;
+//    private BeanUsuario usuario;
 
-    public BeanActividad(int idActividad, String actividad, String fechaActividad, BeanUsuario usuario) {
-        this.idActividad = idActividad;
-        this.actividad = actividad;
-        this.fechaActividad = fechaActividad;
-        this.usuario = usuario;
-    }
+//    public BeanActividad(int idActividad, String actividad, String fechaActividad, BeanUsuario usuario) {
+//        this.idActividad = idActividad;
+//        this.actividad = actividad;
+//        this.fechaActividad = fechaActividad;
+//        this.usuario = usuario;
+//    }
 
     public int getIdActividad() {
         return idActividad;
@@ -46,12 +46,12 @@ public class BeanActividad {
         this.fechaActividad = fechaActividad;
     }
 
-    public BeanUsuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(BeanUsuario usuario) {
-        this.usuario = usuario;
-    }
-    
+//    public BeanUsuario getUsuario() {
+//        return usuario;
+//    }
+//
+//    public void setUsuario(BeanUsuario usuario) {
+//        this.usuario = usuario;
+//    }
+//    
 }

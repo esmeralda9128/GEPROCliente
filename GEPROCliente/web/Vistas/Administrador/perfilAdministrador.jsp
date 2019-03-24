@@ -15,7 +15,7 @@
         <script src="<%=context%>/js/jqBootstrapValidation.js"></script>
         <script src="<%=context%>/js/sweetalert2.all.min.js"></script>
         <link rel="shortcut icon" href="<%=context%>/imagenes/geprologo.ico"/>
-        <link rel="stylesheet" href="<%=context%>/css/bootstrap_4.css">  
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="<%=context%>/css/style.css"> 
         <link rel="stylesheet" href="<%=context%>/css/sweetalert2.min.css">
 
@@ -85,7 +85,7 @@
 
                 </div>
                 <center>
-                    
+
                     <button  style="margin-right: 200px" class="btn-rojo">Cancelar</button>
                     <button type="submit" class="btn-verde">Enviar</button>
                 </center>
