@@ -36,7 +36,6 @@ public class DaoUsuario {
                 usuarioConsultado = new BeanUsuario();
                 usuarioConsultado.setId(rs.getInt("idUsuario"));
                 usuarioConsultado.setNombre(rs.getString("nombre"));
-                System.out.println("Nombre del lider " + usuarioConsultado.getNombre());
                 usuarioConsultado.setPrimerApellido(rs.getString("primerApellido"));
                 usuarioConsultado.setSegundoApellido(rs.getString("segundoApellido"));
             }

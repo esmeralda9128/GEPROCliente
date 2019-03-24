@@ -13,13 +13,12 @@ public class BeanNomina {
     private int idNomina;
     private String fecha;
     private BeanProyecto proyecto;
-    private BeanRecursoHumano persona;
 
-    public BeanNomina(int idNomina, String fecha, BeanProyecto proyecto, BeanRecursoHumano persona) {
+
+    public BeanNomina(int idNomina, String fecha, BeanProyecto proyecto) {
         this.idNomina = idNomina;
         this.fecha = fecha;
         this.proyecto = proyecto;
-        this.persona = persona;
     }
 
     public int getIdNomina() {
@@ -46,12 +45,5 @@ public class BeanNomina {
         this.proyecto = proyecto;
     }
 
-    public BeanRecursoHumano getPersona() {
-        return persona;
-    }
-
-    public void setPersona(BeanRecursoHumano persona) {
-        this.persona = persona;
-    }
     
 }

@@ -71,6 +71,7 @@ function registrarProyecto() {
         email: document.getElementById("email").value,
         usuario: document.getElementById("usuario").value,
         pass: document.getElementById("pass").value,
+        conpass: document.getElementById("conpass").value,
         salario: document.getElementById("salario").value
 
     };
@@ -78,19 +79,19 @@ function registrarProyecto() {
     peticion.onreadystatechange = function () {
         if (this.status === 200 && this.readyState === 4) {
             var respuesta = JSON.parse(this.responseText);
-            
-            Swal.fire(
-                    respuesta.respuesta.mensaje,
-                    '',
-                    respuesta.respuesta.tipo,
-                    );
-            var proyectos = respuesta.respuesta.proyectos;
             if (proyectos !== null) {
                  document.getElementById('cardsProyectos').innerHTML = '';
                 for (var i = 0; i < proyectos.length; i++) {
                     $('#cardsProyectos').append(' <div class="col-md-4"><div class="card" style="width: 18rem;"><div class="card-header" style="background-color: #009475">' + proyectos[i].nombre + '</div><div class="card-body"><h5 class="card-title" >' +proyectos[i].lider.nombre+' '+proyectos[i].lider.primerApellido +' '+proyectos[i].lider.segundoApellido  + '</h5><p class="card-text">'+'Semanas '+proyectos[i].semanas+'<br/>' +'Prespuesto '+proyectos[i].presupuestoInicial + '</p><center><button class="btn-azul">Seguimiento</button><button class="btn-rojo">Eliminar</button></center></div></div><br/></div>');
                 }
             }
+            Swal.fire(
+                    respuesta.respuesta.mensaje,
+                    '',
+                    respuesta.respuesta.tipo,
+                    );
+            var proyectos = respuesta.respuesta.proyectos;
+            
         }
     }
     peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/registroProyecto?proyecto="

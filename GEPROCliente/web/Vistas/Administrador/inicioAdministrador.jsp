@@ -83,8 +83,8 @@
                                 </div>
                                 <div class="form-row" >
 
-                                    <div class="form-group  col-md-4">
-                                        <input type="text"   placeholder="Fecha Inicio" id="fechaInicio" class="form-control" id="fechaInicio" required>                                
+                                    <div class="form-group  col-md-5">
+                                        <input type="date"   placeholder="Fecha Inicio" id="fechaInicio" class="form-control" id="fechaInicio" required>                                
                                         <p class="help-block"></p> 
                                     </div>
                                     <div class="form-group  col-md-3">
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group  col-md-3">
-                                        <input type="text" placeholder="Salario" pattern="[ 0-9.]+" class="form-control" id="salario" required>
+                                        <input type="text" placeholder="Salario"  pattern="[ 0-9.]+" class="form-control" id="salario" required>
                                         <p class="help-block"></p>
                                     </div>
                                     <div class="form-group  col-md-3">

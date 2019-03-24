@@ -34,7 +34,7 @@ public class DaoProyecto {
             csm = con.prepareCall("{call dbo.pa_registrarProyecto (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}");
             csm.setString(1, beanProyecto.getNombre());
             csm.setString(2, beanProyecto.getInicioProyecto());
-            csm.setString(3, "10/10/10");
+            csm.setString(3, beanProyecto.getFinalProyecto());
             csm.setInt(4, beanProyecto.getSemanas());
             csm.setDouble(5, beanProyecto.getPresupuestoInicial());
             csm.setDouble(6, beanProyecto.getReserva());
@@ -126,10 +126,8 @@ public class DaoProyecto {
             psm = con.prepareStatement("select * from proyecto");
             rs = psm.executeQuery();
             while (rs.next()) {
-                System.out.println("Entre");
                 proyecto = new BeanProyecto();
                 proyecto.setIdProyecto(rs.getInt("idProyecto"));
-                System.out.println("El id del proyecto es " + proyecto.getIdProyecto());
                 proyecto.setNombre(rs.getString("nombre"));
                 proyecto.setInicioProyecto(rs.getString("inicioProyecto"));
                 proyecto.setFinalProyecto(rs.getString("finalProyecto"));
