@@ -17,8 +17,12 @@ import utez.edu.modelo.bean.BeanUsuario;
 import utilerias.Conexion;
 
 /**
+ * Esta clase se utiliza para hacer métodos entre la aplicación y la base de
+ * datos, referente a la tabla proyecto y otras tablas necesarias como usuario
  *
- * @author horo_
+ * @author Esmeralda Estefanía Rodríguez Ramos
+ * @version 1 15/03/2019
+ *
  */
 public class DaoProyecto {
 
@@ -28,6 +32,16 @@ public class DaoProyecto {
     private CallableStatement csm;
     private boolean resultado;
 
+    /**
+     * Método para registrar un Proyecto
+     *
+     * @param beanProyecto es la información del proyecto
+     * @param beanUsuario es la información del que sera el Líder del Proyecto
+     * @return resultado regresa un dato de tipo boolean es decir si se hizo o
+     * no el registro
+     *
+     *
+     */
     public boolean registrarProyecto(BeanProyecto beanProyecto, BeanUsuario beanUsuario) {
         try {
             con = Conexion.getConexion();
@@ -61,9 +75,18 @@ public class DaoProyecto {
                 System.out.println("Error DaoCuenta registroCuenta()cerrar" + ex);
             }
         }
-        return true;
+        return resultado;
     }
 
+    /**
+     * Método para verificar que no exista un Proyecto con nombre repetido
+     *
+     * @param beanProyecto es la infoación del proyecto a registrar, para saber
+     * si no existe un proyecto con ese nombre
+     * @return BeanProyecto regresa el proyecto entrado en caso de que se repita
+     * el nombre
+     *
+     */
     public BeanProyecto verificarNombredeProyecto(BeanProyecto beanProyecto) {
         BeanProyecto proyectoConsultado = null;
         try {
@@ -90,6 +113,15 @@ public class DaoProyecto {
         return proyectoConsultado;
     }
 
+    /**
+     * Método para verificar que no exista un Líder de proyecto ya registrado
+     *
+     * @param beanUsuario es la infoación del Líder de proyecto a registrar,
+     * para saber si no existe un Líder de Proyecto con ese nombre
+     * @return BeanUsuario regresa el usuario entrado de Líder de Proyecto en
+     * caso de que se repita el nombre
+     *
+     */
     public BeanUsuario verificarNombredeLider(BeanUsuario beanUsuario) {
         BeanUsuario usuarioConsultado = null;
         try {
@@ -118,6 +150,12 @@ public class DaoProyecto {
         return usuarioConsultado;
     }
 
+    /**
+     * Método para consultar todos lo proyecto registrados
+     *
+     * @return List de BeanProyectoregresa una listra de proyectos
+     *
+     */
     public List<BeanProyecto> consultarProyectos() {
         List<BeanProyecto> proyectos = new ArrayList<>();
         BeanProyecto proyecto = null;
@@ -152,5 +190,78 @@ public class DaoProyecto {
         return proyectos;
     }
 
-   
+    /**
+     * Método para eliminar un Proyecto
+     *
+     * @param idProyecto se necesita para saber que Proyecto eliminar
+     * @return resultado regresa un dato de tipo boolean es decir si se hizo o
+     * no la eliminación
+     *
+     */
+    public boolean eliminarProyecto(int idProyecto) {
+        BeanUsuario usuarioConsultado = null;
+        try {
+            con = Conexion.getConexion();
+            csm = con.prepareCall("{call dbo.pa_eliminarProyecto (?)}");
+            csm.setInt(1, idProyecto);
+            resultado = csm.executeUpdate() == 1;
+        } catch (SQLException ex) {
+            System.out.println("Error DaoCuenta eliminarProyecto()" + ex);
+
+        } finally {
+            try {
+                con.close();
+                csm.close();
+
+            } catch (SQLException ex) {
+                System.out.println("Error DaoCuenta eliminarProyecto()cerrar" + ex);
+            }
+        }
+
+        return resultado;
+    }
+    
+    public BeanProyecto consultarProyectoporId(int id) {
+        BeanProyecto proyectoConsultado = null;
+        try {
+            con = Conexion.getConexion();
+            psm = con.prepareStatement("select * from proyecto where idProyecto=?");
+            psm.setInt(1, id);
+            rs = psm.executeQuery();
+            while (rs.next()) {
+                proyectoConsultado = new BeanProyecto();
+                proyectoConsultado.setIdProyecto(rs.getInt("idProyecto"));
+                proyectoConsultado.setNombre(rs.getString("nombre"));
+                proyectoConsultado.setInicioProyecto(rs.getString("inicioProyecto"));
+                proyectoConsultado.setFinalProyecto(rs.getString("finalProyecto"));
+                proyectoConsultado.setSemanas(rs.getInt("semanas"));
+                proyectoConsultado.setPresupuestoInicial(rs.getDouble("presupuestoInicial"));
+                proyectoConsultado.setReserva(rs.getDouble("reserva"));
+                proyectoConsultado.setValorPlaneado(rs.getDouble("valorPlaneado"));
+                proyectoConsultado.setValorGanado(rs.getDouble("valorGanado"));
+                
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error DaoCuenta consultarProyectoporId()" + ex);
+        } finally {
+            try {
+                con.close();
+                psm.close();
+                rs.close();
+            } catch (SQLException ex) {
+                System.out.println("Error DaoCuenta consultarProyectoporId()cerrar" + ex);
+            }
+        }
+
+        return proyectoConsultado;
+    }
+
+//    public static void main(String[] args) {
+//        DaoProyecto daoProyecto = new DaoProyecto();
+//        if (daoProyecto.eliminarProyecto(5)) {
+//            System.out.println("Si elimina");
+//        }else{
+//            System.out.println("Error");
+//        }
+//    }
 }

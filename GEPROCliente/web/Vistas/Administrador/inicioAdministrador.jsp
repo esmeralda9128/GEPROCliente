@@ -43,7 +43,7 @@
         <div class="offset-md-2 container " >
             <br>
             <h1  style="float:left">Proyectos</h1>
-            <button style="float:right; width: 160px" data-toggle="modal" data-target="#exampleModal" class="btn-verde">Crear Proyecto</button>
+            <button style="float:right; width: 160px" onclick="location.href = '<%=context%>/Vistas/Administrador/registrarProyecto.jsp'" class="btn-verde">Crear Proyecto</button>
             <br>
             <br>   
             <div  class="container-fluid">
@@ -51,11 +51,6 @@
 
                 </div>
             </div>
-
-
-
-
-
             <div class="modal bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -66,87 +61,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <div class="form-row">
-                                    <div class="form-group  col-md-6">
-                                        <input type="text" placeholder="Nombre del Proyecto" pattern="[ A-Za-z0-9-äÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.]+" class="form-control" id="nombreP" required>
-                                        <p class="help-block"></p>
-                                    </div>
-                                    <div class="form-group  col-md-3">
-                                        <input type="text" placeholder="Presupuesto" pattern="[ 0-9.]+" class="form-control" id="presupuesto" required>
-                                        <p class="help-block"></p>
-                                    </div>
-                                    <div class="form-group  col-md-3">
-                                        <input type="text" placeholder="Reserva" pattern="[ 0-9.]+" class="form-control" id="reserva" required>
-                                        <p class="help-block"></p> 
-                                    </div>
-                                </div>
-                                <div class="form-row" >
-
-                                    <div class="form-group  col-md-5">
-                                        <input type="date"   placeholder="Fecha Inicio" id="fechaInicio" class="form-control" id="fechaInicio" required>                                
-                                        <p class="help-block"></p> 
-                                    </div>
-                                    <div class="form-group  col-md-3">
-                                        <input type="number"   placeholder="Semanas" id="semanas" class="form-control"  required>                                
-                                        <p class="help-block"></p> 
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group  col-md-4">
-                                        <input type="text" placeholder="Nombre" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="nombreL" required>
-                                        <p class="help-block"></p>
-                                    </div>
-                                    <div class="form-group  col-md-4">
-                                        <input type="text" placeholder="Apellido Paterno" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="apellidoP" required>
-                                        <p class="help-block"></p>
-                                    </div>
-                                    <div class="form-group  col-md-4">
-                                        <input type="text" placeholder="Apellido Materno" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="apellidoM" required>
-                                        <p class="help-block"></p>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group  col-md-4">
-                                        <input type="text" placeholder="Grado Académico" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.]+" class="form-control" id="grado" required>
-                                        <p class="help-block"></p>
-                                    </div>
-                                    <div class="form-group  col-md-8">
-                                        <input type="text" placeholder="Carrera" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="carrera" required>
-                                        <p class="help-block"></p>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group  col-md-3">
-                                        <input type="text" placeholder="Salario"  pattern="[ 0-9.]+" class="form-control" id="salario" required>
-                                        <p class="help-block"></p>
-                                    </div>
-                                    <div class="form-group  col-md-3">
-                                        <input type="text" placeholder="RFC" pattern="[A-Z0-9]+" class="form-control" id="rfc" required>
-                                        <p class="help-block"></p>
-                                    </div>
-
-                                    <div class="form-group  col-md-6">
-                                        <input type="text" placeholder="Usuario" pattern="[ A-Za-z0-9]+" class="form-control" id="usuario" required>
-                                        <p class="help-block"></p>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group  col-md-6">
-                                        <input type="email" placeholder="Email" class="form-control" id="email" required>
-                                        <p class="help-block"></p>
-                                    </div>
-                                    <div class="form-group  col-md-6">
-                                        <input type="password" placeholder="Contraseña" pattern="[ A-Za-z0-9]+" class="form-control" id="pass" required>
-                                        <p class="help-block"></p>
-                                    </div>
-                                    <div class="form-group  col-md-6">
-                                        <input type="password" placeholder="Confirmar Contraseña" pattern="[ A-Za-z0-9]+" class="form-control" id="conpass" required>
-                                        <p class="help-block"></p>
-                                    </div>
-                                </div>
-                                <input type="submit"  value="Registrar"  onclick="registrarProyecto()" class ="btn-verde" />
-                            </form>
+                            
                         </div>
                         <div class="modal-footer">
 

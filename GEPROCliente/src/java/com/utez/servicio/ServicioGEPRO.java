@@ -5,7 +5,6 @@
  */
 package com.utez.servicio;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,8 +13,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.Consumes;
@@ -30,6 +27,7 @@ import org.json.JSONObject;
 import utez.edu.modelo.bean.BeanProyecto;
 import utez.edu.modelo.bean.BeanUsuario;
 import utez.edu.modelo.dao.DaoProyecto;
+import utez.edu.modelo.dao.DaoUsuario;
 
 /**
  *
@@ -43,6 +41,61 @@ public class ServicioGEPRO extends Application {
     String mensaje = "";
     String tipo = "";
     Map respuestas = new HashMap();
+    public static int idProyectoGlobal;
+
+    @GET
+    @Path("login")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response login(@QueryParam("usuario") String usuario) throws ParseException {
+        DaoUsuario daoUsuario = new DaoUsuario();
+        JSONObject usuarioJ = null;
+        int tipoUsuario=0;
+        try {
+            usuarioJ = new JSONObject(usuario);
+
+            BeanUsuario usuarioConsultado = daoUsuario.consultarUsuario(usuarioJ.getString("usuario"), usuarioJ.getString("pass"));
+            if (usuarioConsultado == null) {
+                usuarioConsultado = daoUsuario.consultarAdministrador(usuarioJ.getString("usuario"), usuarioJ.getString("pass"));
+                if (usuarioConsultado == null) {
+                    mensaje = "Usuario o Contraseña incorrectos";
+                    tipo = "error";
+                } else {
+                    mensaje = "Bienvenido " + usuarioConsultado.getNombre();
+                    tipo = "success";
+                    tipoUsuario= 1;
+                }
+            } else if (usuarioConsultado.getTipo() == 2) {
+                mensaje = "Bienvenido " + usuarioConsultado.getNombre() + " " + usuarioConsultado.getPrimerApellido() + " " + usuarioConsultado.getSegundoApellido();
+                 tipo = "success";
+                 tipoUsuario= usuarioConsultado.getTipo();
+                 idProyectoGlobal = usuarioConsultado.getIdProyecto();
+            }else{
+                mensaje = "Usuario o Contraseña incorrectos";
+                    tipo = "error";
+                    tipoUsuario= usuarioConsultado.getTipo();
+                    idProyectoGlobal = usuarioConsultado.getIdProyecto();
+            }
+        } catch (JSONException ex) {
+            System.out.println("Error" + ex);
+        }
+        respuestas.put("mensaje", mensaje);
+        respuestas.put("tipo", tipo);
+        respuestas.put("tipoUsuario",tipoUsuario);
+        respuestas.put("idProyecto",idProyectoGlobal);
+        
+        try {
+            usuarioJ.put("respuesta", respuestas);
+
+        } catch (JSONException e) {
+            System.out.println("Error" + e);
+        }
+       
+        Response.ResponseBuilder constructor = Response.ok(usuarioJ.toString());
+        constructor.header("Access-Control-Allow-Origin", "*");
+        constructor.header("Access-Control-Allow-Methods", "*");
+        return constructor.build();
+    }
 
     @GET
     @Path("registroProyecto")
@@ -55,13 +108,20 @@ public class ServicioGEPRO extends Application {
         BeanProyecto beanProyecto = null;
         BeanUsuario beanUsuario = null;
         String conpass = "";
-
+        boolean bandera = false;
+        boolean registro = false;
         try {
             proyectoJ = new JSONObject(proyecto);
             usuarioJ = new JSONObject(usuario);
             beanProyecto = new BeanProyecto(proyectoJ.getString("nombre"), proyectoJ.getString("fecha"), Integer.parseInt(proyectoJ.getString("semanas")), Double.parseDouble(proyectoJ.getString("presupuesto")), Double.parseDouble(proyectoJ.getString("reserva")));
             beanUsuario = new BeanUsuario(usuarioJ.getString("nombre"), usuarioJ.getString("apellidoP"), usuarioJ.getString("apellidoM"), usuarioJ.getString("usuario"), usuarioJ.getString("pass"), usuarioJ.getString("grado"), usuarioJ.getString("carrera"), usuarioJ.getString("rfc"), usuarioJ.getString("email"), Double.parseDouble(usuarioJ.getString("salario")));
             conpass = usuarioJ.getString("conpass");
+            if (usuarioJ.getString("rfc").length() == 0 || usuarioJ.getString("email").length() == 0 || (usuarioJ.getString("salario").length() == 0)) {
+                mensaje = "No puedes enviar campos vacios";
+                tipo = "error";
+            } else {
+                bandera = true;
+            }
         } catch (JSONException ex) {
             System.out.println("Error" + ex);
         }
@@ -79,45 +139,54 @@ public class ServicioGEPRO extends Application {
         int dia = fecha.get(Calendar.DAY_OF_MONTH);
         String actual = "" + año + "-" + (mes + 1) + "-" + dia;
         java.util.Date fechadateactual = sdf.parse(actual);
-
-        if (conpass.equals(beanUsuario.getPass())) {
-            if (fechadateactual.before(fechaInicio)) {
-                if(beanProyecto.getPresupuestoInicial()>beanUsuario.getSalario()){
-                if (daoProyecto.verificarNombredeLider(beanUsuario) == null) {
-                    if (daoProyecto.verificarNombredeProyecto(beanProyecto) == null) {
-                        if (daoProyecto.registrarProyecto(beanProyecto, beanUsuario)) {
-                            mensaje = "Se ha registrado el Proyecto Correctamente";
-                            tipo = "success";
+//        Calendar diaCalendario = null;
+//        System.out.println(fechaInicio);
+//        diaCalendario.setTime(fechaInicio);
+//        int diaSemana = diaCalendario.get(Calendar.DAY_OF_WEEK);
+//        System.out.println("Valor del dia "+diaSemana);
+        if (bandera) {
+            if (conpass.equals(beanUsuario.getPass())) {
+                if (fechadateactual.before(fechaInicio)) {
+                    if (beanProyecto.getPresupuestoInicial() > beanUsuario.getSalario()) {
+                        if (daoProyecto.verificarNombredeLider(beanUsuario) == null) {
+                            if (daoProyecto.verificarNombredeProyecto(beanProyecto) == null) {
+                                registro = daoProyecto.registrarProyecto(beanProyecto, beanUsuario);
+                                if (registro) {
+                                    mensaje = "Se ha registrado el Proyecto Correctamente";
+                                    tipo = "success";
+                                } else {
+                                    mensaje = "No se ha podido registrar el proyecto";
+                                    tipo = "error";
+                                }
+                            } else {
+                                mensaje = "Ya existe un Proyecto con ese nombre";
+                                tipo = "error";
+                            }
                         } else {
-                            mensaje = "No se ha podido registrar el proyecto";
+                            mensaje = "Ese usuario ya esta asignado a otro Proyecto";
                             tipo = "error";
                         }
                     } else {
-                        mensaje = "Ya existe un Proyecto con ese nombre";
+                        mensaje = "El salario del Líder de Proyecto no puede ser mayor al Presupuesto";
                         tipo = "error";
                     }
+
                 } else {
-                    mensaje = "Ese usuario ya esta asignado a otro Proyecto";
+                    mensaje = "No puedes iniciar un proyecto antes de la fecha actual";
                     tipo = "error";
                 }
-                }else{
-                     mensaje = "El salario del Líder de Proyecto no puede ser mayor al Presupuesto";
-                    tipo = "error";
-                }               
-                
             } else {
-                mensaje = "No puedes iniciar un proyecto antes de la fecha actual";
+                mensaje = "Las contraseñas no coinciden";
                 tipo = "error";
             }
-        } else {
-            mensaje = "Las contraseñas no coinciden";
-            tipo = "error";
         }
         System.out.println(mensaje);
         List<BeanProyecto> proyectos = daoProyecto.consultarProyectos();
         respuestas.put("proyectos", proyectos);
         respuestas.put("mensaje", mensaje);
         respuestas.put("tipo", tipo);
+        respuestas.put("registro", registro);
+        System.out.println(registro);
         try {
 
             proyectoJ.put("respuesta", respuestas);
@@ -154,6 +223,89 @@ public class ServicioGEPRO extends Application {
         constructor.header("Access-Control-Allow-Methods", "*");
         return constructor.build();
 
+    }
+
+    @GET
+    @Path("eliminarProyecto")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response elimiarProyecto(@QueryParam("proyecto") String proyecto) {
+        DaoProyecto daoProyecto = new DaoProyecto();
+        int idProyecto = 0;
+        JSONObject proyectoJ = null;
+        try {
+            proyectoJ = new JSONObject(proyecto);
+            idProyecto = proyectoJ.getInt("idProyecto");
+        } catch (JSONException ex) {
+            System.out.println("Error" + ex);
+        }
+        if (daoProyecto.eliminarProyecto(idProyecto)) {
+            mensaje = "Se ha eliminado el proyecto";
+            tipo = "success";
+        } else {
+            mensaje = "Ocurrio un error";
+            tipo = "error";
+        }
+        List<BeanProyecto> proyectos = daoProyecto.consultarProyectos();
+        respuestas.put("proyectos", proyectos);
+        respuestas.put("mensaje", mensaje);
+        respuestas.put("tipo", tipo);
+        try {
+
+            proyectoJ.put("respuesta", respuestas);
+
+        } catch (JSONException e) {
+            System.out.println("Error" + e);
+        }
+        Response.ResponseBuilder constructor = Response.ok(proyectoJ.toString());
+        constructor.header("Access-Control-Allow-Origin", "*");
+        constructor.header("Access-Control-Allow-Methods", "*");
+        return constructor.build();
+    }
+
+    @GET
+    @Path("consultarProyecto")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response consultarProyecto(@QueryParam("proyecto") String proyecto) {
+        DaoProyecto daoProyecto = new DaoProyecto();
+
+        JSONObject proyectoJ = null;
+        try {
+            proyectoJ = new JSONObject(proyecto);
+            idProyectoGlobal = proyectoJ.getInt("idProyecto");
+        } catch (JSONException ex) {
+            System.out.println("Error" + ex);
+        }
+
+        Response.ResponseBuilder constructor = Response.ok(proyectoJ.toString());
+        constructor.header("Access-Control-Allow-Origin", "*");
+        constructor.header("Access-Control-Allow-Methods", "*");
+        return constructor.build();
+    }
+
+    @GET
+    @Path("seguimientoProyecto")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response seguimientoAdmin() {
+        DaoProyecto daoProyecto = new DaoProyecto();
+        DaoUsuario daoUsuario = new DaoUsuario();
+
+        JSONObject proyectoJ = new JSONObject();
+        respuestas.put("proyecto", daoProyecto.consultarProyectoporId(idProyectoGlobal));
+        respuestas.put("lider", daoUsuario.consultarLiderdeProyecto(idProyectoGlobal));
+
+        try {
+
+            proyectoJ.put("respuesta", respuestas);
+
+        } catch (JSONException e) {
+            System.out.println("Error" + e);
+        }
+        Response.ResponseBuilder constructor = Response.ok(proyectoJ.toString());
+        constructor.header("Access-Control-Allow-Origin", "*");
+        constructor.header("Access-Control-Allow-Methods", "*");
+        return constructor.build();
     }
 
     public static Date sumarDiasAFecha(Date fecha, int dias) {

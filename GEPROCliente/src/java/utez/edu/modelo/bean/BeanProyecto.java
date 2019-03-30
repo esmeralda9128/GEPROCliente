@@ -13,7 +13,7 @@ public class BeanProyecto {
 
     private int idProyecto,semanas;
     private String nombre, inicioProyecto, finalProyecto;
-    private double presupuestoInicial, reserva;
+    private double presupuestoInicial, reserva, valorPlaneado,valorGanado;
     private BeanUsuario lider = new BeanUsuario();
 
     public BeanProyecto() {
@@ -25,6 +25,22 @@ public class BeanProyecto {
         this.semanas = semanas;
         this.presupuestoInicial = presupuestoInicial;
         this.reserva = reserva;
+    }
+
+    public double getValorPlaneado() {
+        return valorPlaneado;
+    }
+
+    public void setValorPlaneado(double valorPlaneado) {
+        this.valorPlaneado = valorPlaneado;
+    }
+
+    public double getValorGanado() {
+        return valorGanado;
+    }
+
+    public void setValorGanado(double valorGanado) {
+        this.valorGanado = valorGanado;
     }
 
     public int getIdProyecto() {

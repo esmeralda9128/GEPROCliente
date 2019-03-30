@@ -13,14 +13,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Seguimiento Administrador-GEPRO</title>
         <link rel="shortcut icon" href="<%=context%>/imagenes/geprologo.ico"/>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="<%=context%>/css/style.css"> 
-        <script src="<%=context%>/js/sweetalert2.all.min.js"></script>
-        <script src="<%=context%>/js/jqBootstrapValidation.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="<%=context%>/css/sweetalert2.min.css">
+        <script src="<%=context%>/js/sweetalert/sweetalert2.all.min.js"></script>
+        <script type="text/javascript" src="<%=context%>/js/jqBootstrapValidation.js"></script> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="<%=context%>/css/style.css">
+        <script type="text/javascript" src="<%=context%>/js/acciones.js"></script>     
     </head>
     <body>
         <div id="sidebar">
@@ -40,17 +41,20 @@
             <h1 style="float: left">Seguimiento de Proyecto</h1>
             <br>
             <br>
-            <h2 style="float: left">Proyecto</h2>
+            <div id="nombrePS">
+            </div>
             <br>
             <br>
             <div class="row">
                 <h2 style="float: left; margin-left: 15px">Lider de Proyecto</h2>
+                <div id="liderPro">                 
+                </div>
             </div>
             <div class="row">
-                <h2 style="float: left; margin-left: 15px">Presupuesto Inicial</h2> <h2 style="padding-left:  10px">$Cantidad</h2>
+                <h2  style="float: left; margin-left: 15px">Presupuesto Inicial</h2> <h2 id="presupuestoInicial" style="padding-left:  10px"></h2>
             </div>
             <div class="row">
-                <h2 style="float: left;margin-left: 15px"> Fecha de inicio</h2> <h2 style="padding-left:  10px">0/0/0</h2>
+                <h2 style="float: left;margin-left: 15px"> Fecha de inicio</h2> <h2 style="padding-left:  10px" id="fechaInicioSeguimiento"></h2>
             </div>
 
             <div class="row">
@@ -62,9 +66,9 @@
                 <div class="col-md-4"><h2>Valor Ganado</h2></div>  
             </div>
             <div class="row">
-                <div class="col-md-4"><h2>$000</h2></div>
-                <div class="col-md-4"><h2>$000</h2></div> 
-                <div class="col-md-4"><h2>$000</h2></div> 
+                <div class="col-md-4"><h2  id="presupuestoPlaneado"></h2></div>
+                <div class="col-md-4" ><h2 id="costoReal"></h2></div> 
+                <div class="col-md-4" ><h2 id="valorGanado"></h2></div> 
             </div>
             <br>
             <br>
@@ -108,5 +112,32 @@
         <script src="<%=context%>/js/popper.min.js"></script>
 
         <script src="<%=context%>/js/acciones.js"></script>
+
+        <script>
+            var peticion = new XMLHttpRequest();
+            peticion.onreadystatechange = function () {
+                if (this.status === 200 && this.readyState === 4) {
+                    var respuesta = JSON.parse(this.responseText);
+                    var proyecto = respuesta.respuesta.proyecto;
+                    var lider = respuesta.respuesta.lider;
+                }
+                $('#nombrePS').html('');
+                $('#nombrePS').append(' <h2 style="float: left">' + proyecto.nombre + '</h2>');
+                 $('#liderPro').html('');
+                $('#liderPro').append('  <h2 style="float: left;  margin-left: 15px">' +lider.nombre + ' ' + lider.primerApellido + ' ' +lider.segundoApellido + '</h2>');
+                  $('#presupuestoInicial').html('');
+                $('#presupuestoInicial').append('$'+proyecto.presupuestoInicial);
+                 $('#fechaInicioSeguimiento').html('');
+                $('#fechaInicioSeguimiento').append(proyecto.inicioProyecto);
+                $('#presupuestoPlaneado').html('');
+                $('#presupuestoPlaneado').append('$'+proyecto.valorPlaneado);
+                 $('#valorGanado').html('');
+                $('#valorGanado').append('$'+proyecto.valorGanado);
+ 
+            }
+            peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/seguimientoProyecto", true);
+            peticion.send();
+        </script>
+
     </body>
 </html>

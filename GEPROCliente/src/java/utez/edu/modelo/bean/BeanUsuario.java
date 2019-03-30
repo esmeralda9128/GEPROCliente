@@ -10,11 +10,27 @@ package utez.edu.modelo.bean;
  * @author horo_
  */
 public class BeanUsuario {
-   private int id, idProyecto;
-   private String nombre, primerApellido,segundoApellido,usuario,pass,gradoEstudios,carrera,rfc,email;
+   private int id, idProyecto, tipo;
+   private String nombre, primerApellido,segundoApellido,usuario,pass,gradoEstudios,carrera,rfc,email, rol;
    private double salario;
 
     public BeanUsuario() {
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     public BeanUsuario(String nombre, String primerApellido, String segundoApellido, String usuario, String pass, String gradoEstudios, String carrera, String rfc, String email, double salario) {

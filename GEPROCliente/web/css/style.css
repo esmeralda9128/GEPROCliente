@@ -54,6 +54,14 @@
     box-shadow: 10px 10px 12px -13px rgba(0,0,0,0.75);
 }
 
+
+.btn-verde:disabled,
+.btn-verde[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
 .btn-rojo{
     background-color: #E61A1A;
     color: #FFFFFF;
