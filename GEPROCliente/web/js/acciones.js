@@ -74,7 +74,7 @@ function login() {
            
         }
     }
-    peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/login?usuario="
+    peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/loginWeb?usuario="
             + JSON.stringify(usuario), true);
     peticion.send();
 }

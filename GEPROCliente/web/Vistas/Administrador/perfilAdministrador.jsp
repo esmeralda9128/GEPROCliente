@@ -38,7 +38,7 @@
             <h1 style="float:left">Perfil</h1>
             </br>
             </br>
-            <form>
+            <form action="#" onsubmit="return false">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nombre">Nombre</label>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group  col-md-5">
+                    <div class="form-group  col-md-8">
                         <label for="carrera">Carrera</label>
                         <input type="text" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.]+" class="form-control" id="carrera" required>
                         <p class="help-block"></p>
@@ -94,13 +94,32 @@
         </div>
 
         <script>
-            Swal.fire(
-                    'Good job!',
-                    'You clicked the button!',
-                    'success'
-                    );
-        </script>
+            var peticion = new XMLHttpRequest();
+            peticion.onreadystatechange = function () {
+                if (this.status === 200 && this.readyState === 4) {
+                    var respuesta = JSON.parse(this.responseText);
+                    var administrador = respuesta.respuesta.usuario;
+                    document.getElementById('nombre').value = administrador.nombre;
+                    document.getElementById('grado').value = administrador.gradoEstudios;
+                    document.getElementById('carrera').value = administrador.carrera;
+                    document.getElementById('usuario').value = administrador.usuario;
+                    document.getElementById('contrasenia').value = administrador.pass;
+                }
 
+            }
+            peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/consultarPerfilAdmin", true);
+            peticion.send();
+        </script>
+<!--        <script>
+            $(document).ready(function () {
+                var vidFile = document.getElementById('nuevaContrasenia').value.toString().length;
+                if (vidFile === 0) {
+                    $("nuevaConfirmarContrasenia").attr('disabled', 'disabled');
+                } else {
+                    d$("nuevaConfirmarContrasenia").removeAttr('disabled');
+                }
+            });
+        </script>-->
 
 
     </body>

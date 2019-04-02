@@ -53,7 +53,7 @@
             </div>
 
             <div class="row">
-                <h2 style="float: left;margin-left: 15px">Semana </h2> <h2 style="padding-left:  10px">#</h2>
+                <h2 style="float: left;margin-left: 15px">Semana </h2> <h2 style="padding-left:  10px" id="semanas">#</h2>
             </div>
             <h2 style="float: left">Recursos Humanos</h2>
             <button style=" margin-left: 200px;"  class="btn-verde">Agregar</button>
@@ -70,6 +70,9 @@
                         <th>Salario por hora</th>
                     </tr>
                 </thead>
+                <tbody id="tablaRecursosHumanos">
+                    
+                </tbody>
             </table>
             <br/>
             <hr/>
@@ -96,9 +99,12 @@
                     var respuesta = JSON.parse(this.responseText);
                     var proyecto = respuesta.respuesta.proyecto;
                     var lider = respuesta.respuesta.lider;
+                    var semana = respuesta.respuesta.semana;
+                    var recursoHumanos = respuesta.respuesta.recursosHumanos;
+                    var recursoMateriales = respuesta.respuesta.recursosMateriales;
                 }
                 $('#nombrePS').html('');
-                $('#nombrePS').append(' <h1 style="float: left">' + proyecto.nombre + '</h1>');               
+                $('#nombrePS').append(' <h1 style="float: left">' + proyecto.nombre + '</h1>');
                 $('#fechaInicioSeguimiento').html('');
                 $('#fechaInicioSeguimiento').append(proyecto.inicioProyecto);
                 $('#fechaFinSeguimiento').html('');
@@ -107,6 +113,17 @@
                 $('#presupuestoPlaneado').append('$' + proyecto.valorPlaneado);
                 $('#valorGanado').html('');
                 $('#valorGanado').append('$' + proyecto.valorGanado);
+                $('#semanas').html('');
+                $('#semanas').append(semana);
+                if(recursoHumanos===null){
+                      $('#tablaRecursosHumanos').append('<h2>No </h2>');
+                }else{
+                    for (var i = 0; i < recursoHumanos.length; i++) {
+                            $('#tablaRecursosHumanos').append('<tr><td>' + recursoHumanos[i].nombre+' '+recursoHumanos[i].primerApellido +' '+recursoHumanos[i].primerApellido+ '</td><td>' + recursoHumanos[i].rol +'</td><td>'+recursoHumanos[i].gradoEstudios +'</td><td>'+recursoHumanos[i].carrera+'</td><td>'+recursoHumanos[i].rfc+'</td><td>'+recursoHumanos[i].salario+'</td></tr>');
+                        }
+                  
+                }
+                
             }
             peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/seguimientoProyecto", true);
             peticion.send();
