@@ -172,6 +172,7 @@ public class DaoProyecto {
                 proyecto.setSemanas(rs.getInt("semanas"));
                 proyecto.setPresupuestoInicial(rs.getDouble("presupuestoInicial"));
                 proyecto.setReserva(rs.getDouble("reserva"));
+                proyecto.setPresupustoActual(rs.getDouble("presupuestoActual"));
                 DaoUsuario dao = new DaoUsuario();
                 proyecto.setLider(dao.consultarLiderdeProyecto(proyecto.getIdProyecto()));
                 proyectos.add(proyecto);
@@ -220,7 +221,7 @@ public class DaoProyecto {
 
         return resultado;
     }
-    
+
     public BeanProyecto consultarProyectoporId(int id) {
         BeanProyecto proyectoConsultado = null;
         try {
@@ -239,7 +240,8 @@ public class DaoProyecto {
                 proyectoConsultado.setReserva(rs.getDouble("reserva"));
                 proyectoConsultado.setValorPlaneado(rs.getDouble("valorPlaneado"));
                 proyectoConsultado.setValorGanado(rs.getDouble("valorGanado"));
-                
+                proyectoConsultado.setPresupustoActual(rs.getDouble("presupuestoActual"));
+
             }
         } catch (SQLException ex) {
             System.out.println("Error DaoCuenta consultarProyectoporId()" + ex);
@@ -256,12 +258,27 @@ public class DaoProyecto {
         return proyectoConsultado;
     }
 
-//    public static void main(String[] args) {
-//        DaoProyecto daoProyecto = new DaoProyecto();
-//        if (daoProyecto.eliminarProyecto(5)) {
-//            System.out.println("Si elimina");
-//        }else{
-//            System.out.println("Error");
-//        }
-//    }
+    public int consultarDias(String fecha) {
+        int diasDiferencia = 0;
+        try {
+            con = Conexion.getConexion();
+            csm = con.prepareCall("{call dbo.pa_consultarDiferenciaDias (?)}");
+            csm.setString(1, fecha);
+            rs = csm.executeQuery();
+            while (rs.next()) {
+                diasDiferencia = rs.getInt("dias");
+            }
+        } catch (SQLException ex) {
+
+        }
+
+        return diasDiferencia;
+    }
+
+    public static void main(String[] args) {
+        DaoProyecto daoProyecto = new DaoProyecto();
+        int numero = 6 / 7;
+        System.out.println(numero);
+        System.out.println(daoProyecto.consultarDias("2019-03-28"));
+    }
 }

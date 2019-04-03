@@ -5,6 +5,8 @@
  */
 package com.mx.utex.edu.beans;
 
+import utez.edu.modelo.bean.BeanRecursoMaterial;
+
 /**
  *
  * @author Alberto

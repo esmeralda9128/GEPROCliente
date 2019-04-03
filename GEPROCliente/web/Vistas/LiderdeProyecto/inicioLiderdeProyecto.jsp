@@ -53,10 +53,10 @@
             </div>
 
             <div class="row">
-                <h2 style="float: left;margin-left: 15px">Semana </h2> <h2 style="padding-left:  10px">#</h2>
+                <h2 style="float: left;margin-left: 15px">Semana </h2> <h2 style="padding-left:  10px" id="semanas">#</h2>
             </div>
             <h2 style="float: left">Recursos Humanos</h2>
-            <button style=" margin-left: 200px;"  class="btn-verde">Agregar</button>
+            <button style=" margin-left: 200px;" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/registroRecursoHumano.jsp'" class="btn-verde">Agregar</button>
             </br>
             </br>
             <table class="table" style="color: white">
@@ -70,12 +70,15 @@
                         <th>Salario por hora</th>
                     </tr>
                 </thead>
+                <tbody id="tablaRecursosHumanos">
+
+                </tbody>
             </table>
             <br/>
             <hr/>
             <br/>
             <h2 style="float: left">Recursos Materiales</h2>
-            <button style=" margin-left: 190px;"  class="btn-verde">Agregar</button>
+            <button style=" margin-left: 190px;"  data-toggle="modal" data-target="#exampleModal" class="btn-verde">Agregar</button>
             </br>
             </br>
             <table class="table" style="color: white">
@@ -87,8 +90,61 @@
                         <th>Total</th>
                     </tr>
                 </thead>
+                <tbody id="tablaRecursosMateriales">
+                </tbody>
             </table>
         </div>
+
+        <%--
+        Empieza el modal de los recursos materiales
+        --%>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Registrar Recurso Material</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" onsubmit="return false">
+                            <div class="form-row">
+                                <div class="form-group  col-md-10">
+                                    <label style="color:black" for="nombre">Nombre</label>
+                                    <input type="text" placeholder="Nombre"  pattern="[ A-Za-z0-9-äÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.]+" class="form-control" id="nombre" required>
+                                    <p class="help-block"></p>
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group  col-md-3">
+                                    <label  style="color:black" for="cantidad">Cantidad</label>
+                                    <input type="number" placeholder="Cantidad" pattern="[0-9]+" class="form-control" id="cantidad" required>
+                                    <p class="help-block"></p>
+                                </div>
+                                <div class="form-group  col-md-3">
+                                    <label style="color:black" for="precio">Precio</label>
+                                    <input type="text"  placeholder="Precio" pattern="[0-9.]+" class="form-control" id="precio" required>
+                                    <p class="help-block"></p>
+                                </div>
+                            </div>
+
+
+                            <div style="float:right">
+                                <button type="button" class="btn-rojo" data-dismiss="modal">Cerrar</button>
+                                <input type="submit"  value="Registrar"  onclick="registrarRecursoMaterial()" class ="btn-verde" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <script>
             var peticion = new XMLHttpRequest();
             peticion.onreadystatechange = function () {
@@ -96,9 +152,12 @@
                     var respuesta = JSON.parse(this.responseText);
                     var proyecto = respuesta.respuesta.proyecto;
                     var lider = respuesta.respuesta.lider;
+                    var semana = respuesta.respuesta.semana;
+                    var recursoHumanos = respuesta.respuesta.recursosHumanos;
+                    var recursoMateriales = respuesta.respuesta.recursosMateriales;
                 }
                 $('#nombrePS').html('');
-                $('#nombrePS').append(' <h1 style="float: left">' + proyecto.nombre + '</h1>');               
+                $('#nombrePS').append(' <h1 style="float: left">' + proyecto.nombre + '</h1>');
                 $('#fechaInicioSeguimiento').html('');
                 $('#fechaInicioSeguimiento').append(proyecto.inicioProyecto);
                 $('#fechaFinSeguimiento').html('');
@@ -107,6 +166,27 @@
                 $('#presupuestoPlaneado').append('$' + proyecto.valorPlaneado);
                 $('#valorGanado').html('');
                 $('#valorGanado').append('$' + proyecto.valorGanado);
+                $('#semanas').html('');
+                $('#semanas').append(semana);
+                $('#tablaRecursosHumanos').html('');
+
+                if (recursoHumanos === null) {
+                    $('#tablaRecursosHumanos').append('<h2>No hay recursos registrados</h2>');
+                } else {
+                    for (var i = 0; i < recursoHumanos.length; i++) {
+                        $('#tablaRecursosHumanos').append('<tr><td>' + recursoHumanos[i].nombre + ' ' + recursoHumanos[i].primerApellido + ' ' + recursoHumanos[i].primerApellido + '</td><td>' + recursoHumanos[i].rol + '</td><td>' + recursoHumanos[i].gradoEstudios + '</td><td>' + recursoHumanos[i].carrera + '</td><td>' + recursoHumanos[i].rfc + '</td><td>' + recursoHumanos[i].salario + '</td></tr>');
+                    }
+                }
+                $('#tablaRecursosMateriales').html('');
+                if (recursoMateriales === null) {
+                    $('#tablaRecursosMateriales').append('<h2>No hay recursos registrados</h2>');
+                } else {
+                    for (var i = 0; i < recursoMateriales.length; i++) {
+                        $('#tablaRecursosMateriales').append('<tr><td>' + recursoMateriales[i].nombreRecursoMat + '</td><td>' + recursoMateriales[i].costoUnitario + '</td><td>' + recursoMateriales[i].cantidad + '</td><td>' + recursoMateriales[i].total + '</td></tr>');
+                    }
+                }
+
+
             }
             peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/seguimientoProyecto", true);
             peticion.send();

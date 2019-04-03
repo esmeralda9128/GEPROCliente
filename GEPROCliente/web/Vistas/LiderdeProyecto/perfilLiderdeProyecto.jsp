@@ -12,10 +12,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Perfil Líder de Proyecto-GEPRO</title>
-        <script src="<%=context%>/js/jqBootstrapValidation.js"></script>
+         <script src="<%=context%>/js/jqBootstrapValidation.js"></script>
         <script src="<%=context%>/js/sweetalert2.all.min.js"></script>
         <link rel="shortcut icon" href="<%=context%>/imagenes/geprologo.ico"/>
-        <link rel="stylesheet" href="<%=context%>/css/bootstrap_4.css">  
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="<%=context%>/css/style.css"> 
         <link rel="stylesheet" href="<%=context%>/css/sweetalert2.min.css">
 
@@ -70,10 +70,28 @@
                         <p class="help-block"></p>
                     </div>
                 </div>                
-                <center>                    
-                    <button type="submit" class="btn-verde">Aceptar</button>
-                </center>
+                
             </form>
         </div>
+             <script>
+            var peticion = new XMLHttpRequest();
+            peticion.onreadystatechange = function () {
+                if (this.status === 200 && this.readyState === 4) {
+                    var respuesta = JSON.parse(this.responseText);
+                    var lider = respuesta.respuesta.usuario;
+                    document.getElementById('nombre').value = lider.nombre;
+                    document.getElementById('grado').value = lider.gradoEstudios;
+                    document.getElementById('carrera').value = lider.carrera;
+                    document.getElementById('usuario').value = lider.usuario;
+                    document.getElementById('contrasenia').value = lider.pass;
+                }
+
+            }
+            peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/consultarPerfilLider", true);
+            peticion.send();
+        </script>
+            
+            
+            
     </body>
 </html>

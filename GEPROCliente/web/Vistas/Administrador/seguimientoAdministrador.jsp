@@ -58,7 +58,7 @@
             </div>
 
             <div class="row">
-                <h2 style="float: left;margin-left: 15px">Semana </h2> <h2 style="padding-left:  10px">#</h2>
+                <h2 style="float: left;margin-left: 15px">Semana </h2> <h2 style="padding-left:  10px" id="semanas">#</h2>
             </div>
             <div class="row">
                 <div class="col-md-4"><h2>Presupuesto Planeado</h2></div>
@@ -120,20 +120,24 @@
                     var respuesta = JSON.parse(this.responseText);
                     var proyecto = respuesta.respuesta.proyecto;
                     var lider = respuesta.respuesta.lider;
+                    var semana = respuesta.respuesta.semana;
+                    var valorPlaneado =respuesta.respuesta.valorPlaneado;
                 }
                 $('#nombrePS').html('');
                 $('#nombrePS').append(' <h2 style="float: left">' + proyecto.nombre + '</h2>');
-                 $('#liderPro').html('');
-                $('#liderPro').append('  <h2 style="float: left;  margin-left: 15px">' +lider.nombre + ' ' + lider.primerApellido + ' ' +lider.segundoApellido + '</h2>');
-                  $('#presupuestoInicial').html('');
-                $('#presupuestoInicial').append('$'+proyecto.presupuestoInicial);
-                 $('#fechaInicioSeguimiento').html('');
+                $('#semanas').html('');
+                $('#semanas').append(semana);
+                $('#liderPro').html('');
+                $('#liderPro').append('  <h2 style="float: left;  margin-left: 15px">' + lider.nombre + ' ' + lider.primerApellido + ' ' + lider.segundoApellido + '</h2>');
+                $('#presupuestoInicial').html('');
+                $('#presupuestoInicial').append('$' + proyecto.presupuestoInicial);
+                $('#fechaInicioSeguimiento').html('');
                 $('#fechaInicioSeguimiento').append(proyecto.inicioProyecto);
                 $('#presupuestoPlaneado').html('');
-                $('#presupuestoPlaneado').append('$'+proyecto.valorPlaneado);
-                 $('#valorGanado').html('');
-                $('#valorGanado').append('$'+proyecto.valorGanado);
- 
+                $('#presupuestoPlaneado').append('$' + valorPlaneado);
+                $('#valorGanado').html('');
+                $('#valorGanado').append('$' + proyecto.valorGanado);
+
             }
             peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/seguimientoProyecto", true);
             peticion.send();

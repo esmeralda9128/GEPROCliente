@@ -3,34 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mx.utex.edu.beans;
+package utez.edu.modelo.bean;
+
+import com.mx.utex.edu.beans.BeanProyecto;
 
 /**
  *
  * @author Alberto
  */
 public class BeanRecursoMaterial {
-    private String idRecuroMat;
+    private int idRecuroMat;
     private String nombreRecursoMat;
     private double costoUnitario;
     private int cantidad;
     private double total;
-    private BeanProyecto proyecto;
+    private int idProyecto;
 
-    public BeanRecursoMaterial(String idRecuroMat, String nombreRecursoMat, double costoUnitario, int cantidad, double total, BeanProyecto proyecto) {
-        this.idRecuroMat = idRecuroMat;
+    public BeanRecursoMaterial() {
+    
+    }
+
+    public BeanRecursoMaterial(String nombreRecursoMat, double costoUnitario, int cantidad) {
         this.nombreRecursoMat = nombreRecursoMat;
         this.costoUnitario = costoUnitario;
         this.cantidad = cantidad;
-        this.total = total;
-        this.proyecto = proyecto;
     }
 
-    public String getIdRecuroMat() {
+    public int getIdRecuroMat() {
         return idRecuroMat;
     }
 
-    public void setIdRecuroMat(String idRecuroMat) {
+    public void setIdRecuroMat(int idRecuroMat) {
         this.idRecuroMat = idRecuroMat;
     }
 
@@ -66,12 +69,14 @@ public class BeanRecursoMaterial {
         this.total = total;
     }
 
-    public BeanProyecto getProyecto() {
-        return proyecto;
+    public int getIdProyecto() {
+        return idProyecto;
     }
 
-    public void setProyecto(BeanProyecto proyecto) {
-        this.proyecto = proyecto;
+    public void setIdProyecto(int idProyecto) {
+        this.idProyecto = idProyecto;
     }
+
+   
     
 }

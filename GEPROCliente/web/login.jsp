@@ -50,7 +50,7 @@
             </div>
             <span class="alert">Datos incorrectos</span>
 
-            <button onclick="login()" type="button" class="log-btn" >Iniciar Sesión</button>   
+            <center> <button onclick="login()" type="button" class="btn-verde" >Iniciar Sesión</button></center>   
         </div>
 
     </form>

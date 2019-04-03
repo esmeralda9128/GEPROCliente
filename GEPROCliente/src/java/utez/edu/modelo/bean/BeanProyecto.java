@@ -13,10 +13,18 @@ public class BeanProyecto {
 
     private int idProyecto,semanas;
     private String nombre, inicioProyecto, finalProyecto;
-    private double presupuestoInicial, reserva, valorPlaneado,valorGanado;
+    private double presupuestoInicial, reserva, valorPlaneado,valorGanado, presupustoActual;
     private BeanUsuario lider = new BeanUsuario();
 
     public BeanProyecto() {
+    }
+
+    public double getPresupustoActual() {
+        return presupustoActual;
+    }
+
+    public void setPresupustoActual(double presupustoActual) {
+        this.presupustoActual = presupustoActual;
     }
 
     public BeanProyecto(String nombre, String inicioProyecto, int semanas, double presupuestoInicial, double reserva) {
