@@ -71,7 +71,6 @@
                     </tr>
                 </thead>
                 <tbody id="tablaRecursosHumanos">
-
                 </tbody>
             </table>
             <br/>
@@ -169,7 +168,6 @@
                 $('#semanas').html('');
                 $('#semanas').append(semana);
                 $('#tablaRecursosHumanos').html('');
-
                 if (recursoHumanos === null) {
                     $('#tablaRecursosHumanos').append('<h2>No hay recursos registrados</h2>');
                 } else {
@@ -185,8 +183,7 @@
                         $('#tablaRecursosMateriales').append('<tr><td>' + recursoMateriales[i].nombreRecursoMat + '</td><td>' + recursoMateriales[i].costoUnitario + '</td><td>' + recursoMateriales[i].cantidad + '</td><td>' + recursoMateriales[i].total + '</td></tr>');
                     }
                 }
-
-
+                   
             }
             peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/seguimientoProyecto", true);
             peticion.send();

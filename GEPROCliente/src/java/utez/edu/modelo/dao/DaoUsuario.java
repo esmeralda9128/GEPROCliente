@@ -18,6 +18,8 @@ import utilerias.Conexion;
  * @version 1 15/03/2019
  *
  */
+
+
 public class DaoUsuario {
 
     private ResultSet rs;
@@ -127,7 +129,7 @@ public class DaoUsuario {
 
     /**
      * Método para consultar un usuario del tipo Administrador para el incio de
-     * sesión
+     * sesión Este esta bien
      *
      * @param usuario el username del Administrador
      * @param pass la contraseña del Administrador
@@ -198,7 +200,7 @@ public class DaoUsuario {
     }
 
     /**
-     * Método para modificar la información personal del Administrador
+     * Método para modificar la información personal del Administrador Esta bien
      *
      * @param administrador es la información a modificar del Administrador
      * @return retornar un booleano es decir si se hizo la actulización o no
@@ -263,10 +265,11 @@ public class DaoUsuario {
                 psm.close();
 
             } catch (SQLException ex) {
+
                 System.out.println("Error DaoUsuario consultarPerfildeUsuario()cerrar" + ex);
+
             }
         }
-
         return usuarioConsultado;
     }
 
@@ -314,6 +317,18 @@ public class DaoUsuario {
         return recursos;
     }
 
+
+/** Método para modificar la información personal del Administrador
+    *
+     * @param
+    administrador es la información a modificar del Administrador
+    * @
+    
+    return retornar un booleano es decir si se hizo la actulización o no
+
+    */
+    
+
     /**
      * Método para insertar un nuevo recurso humano
      *
@@ -347,7 +362,13 @@ public class DaoUsuario {
         return resultado;
     }
 
-    public BeanUsuario consultarUsuariosRepetidos(BeanUsuario beanUsuario) {
+    /**
+     *
+     * @param beanUsuario
+     * @return
+     */
+
+   public BeanUsuario consultarUsuariosRepetidos(BeanUsuario beanUsuario) {
         BeanUsuario usuarioConsultado = null;
         try {
             con = Conexion.getConexion();

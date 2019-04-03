@@ -327,7 +327,7 @@ public class ServicioGEPRO extends Application {
 
         if (fechadateactual.before(fechaFin)) {
             semana = Integer.toString(((daoProyecto.consultarDias(proyecto.getInicioProyecto())) / 7) + 1);
-            valorPlaneado = (proyecto.getPresupuestoInicial() / proyecto.getSemanas()) * Integer.parseInt(semana);
+            valorPlaneado =(proyecto.getPresupuestoInicial()/proyecto.getSemanas())*Integer.parseInt(semana);
         } else {
             semana = "El proyecto ya termino";
         }
