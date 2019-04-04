@@ -100,13 +100,15 @@ public class DaoUsuario {
                 usuarioConsultado.setSegundoApellido(rs.getString("segundoApellido"));
                 usuarioConsultado.setUsuario(rs.getString("usuario"));
                 usuarioConsultado.setPass(rs.getString("pass"));
-                usuarioConsultado.setRol(rs.getString("rol"));
+                usuarioConsultado.setRol(rs.getString("rol").replace(" ", ""));
                 usuarioConsultado.setSalario(rs.getDouble("salario"));
                 usuarioConsultado.setGradoEstudios(rs.getString("carrera"));
                 usuarioConsultado.setRfc(rs.getString("rfc"));
                 usuarioConsultado.setEmail(rs.getString("email"));
                 usuarioConsultado.setTipo(rs.getInt("tipo"));
                 usuarioConsultado.setIdProyecto(rs.getInt("idProyecto"));
+            }else{
+                usuarioConsultado = consultarAdministrador(usuario, pass);
             }
         } catch (SQLException ex) {
             System.out.println("Error DaoUsuario verificarNombredeLider()" + ex);
@@ -145,6 +147,7 @@ public class DaoUsuario {
                 usuarioConsultado.setId(rs.getInt("idAdministrador"));
                 usuarioConsultado.setNombre(rs.getString("nombre"));
                 usuarioConsultado.setUsuario(rs.getString("usuario"));
+                usuarioConsultado.setRol("administrador");
                 usuarioConsultado.setPass(rs.getString("pass"));
             }
         } catch (SQLException ex) {

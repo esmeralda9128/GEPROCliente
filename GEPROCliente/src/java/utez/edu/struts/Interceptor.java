@@ -30,7 +30,7 @@ public class Interceptor extends AbstractInterceptor{
     public String intercept(ActionInvocation ai) throws Exception {
         Map session = ActionContext.getContext().getSession();
         System.out.println("Se realizan actividades antes de la ejecución");
-        System.out.println(":> tugfa" + session.get("rol"));
+        System.out.println(":> " + session.get("rol"));
         System.out.println("Se realizan actividades antes de la ejecución");
         if (session.get("rol") != null) {
             return ai.invoke();

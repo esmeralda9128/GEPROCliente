@@ -14,6 +14,13 @@ and open the template in the editor.
         <action name="vistaLog">
             <result>/login.jsp</result>
         </action>
-        <action name="iniciarSesion" class="com.utez.servicio"
+        <action name="iniciarSesion" class="com.utez.edu.control.ControlLogin" method="loginWeb">
+            <result name="LíderdelProyecto">/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp</result>
+            <result name="error">/login.jsp</result>
+        </action>
+        <action name="cerrarSesion" class="com.utez.edu.control.ControlLogin" method="logOut">
+            <result name="success">/login.jsp</result>
+            <result name="error">/login.jsp</result>
+        </action>
     </package>
 </struts>

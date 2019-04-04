@@ -7,42 +7,41 @@
 
     <constant name="struts.devMode" value="true" />
 
-    <package name="paqueteSesiones" extends="struts-default,json-default">
+    <package name="basicstruts2" extends="struts-default,json-default">
         <action name="index">
             <result>/login.jsp</result>
         </action>
-        <action name="salir" class="actions.sesion" method="cerrarSesion">
-            <result>/login.jsp</result>
+        <action name="redirect" class="com.utez.edu.control.ControlUsuario" method="redireccion">
+            <result name="success">/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp</result>
         </action>
-        <action name="entrar" class="actions.sesion" method="entrar">
-            <result type="json"></result>
-        </action>
+       
     </package>
-
     
     
-    <package name="basicstruts2" extends="struts-default">
+    <package name="packInter" extends="struts-default">
         <interceptors>
             <interceptor name="sesionValida" class="utez.edu.struts.Interceptor"/>
-            <interceptor-stack name="InterceptorSesiones">
+            <interceptor-stack name="interceptorSesiones">
                 <interceptor-ref name="sesionValida"/>
                 <interceptor-ref name="defaultStack"/>                
             </interceptor-stack>
         </interceptors>   
-        <default-interceptor-ref name="InterceptorSesiones"/>
+        <default-interceptor-ref name="interceptorSesiones"/>
         <global-results>
-            <result name="NOLOGIN" type="httpheader">
-                <param name="status">401</param>
+            <result name="NOLOGIN">
+                <param name="location">/login.jsp</param>
             </result>
-            <result name="NOPERMISO">
+            <result name="NOPERMISO" type="httpheader">
                 <param name="location">/jsp/SinPermisosView.jsp</param>
                 <!--<param name="root">"errorResponse"</param>-->
                 <param name="status">403</param>
             </result>
         </global-results>
-        
-        
+        <action name="prueba">
+            <result>/Vistas/redireccion.jsp</result>
+        </action>
     </package>
    
+    <include file="session.xml"/>
 </struts>
 

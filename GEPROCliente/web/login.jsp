@@ -38,19 +38,19 @@
     <div class="polig">
         <h1>Inicio de sesión</h1>
     </div>
-    <form action="login" method="POST">
+    <form action="<%=context%>/iniciarSesion" method="POST">
         <div class="login-form">
             <div class="form-group ">
-                <input type="text" class="form-control" placeholder="Usuario " id="UserName">
+                <input type="text" name="beanUsuario.usuario" class="form-control" placeholder="Usuario " id="UserName">
                 <i class="fa fa-user"></i>
             </div>
             <div class="form-group log-status">
-                <input type="password" class="form-control" placeholder="Contraseña" id="Passwod">
+                <input type="password" class="form-control" name="beanUsuario.pass" placeholder="Contraseña" id="Passwod">
                 <i class="fa fa-lock"></i>
             </div>
             <span class="alert">Datos incorrectos</span>
 
-            <button onclick="login()" type="button" class="log-btn" >Iniciar Sesión</button>   
+            <button type="submit" class="log-btn" >Iniciar Sesión</button>   
         </div>
 
     </form>
