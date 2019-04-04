@@ -177,13 +177,12 @@ public class ServicioGEPRO extends Application {
                 tipo = "error";
             }
         }
-        System.out.println(mensaje);
+
         List<BeanProyecto> proyectos = daoProyecto.consultarProyectos();
         respuestas.put("proyectos", proyectos);
         respuestas.put("mensaje", mensaje);
         respuestas.put("tipo", tipo);
         respuestas.put("registro", registro);
-        System.out.println(registro);
         try {
 
             proyectoJ.put("respuesta", respuestas);
@@ -353,6 +352,135 @@ public class ServicioGEPRO extends Application {
         return constructor.build();
     }
 
+    @GET
+    @Path("registroRecursoHumano")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response registrarRecursoHumano(@QueryParam("usuario") String usuario) throws ParseException {
+        DaoUsuario daoUsuario = new DaoUsuario();
+        BeanUsuario beanUsuario = null;
+        JSONObject usuarioJ = null;
+        String conpass = "";
+        boolean registro = false;
+        try {
+            usuarioJ = new JSONObject(usuario);
+            beanUsuario = new BeanUsuario(usuarioJ.getString("nombre"), usuarioJ.getString("apellidoP"), usuarioJ.getString("apellidoM"), usuarioJ.getString("usuario"), usuarioJ.getString("pass"), usuarioJ.getString("grado"), usuarioJ.getString("carrera"), usuarioJ.getString("rfc"), usuarioJ.getString("email"), Double.parseDouble(usuarioJ.getString("salario")));
+            beanUsuario.setRol(usuarioJ.getString("rol"));
+            conpass = usuarioJ.getString("conpass");
+        } catch (JSONException e) {
+            System.out.println("Error" + e);
+        }
+
+        if (conpass.equals(beanUsuario.getPass())) {
+            if (daoUsuario.consultarUsuariosRepetidos(beanUsuario) == null) {
+                registro = daoUsuario.registrarRecursoHumano(beanUsuario, idProyectoGlobal);
+                if (registro) {
+                    mensaje = "Se ha registrado correctamente el recurso";
+                    tipo = "success";
+                } else {
+                    mensaje = "No se pudo registrar el recurso";
+                    tipo = "error";
+                }
+            } else {
+                mensaje = "Ese recurso ya esta registrado";
+                tipo = "error";
+            }
+        } else {
+            mensaje = "Las contraseñas no coinciden";
+            tipo = "error";
+        }
+
+        respuestas.put("mensaje", mensaje);
+        respuestas.put("tipo", tipo);
+        respuestas.put("registro", registro);
+        try {
+
+            usuarioJ.put("respuesta", respuestas);
+
+        } catch (JSONException e) {
+            System.out.println("Error" + e);
+        }
+        Response.ResponseBuilder constructor = Response.ok(usuarioJ.toString());
+        constructor.header("Access-Control-Allow-Origin", "*");
+        constructor.header("Access-Control-Allow-Methods", "*");
+        return constructor.build();
+    }
+
+    @GET
+    @Path("registroRecursoMaterial")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response registrarRecursoMaterial(@QueryParam("material") String material) {
+        DaoRecursoMaterial daoRecursoMaterial = new DaoRecursoMaterial();
+        BeanRecursoMaterial beanRecursoMaterial = null;
+        JSONObject objeto = null;
+        String conpass = "";
+        boolean registro = false;
+        try {
+            objeto = new JSONObject(material);
+            beanRecursoMaterial = new BeanRecursoMaterial(objeto.getString("nombre"), objeto.getDouble("precio"), objeto.getInt("cantidad"));
+            Double total = beanRecursoMaterial.getCostoUnitario() * beanRecursoMaterial.getCantidad();
+            beanRecursoMaterial.setTotal(total);
+        } catch (JSONException e) {
+            System.out.println("Error" + e);
+        }
+
+        if (daoRecursoMaterial.consultarRecursoRepetido(beanRecursoMaterial, idProyectoGlobal) == null) {
+            registro = daoRecursoMaterial.registrarRecursoMaterial(beanRecursoMaterial, idProyectoGlobal);
+            if (registro) {
+                mensaje = "Se ha registrado correctamente el recurso";
+                tipo = "success";
+            } else {
+                mensaje = "No se pudo registrar el recurso";
+                tipo = "error";
+            }
+        } else {
+            mensaje = "Ese recurso ya esta registrado en el proyecto";
+            tipo = "error";
+        }
+
+        respuestas.put("mensaje", mensaje);
+        respuestas.put("tipo", tipo);
+        respuestas.put("registro", registro);
+        respuestas.put("recursosMateriales", daoRecursoMaterial.listaRecursos(idProyectoGlobal));
+        try {
+            objeto.put("respuesta", respuestas);
+
+        } catch (JSONException e) {
+            System.out.println("Error" + e);
+        }
+        Response.ResponseBuilder constructor = Response.ok(objeto.toString());
+        constructor.header("Access-Control-Allow-Origin", "*");
+        constructor.header("Access-Control-Allow-Methods", "*");
+        return constructor.build();
+    }
+
+    @GET
+    @Path("consultarPerfilLider")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response consultarPerfilLider() {
+        DaoUsuario daoUsuario = new DaoUsuario();
+        BeanUsuario beanUsuario = daoUsuario.consultarLiderdeProyecto(idProyectoGlobal);
+        
+        
+        JSONObject objeto = new JSONObject();
+        respuestas.put("usuario", beanUsuario);
+        try {
+
+            objeto.put("respuesta", respuestas);
+
+        } catch (JSONException e) {
+            System.out.println("Error" + e);
+        }
+
+        Response.ResponseBuilder constructor = Response.ok(objeto.toString());
+        constructor.header("Access-Control-Allow-Origin", "*");
+        constructor.header("Access-Control-Allow-Methods", "*");
+        return constructor.build();
+    }
+    
+    
     public static Date sumarDiasAFecha(Date fecha, int dias) {
         if (dias == 0) {
             return fecha;

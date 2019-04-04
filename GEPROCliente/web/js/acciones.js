@@ -63,15 +63,15 @@ function login() {
                     '',
                     respuesta.respuesta.tipo
                     ).then((value) => {
-                if (respuesta.respuesta.tipoUsuario===2) {
+                if (respuesta.respuesta.tipoUsuario === 2) {
                     consultarProyectoLider(respuesta.respuesta.idProyecto);
                 }
-                if(respuesta.respuesta.tipoUsuario===1){
+                if (respuesta.respuesta.tipoUsuario === 1) {
                     window.location.href = "http://localhost:8080/GEPROCliente/Vistas/Administrador/inicioAdministrador.jsp";
                 }
             });
-                        
-           
+
+
         }
     }
     peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/loginWeb?usuario="
@@ -110,7 +110,7 @@ function registrarProyecto() {
                     respuesta.respuesta.tipo,
                     ).then((value) => {
                 if (respuesta.respuesta.registro) {
-                    
+
                     window.location.href = "http://localhost:8080/GEPROCliente/Vistas/Administrador/inicioAdministrador.jsp";
                 }
             });
@@ -175,6 +175,78 @@ function consultarProyectoLider(idProyecto) {
             + JSON.stringify(id), true);
     peticion.send();
 }
+
+
+
+
+function registrarRecursoHumano() {
+
+    var beanUsuario = {
+        nombre: document.getElementById("nombreL").value,
+        apellidoP: document.getElementById("apellidoP").value,
+        apellidoM: document.getElementById("apellidoM").value,
+        grado: document.getElementById("grado").value,
+        rfc: document.getElementById("rfc").value,
+        carrera: document.getElementById("carrera").value,
+        email: document.getElementById("email").value,
+        usuario: document.getElementById("usuario").value,
+        pass: document.getElementById("pass").value,
+        conpass: document.getElementById("conpass").value,
+        salario: document.getElementById("salario").value,
+        rol: document.getElementById("rol").value
+    };
+    peticion.onreadystatechange = function () {
+        if (this.status === 200) {
+            var respuesta = JSON.parse(this.responseText);
+            Swal.fire(
+                    respuesta.respuesta.mensaje,
+                    '',
+                    respuesta.respuesta.tipo,
+                    ).then((value) => {
+                if (respuesta.respuesta.registro) {
+
+                    window.location.href = "http://localhost:8080/GEPROCliente/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp";
+                }
+            });
+
+
+
+        }
+    }
+    peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/registroRecursoHumano?usuario=" + JSON.stringify(beanUsuario), true);
+    peticion.send();
+}
+
+function registrarRecursoMaterial() {
+    var beanRecursoMaterial = {
+        nombre: document.getElementById("nombre").value,
+        cantidad: document.getElementById("cantidad").value,
+        precio: document.getElementById("precio").value
+    };
+    peticion.onreadystatechange = function () {
+        if (this.status === 200) {
+            var respuesta = JSON.parse(this.responseText);
+            var recursoHumanos = respuesta.respuesta.recursosMateriales;
+            Swal.fire(
+                    respuesta.respuesta.mensaje,
+                    '',
+                    respuesta.respuesta.tipo,
+                    );
+        }
+        $('#tablaRecursosMateriales').html('');
+        if (recursoHumanos === null) {
+            $('#tablaRecursosMateriales').append('<h2>No hay recursos registrados</h2>');
+        } else {
+            for (var i = 0; i < recursoHumanos.length; i++) {
+                $('#tablaRecursosMateriales').append('<tr><td>' + recursoHumanos[i].nombreRecursoMat + '</td><td>' + recursoHumanos[i].costoUnitario + '</td><td>' + recursoHumanos[i].cantidad + '</td><td>' + recursoHumanos[i].total + '</td></tr>');
+            }
+        }
+    }
+    
+     peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/registroRecursoMaterial?material=" + JSON.stringify(beanRecursoMaterial), true);
+    peticion.send();
+}
+
 
 
 peticion.onreadystatechange = function () {

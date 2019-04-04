@@ -20,12 +20,14 @@ import utilerias.Conexion;
  * @author horo_
  */
 public class DaoRecursoMaterial {
-     private ResultSet rs;
+
+
+    private ResultSet rs;
     private PreparedStatement psm;
     private Connection con;
     private CallableStatement csm;
     private boolean resultado;
-    
+
     public List<BeanRecursoMaterial> listaRecursos(int idProyecto){
         List<BeanRecursoMaterial> recursos = new ArrayList<>();
         BeanRecursoMaterial recurso;
@@ -58,9 +60,56 @@ public class DaoRecursoMaterial {
         return recursos;
     }
 
-        
-        
-        
-    
-    
+    public boolean registrarRecursoMaterial(BeanRecursoMaterial recurso, int idProyecto) {
+        try {
+            con = Conexion.getConexion();
+            csm = con.prepareCall("{call dbo.pa_registrarRecursoMaterial (?,?,?,?,?)}");
+            csm.setString(1, recurso.getNombreRecursoMat());
+            csm.setDouble(2, recurso.getCostoUnitario());
+            csm.setInt(3, recurso.getCantidad());
+            csm.setDouble(4, recurso.getTotal());
+            csm.setInt(5, idProyecto);
+            resultado = csm.executeUpdate() == 1;
+        } catch (SQLException ex) {
+            System.out.println("Error DaoRecursoMaterial registrarRecursoMaterial()" + ex);
+        } finally {
+            try {
+                con.close();
+                psm.close();
+
+            } catch (SQLException ex) {
+                System.out.println("Error DaoRecursoMaterial registrarRecursoMaterial()cerrar" + ex);
+            }
+        }
+        return resultado;
+    }
+
+    public BeanRecursoMaterial consultarRecursoRepetido(BeanRecursoMaterial recurso, int idProyecto) {
+        BeanRecursoMaterial recursoConsultado = null;
+        try {
+            con = Conexion.getConexion();
+            psm = con.prepareStatement("select * from recursosMateriales where nombre=? and idProyecto=?");
+            psm.setString(1, recurso.getNombreRecursoMat());
+            psm.setInt(2, idProyecto);
+            rs = psm.executeQuery();
+            if (rs.next()) {
+                recursoConsultado = new BeanRecursoMaterial();
+                recursoConsultado.setIdProyecto(rs.getInt("idRecursosMateriales"));
+                recursoConsultado.setNombreRecursoMat(rs.getString("nombre"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error DaoRecursoMaterial consultarRecursoRepetido()" + ex);
+
+        } finally {
+            try {
+                con.close();
+                psm.close();
+                rs.close();
+
+            } catch (SQLException ex) {
+                System.out.println("Error DaoRecursoMaterial consultarRecursoRepetido()cerrar" + ex);
+            }
+        }
+        return recursoConsultado;
+    }
 }

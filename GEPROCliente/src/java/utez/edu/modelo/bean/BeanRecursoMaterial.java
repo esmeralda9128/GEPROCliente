@@ -23,6 +23,12 @@ public class BeanRecursoMaterial {
     
     }
 
+    public BeanRecursoMaterial(String nombreRecursoMat, double costoUnitario, int cantidad) {
+        this.nombreRecursoMat = nombreRecursoMat;
+        this.costoUnitario = costoUnitario;
+        this.cantidad = cantidad;
+    }
+
     public int getIdRecuroMat() {
         return idRecuroMat;
     }

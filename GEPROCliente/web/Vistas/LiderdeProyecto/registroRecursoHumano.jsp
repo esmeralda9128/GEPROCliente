@@ -29,10 +29,96 @@
             </br>
             <h1>Líder de Proyecto</h1>
             <div class="side-Elements" >                
-                <button class="btn-sidebar"  ><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
+                <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp'"  ><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/perfilLiderdeProyecto.jsp'"><center><img src="<%=context%>/imagenes/user.png" height="22" style="padding: 0px 21px" />Perfil</center></button>
                 <button class="btn-sidebar2"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></button>
             </div>
         </div>
+              <div class="offset-md-2 container">
+            <h1>Registrar Recurso Humano</h1>
+            <br/>
+            <form action="#" onsubmit="return false" >
+                <div class="form-row">
+                    <h2>Información personal de Líder de Proyecto</h2>
+                    <br/>
+                </div>
+                <div class="form-row">
+                    <div class="form-group  col-md-4">
+                        <label for="nombreL">Nombre(s)</label>
+                        <input type="text" placeholder="Nombre"  pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="nombreL" required>
+                        <p class="help-block"></p>
+                    </div>
+                    <div class="form-group  col-md-4">
+                        <label for="apellidoP">Apellido Paterno</label>
+                        <input type="text" placeholder="Apellido Paterno" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="apellidoP" required>
+                        <p class="help-block"></p>
+                    </div>
+                    <div class="form-group  col-md-4">
+                        <label for="apellidoM">Apellido Materno</label>
+                        <input type="text" placeholder="Apellido Materno" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="apellidoM" required>
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group  col-md-2">
+                        <label for="grado">Grado Académico</label>
+                        <input type="text" placeholder="Grado Académico" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.]+" class="form-control" id="grado" required>
+                        <p class="help-block"></p>
+                    </div>
+                    <div class="form-group  col-md-7">
+                        <label for="carrera">Carrera</label>
+                        <input type="text" placeholder="Carrera" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="carrera" required>
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="form-row">
+                     <div class="form-group  col-md-3">
+                        <label for="rol">Rol</label>
+                        <input type="text" placeholder="Rol"  pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="rol" required>
+                        <p class="help-block"></p>
+                    </div>
+                    <div class="form-group  col-md-2">
+                        <label for="salario">Salario por hora</label>
+                        <input type="text" placeholder="Salario"  pattern="[0-9.]+" class="form-control" id="salario" required>
+                        <p class="help-block"></p>
+                    </div>
+                    <div class="form-group  col-md-3">
+                        <label for="rfc">RFC</label>
+
+                        <input type="text" placeholder="RFC" minlength="12" maxlength="13" pattern="[A-Z0-9]+" class="form-control" id="rfc" required>
+                        <p class="help-block"></p>
+                    </div>
+                    <div class="form-group  col-md-3">
+                        <label for="email">Email</label>
+
+                        <input type="email" placeholder="Email" class="form-control" id="email" required>
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                  <div class="form-row">
+                    <h2>Información de usuario de Líder de Proyecto</h2>
+                    <br/>
+                </div>
+                <div class="form-row">
+                    <div class="form-group  col-md-3">
+                        <label for="usuario">Usuario</label>
+                        <input type="text" placeholder="Usuario" pattern="[A-Za-z0-9]+" class="form-control" id="usuario" required>
+                        <p class="help-block"></p>
+                    </div>
+
+                    <div class="form-group  col-md-3">
+                        <label for="pass">Contraseña</label>
+                        <input type="password" placeholder="Contraseña" pattern="[A-Za-z0-9]+" class="form-control" id="pass" required>
+                        <p class="help-block"></p>
+                    </div>
+                    <div class="form-group  col-md-3">
+                        <label for="conpass">Confirmar contraseña</label>
+                        <input type="password" placeholder="Confirmar Contraseña" pattern="[A-Za-z0-9]+" class="form-control" id="conpass" required>
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <input type="submit"  value="Registrar"  onclick="registrarRecursoHumano()" class ="btn-verde" />
+            </form>
+        </div> 
     </body>
 </html>
