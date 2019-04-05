@@ -10,12 +10,12 @@ and open the template in the editor.
 
 
 <struts>
-    <package name="packSesion" extends="struts-default">
+    <package name="packSesion" extends="struts-default,json-default">
         <action name="vistaLog">
             <result>/login.jsp</result>
         </action>
         <action name="iniciarSesion" class="com.utez.edu.control.ControlLogin" method="loginWeb">
-            <result name="LíderdelProyecto">/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp</result>
+            <result type="json" name="success"/>
             <result name="error">/login.jsp</result>
         </action>
         <action name="cerrarSesion" class="com.utez.edu.control.ControlLogin" method="logOut">

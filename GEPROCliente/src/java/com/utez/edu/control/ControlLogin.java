@@ -1,5 +1,6 @@
 package com.utez.edu.control;
 
+import com.google.gson.Gson;
 import static com.opensymphony.xwork2.Action.ERROR;
 import static com.opensymphony.xwork2.Action.SUCCESS;
 import com.opensymphony.xwork2.ActionContext;
@@ -12,7 +13,9 @@ import utez.edu.modelo.dao.DaoUsuario;
 public class ControlLogin extends ActionSupport implements SessionAware{
     private Map session;
     private BeanUsuario beanUsuario = null;
+    private String parametros;
     private String mensaje;
+    private String dir = null;
     private DaoUsuario daoUsuario= null;
     
     public String inicial(){
@@ -23,19 +26,25 @@ public class ControlLogin extends ActionSupport implements SessionAware{
         daoUsuario = new DaoUsuario();
         //Obtengo la sesión vacía
         session = ActionContext.getContext().getSession();
+        dir = "/index.jsp";
         //Valido datos de inicio de Sesión
+        beanUsuario=new Gson().fromJson(parametros,BeanUsuario.class);
         beanUsuario  = daoUsuario.consultarUsuario(beanUsuario.getUsuario(),beanUsuario.getPass());
         if (beanUsuario != null) {
             //Damos mensaje y agregamos datos a sesion
             session.put("rol", getBeanUsuario().getRol());
             session.put("user", getBeanUsuario().getId());
             mensaje = "Bienvenido";
-            return beanUsuario.getRol();
-        }else{
-            //Sino, mandamos el mensaje de error
-            mensaje = "Usuario y/o contraseña incorrectos";
-            return ERROR;
-        }       
+            if (getBeanUsuario().getRol().equals("Administrador")) {
+                dir ="/Vistas/Administrador/inicioAdministrador.jsp";
+            }else{
+                dir ="/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp";
+            }
+            
+        }
+        parametros="";
+        return SUCCESS;
+        
     }
 
     public String logOut(){
@@ -65,6 +74,22 @@ public class ControlLogin extends ActionSupport implements SessionAware{
 
     public String getMensaje() {
         return mensaje;
+    }
+
+    public String getDir() {
+        return dir;
+    }
+
+    public void setDir(String dir) {
+        this.dir = dir;
+    }
+
+    public String getParametros() {
+        return parametros;
+    }
+
+    public void setParametros(String parametros) {
+        this.parametros = parametros;
     }
     
     

@@ -7,13 +7,8 @@ package utez.edu.struts;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
-import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
-import org.apache.struts2.interceptor.SessionAware;
-import utez.edu.modelo.dao.DaoUsuario;
 
 /**
  *
@@ -36,7 +31,7 @@ public class Interceptor extends AbstractInterceptor{
             return ai.invoke();
         } else {
             return "NOLOGIN";
-        }
+        }   
     }
     
     @Override
