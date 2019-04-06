@@ -27,9 +27,10 @@ public class Interceptor extends AbstractInterceptor{
         System.out.println("Se realizan actividades antes de la ejecución");
         System.out.println(":> " + session.get("rol"));
         System.out.println("Se realizan actividades antes de la ejecución");
-        if (session.get("rol") != null) {
+        if (session.get("user") != null) {
             return ai.invoke();
         } else {
+            System.out.println("Entra en el nologin");
             return "NOLOGIN";
         }   
     }

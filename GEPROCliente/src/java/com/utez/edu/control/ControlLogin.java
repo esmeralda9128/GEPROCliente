@@ -19,6 +19,7 @@ public class ControlLogin extends ActionSupport implements SessionAware {
     private String dir = null;
     private DaoUsuario daoUsuario = null;
 
+
     public String inicial() {
         return SUCCESS;
     }
@@ -28,6 +29,7 @@ public class ControlLogin extends ActionSupport implements SessionAware {
         //Obtengo la sesión vacía
         session = ActionContext.getContext().getSession();
         dir = "/index.jsp";
+        BeanUsuario auxBeanUsuario;
         //Valido datos de inicio de Sesión
         beanUsuario = new Gson().fromJson(parametros, BeanUsuario.class);
         BeanUsuario consultado = null;

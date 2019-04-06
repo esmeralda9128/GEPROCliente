@@ -6,6 +6,9 @@
 
 <%
     String context = request.getContextPath();
+    if (session.getAttribute("user") == null) {
+        response.sendRedirect(context + "/index");
+    }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -25,7 +28,7 @@
         <script type="text/javascript" src="<%=context%>/js/acciones.js"></script> 
 
     </head>
-    <body>
+    <body onload="cargarProyectos()">
         <div id="sidebar">
             <p></p>
             <center><img src="<%=context%>/imagenes/geprologo.png" height="92"/></center>
@@ -52,26 +55,35 @@
                 </div>
             </div>
 
-        <script>
-            peticion.onreadystatechange = function () {
-    if (this.status === 200 && this.readyState === 4) {
-        var respuesta = JSON.parse(this.responseText);
-        var proyectos = respuesta.respuesta.proyectos;
-        if (proyectos !== null) {
-            for (var i = 0; i < proyectos.length; i++) {
-                $('#cardsProyectos').append(' <div class="col-md-4"><div class="card" style="width: 18rem;"><div class="card-header" style="background-color: #009475">' + proyectos[i].nombre + '</div><div class="card-body"><h5 class="card-title" >' + proyectos[i].lider.nombre + ' ' + proyectos[i].lider.primerApellido + ' ' + proyectos[i].lider.segundoApellido + '</h5><p class="card-text">' + 'Semanas ' + proyectos[i].semanas + '<br/>' + 'Prespuesto ' + proyectos[i].presupuestoInicial + '</p><center><button class="btn-azul" onclick="consultarProyectoAdmin(' + proyectos[i].idProyecto + ')">Seguimiento</button><button class="btn-rojo" onclick="eliminarProyecto(' + proyectos[i].idProyecto + ')">Eliminar</button></center></div></div><br/></div>');
-            }
-        }
-    }
-}
+          
+            <script>
+                peticion.onreadystatechange = function () {
+                    if (this.status === 200 && this.readyState === 4) {
+                        var respuesta = JSON.parse(this.responseText);
+                        var proyectos = respuesta.respuesta.proyectos;
+                        if (proyectos !== null) {
+                            for (var i = 0; i < proyectos.length; i++) {
+                                $('#cardsProyectos').append(' <div class="col-md-4"><div class="card" style="width: 18rem;"><div class="card-header" style="background-color: #009475">' + proyectos[i].nombre + '</div><div class="card-body"><h5 class="card-title" >' + proyectos[i].lider.nombre + ' ' + proyectos[i].lider.primerApellido + ' ' + proyectos[i].lider.segundoApellido + '</h5><p class="card-text">' + 'Semanas ' + proyectos[i].semanas + '<br/>' + 'Prespuesto ' + proyectos[i].presupuestoInicial + '</p><center><button class="btn-azul" onclick="consultarProyectoAdmin(' + proyectos[i].idProyecto + ')">Seguimiento</button><button class="btn-rojo" onclick="eliminarProyecto(' + proyectos[i].idProyecto + ')">Eliminar</button></center></div></div><br/></div>');
+                            }
+                        }
+                    }
+                }
 
-peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/consultarProyectos", true);
-peticion.send();
-        </script>
-           
-            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/consultarProyectos", true);
+                peticion.send();
+            </script>
+
+       
+        </div>
+
+
+
+
+
+      
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     </body>
 </html>

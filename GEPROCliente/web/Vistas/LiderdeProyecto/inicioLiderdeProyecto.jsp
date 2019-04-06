@@ -5,9 +5,10 @@
 --%>
 <%
     String context = request.getContextPath();
+
     if (session.getAttribute("user") == null){
     response.sendRedirect(context + "/index");
-}
+    }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,7 +28,7 @@
         <script type="text/javascript" src="<%=context%>/js/acciones.js"></script> 
 
     </head>
-    <body>
+    <body >
         <div id="sidebar">
             <p></p>
             <center><img src="<%=context%>/imagenes/geprologo.png" height="92"/></center>
@@ -149,6 +150,7 @@
         </div>
 
 
+
         <script>
             var peticion = new XMLHttpRequest();
             var idProyecto =  {proyecto:document.getElementById("idProyecto").value};
@@ -197,6 +199,7 @@
             peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/seguimientoProyecto?proyecto=" + JSON.stringify(idProyecto), true);
             peticion.send();
         </script>
+
 
     </body>
 </html>
