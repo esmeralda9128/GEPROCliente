@@ -49,27 +49,14 @@
                 <input type="password" class="form-control" name="beanUsuario.pass" placeholder="Contraseña" id="Passwod">
                 <i class="fa fa-lock"></i>
             </div>
-            <span class="alert">Datos incorrectos</span>
-
-            <button type="submit" onclick="login()" class="log-btn" >Iniciar Sesión</button>   
+        
+            <center><button type="submit" onclick="login()" class="btn-verde" >Iniciar Sesión</button></center>   
 
         </div>
 
     </form>
 
-    <script>
-
-        $(document).ready(function () {
-            $('input[type="submit"]').attr('disabled', 'disabled');
-            $('input[type="text"]').keypress(function () {
-                if ($(this).val() != '') {
-                    $('input[type="submit"]').removeAttr('disabled');
-                }
-
-            });
-
-        });
-    </script>
+    
 
 </body>
 </html>

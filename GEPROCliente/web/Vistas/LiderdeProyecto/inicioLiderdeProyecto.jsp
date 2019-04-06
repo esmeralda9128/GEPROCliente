@@ -47,7 +47,7 @@
             <br/>
             <div id="nombrePS">
             </div>
-            <button style="float: right; width:210px" class="btn-azul">Seguimiento del Proyecto</button>
+            <button style="float: right; width:210px" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/seguimientoLider.jsp'" class="btn-azul">Seguimiento del Proyecto</button>
             <br>
             <br>
             <div class="row">
@@ -154,8 +154,7 @@
         <script>
             var peticion = new XMLHttpRequest();
             var idProyecto =  {proyecto:document.getElementById("idProyecto").value};
-            alert(idProyecto);
-            
+         
             
             peticion.onreadystatechange = function () {
                 if (this.status === 200 && this.readyState === 4) {
@@ -177,7 +176,7 @@
                 $('#valorGanado').html('');
                 $('#valorGanado').append('$' + proyecto.valorGanado);
                 $('#semanas').html('');
-                $('#semanas').append(semana);
+                $('#senamanas').append(semana);
                 $('#tablaRecursosHumanos').html('');
                 if (recursoHumanos === null) {
                     $('#tablaRecursosHumanos').append('<h2>No hay recursos registrados</h2>');
