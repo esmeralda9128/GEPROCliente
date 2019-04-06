@@ -128,7 +128,7 @@
                         <p class="help-block"></p>
                     </div>
                 </div>
-                  <div class="form-row">
+                <div class="form-row">
                     <h2>Información de usuario de Líder de Proyecto</h2>
                     <br/>
                 </div>
@@ -154,19 +154,53 @@
             </form>
         </div> 
 
- <script>
+        <script>
+                var peticion = new XMLHttpRequest();
+            function registrarProyecto() {
+                var beanProyecto = {
+                    nombre: document.getElementById("nombreP").value,
+                    presupuesto: document.getElementById("presupuesto").value,
+            reserva: document.getElementById("reserva").value,
+            fecha: document.getElementById("fechaInicio").value,
+               semanas: document.getElementById("semanas").value
+           };
+           var beanUsuario = {
+               nombre: document.getElementById("nombreL").value,
+               apellidoP: document.getElementById("apellidoP").value,
+               apellidoM: document.getElementById("apellidoM").value,
+               grado: document.getElementById("grado").value,
+               rfc: document.getElementById("rfc").value,
+               carrera: document.getElementById("carrera").value,
+               email: document.getElementById("email").value,
+               usuario: document.getElementById("usuario").value,
+               pass: document.getElementById("pass").value,
+               conpass: document.getElementById("conpass").value,
+               salario: document.getElementById("salario").value
+           };
+           peticion.onreadystatechange = function () {
+               if (this.status === 200) {
+                   var respuesta = JSON.parse(this.responseText);
+                   Swal.fire(
+                           respuesta.respuesta.mensaje,
+                           '',
+                           respuesta.respuesta.tipo,
+                           ).then((value) => {
+                       if (respuesta.respuesta.registro) {
 
-        $(document).ready(function () {
-            $('input[type="submit"]').attr('disabled', 'disabled');
-            $('input[type="text"]').keypress(function () {
-                if ($(this).val() != '') {
-                    $('input[type="submit"]').removeAttr('disabled');
-                }
+                           window.location.href = "http://localhost:8080/GEPROCliente/Vistas/Administrador/inicioAdministrador.jsp";
+                       }
+                 });
 
-            });
 
-        });
-    </script>
+
+               }
+           }
+           peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
+                   + JSON.stringify(beanProyecto) + "&usuario=" + JSON.stringify(beanUsuario), true);
+           peticion.send();
+       
+        }
+        </script>
 
     </body>
 </html>

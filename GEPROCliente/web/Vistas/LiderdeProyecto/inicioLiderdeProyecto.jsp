@@ -5,7 +5,7 @@
 --%>
 <%
     String context = request.getContextPath();
-    if (session.getAttribute("rol") == null){
+    if (session.getAttribute("user") == null){
     response.sendRedirect(context + "/index");
 }
 %>
@@ -41,6 +41,8 @@
         </div>
 
         <div class="offset-md-2 container">
+            
+            <input type="text" value="<%=session.getAttribute("idProyecto")%>"  id="idProyecto" hidden="true">
             <br/>
             <div id="nombrePS">
             </div>
@@ -149,6 +151,10 @@
 
         <script>
             var peticion = new XMLHttpRequest();
+            var idProyecto =  {proyecto:document.getElementById("idProyecto").value};
+            alert(idProyecto);
+            
+            
             peticion.onreadystatechange = function () {
                 if (this.status === 200 && this.readyState === 4) {
                     var respuesta = JSON.parse(this.responseText);
@@ -188,7 +194,7 @@
                 }
                    
             }
-            peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/seguimientoProyecto", true);
+            peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/seguimientoProyecto?proyecto=" + JSON.stringify(idProyecto), true);
             peticion.send();
         </script>
 

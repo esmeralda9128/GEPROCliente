@@ -102,7 +102,7 @@ public class DaoUsuario {
                 usuarioConsultado.setSegundoApellido(rs.getString("segundoApellido"));
                 usuarioConsultado.setUsuario(rs.getString("usuario"));
                 usuarioConsultado.setPass(rs.getString("pass"));
-                usuarioConsultado.setRol(rs.getString("rol").replace(" ", ""));
+                usuarioConsultado.setRol(rs.getString("rol"));
                 usuarioConsultado.setSalario(rs.getDouble("salario"));
                 usuarioConsultado.setGradoEstudios(rs.getString("gradoEstudios"));
                 usuarioConsultado.setCarrera(rs.getString("carrera"));

@@ -107,7 +107,7 @@
                 }
 
             }
-            peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/consultarPerfilAdmin", true);
+            peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/consultarPerfilAdmin", true);
             peticion.send();
         </script>
 <!--        <script>
