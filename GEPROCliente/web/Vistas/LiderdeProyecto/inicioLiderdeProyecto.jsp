@@ -5,8 +5,8 @@
 --%>
 <%
     String context = request.getContextPath();
-    if (session.getAttribute("rol") == null){
-    response.sendRedirect(context + "/index");
+    if (session.getAttribute("user") == null) {
+            response.sendRedirect(context + "/index");
 }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -27,7 +27,7 @@
         <script type="text/javascript" src="<%=context%>/js/acciones.js"></script> 
 
     </head>
-    <body>
+    <body >
         <div id="sidebar">
             <p></p>
             <center><img src="<%=context%>/imagenes/geprologo.png" height="92"/></center>
@@ -147,50 +147,6 @@
         </div>
 
 
-        <script>
-            var peticion = new XMLHttpRequest();
-            peticion.onreadystatechange = function () {
-                if (this.status === 200 && this.readyState === 4) {
-                    var respuesta = JSON.parse(this.responseText);
-                    var proyecto = respuesta.respuesta.proyecto;
-                    var lider = respuesta.respuesta.lider;
-                    var semana = respuesta.respuesta.semana;
-                    var recursoHumanos = respuesta.respuesta.recursosHumanos;
-                    var recursoMateriales = respuesta.respuesta.recursosMateriales;
-                }
-                $('#nombrePS').html('');
-                $('#nombrePS').append(' <h1 style="float: left">' + proyecto.nombre + '</h1>');
-                $('#fechaInicioSeguimiento').html('');
-                $('#fechaInicioSeguimiento').append(proyecto.inicioProyecto);
-                $('#fechaFinSeguimiento').html('');
-                $('#fechaFinSeguimiento').append(proyecto.finalProyecto);
-                $('#presupuestoPlaneado').html('');
-                $('#presupuestoPlaneado').append('$' + proyecto.valorPlaneado);
-                $('#valorGanado').html('');
-                $('#valorGanado').append('$' + proyecto.valorGanado);
-                $('#semanas').html('');
-                $('#semanas').append(semana);
-                $('#tablaRecursosHumanos').html('');
-                if (recursoHumanos === null) {
-                    $('#tablaRecursosHumanos').append('<h2>No hay recursos registrados</h2>');
-                } else {
-                    for (var i = 0; i < recursoHumanos.length; i++) {
-                        $('#tablaRecursosHumanos').append('<tr><td>' + recursoHumanos[i].nombre + ' ' + recursoHumanos[i].primerApellido + ' ' + recursoHumanos[i].primerApellido + '</td><td>' + recursoHumanos[i].rol + '</td><td>' + recursoHumanos[i].gradoEstudios + '</td><td>' + recursoHumanos[i].carrera + '</td><td>' + recursoHumanos[i].rfc + '</td><td>' + recursoHumanos[i].salario + '</td></tr>');
-                    }
-                }
-                $('#tablaRecursosMateriales').html('');
-                if (recursoMateriales === null) {
-                    $('#tablaRecursosMateriales').append('<h2>No hay recursos registrados</h2>');
-                } else {
-                    for (var i = 0; i < recursoMateriales.length; i++) {
-                        $('#tablaRecursosMateriales').append('<tr><td>' + recursoMateriales[i].nombreRecursoMat + '</td><td>' + recursoMateriales[i].costoUnitario + '</td><td>' + recursoMateriales[i].cantidad + '</td><td>' + recursoMateriales[i].total + '</td></tr>');
-                    }
-                }
-                   
-            }
-            peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/seguimientoProyecto", true);
-            peticion.send();
-        </script>
-
+ 
     </body>
 </html>

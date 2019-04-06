@@ -10,50 +10,63 @@ import org.apache.struts2.interceptor.SessionAware;
 import utez.edu.modelo.bean.BeanUsuario;
 import utez.edu.modelo.dao.DaoUsuario;
 
-public class ControlLogin extends ActionSupport implements SessionAware{
+public class ControlLogin extends ActionSupport implements SessionAware {
+
     private Map session;
     private BeanUsuario beanUsuario = null;
     private String parametros;
     private String mensaje;
     private String dir = null;
-    private DaoUsuario daoUsuario= null;
-    
-    public String inicial(){
+    private DaoUsuario daoUsuario = null;
+    private String retorno;
+
+    public String inicial() {
         return SUCCESS;
     }
-    
-    public String loginWeb(){
+
+    public String loginWeb() {
         daoUsuario = new DaoUsuario();
         //Obtengo la sesión vacía
         session = ActionContext.getContext().getSession();
         dir = "/index.jsp";
+        BeanUsuario auxBeanUsuario;
         //Valido datos de inicio de Sesión
-        beanUsuario=new Gson().fromJson(parametros,BeanUsuario.class);
-        beanUsuario  = daoUsuario.consultarUsuario(beanUsuario.getUsuario(),beanUsuario.getPass());
+        beanUsuario = new Gson().fromJson(parametros, BeanUsuario.class);
+        beanUsuario = daoUsuario.consultarUsuario(beanUsuario.getUsuario(), beanUsuario.getPass());
         if (beanUsuario != null) {
-            //Damos mensaje y agregamos datos a sesion
-            session.put("rol", getBeanUsuario().getRol());
-            session.put("user", getBeanUsuario().getId());
-            mensaje = "Bienvenido";
-            if (getBeanUsuario().getRol().equals("Administrador")) {
-                dir ="/Vistas/Administrador/inicioAdministrador.jsp";
+            auxBeanUsuario = daoUsuario.consultarAdministrador(beanUsuario.getUsuario(), beanUsuario.getPass());
+            if (auxBeanUsuario != null) {
+                System.out.println("Entra en el admin");
+                session.put("user", getBeanUsuario().getId());
+                mensaje = "Bienvenido";
+                 dir = "/Vistas/Administrador/inicioAdministrador.jsp";
+                 return SUCCESS;
             }else{
-                dir ="/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp";
+                auxBeanUsuario =daoUsuario.consultarUsuario(beanUsuario.getUsuario(), beanUsuario.getPass());
+                if(auxBeanUsuario!=null){
+                     dir = "/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp";
+                     session.put("user", getBeanUsuario().getId());
+                     return SUCCESS;
+                }else{
+                    return ERROR;
+                }
             }
-            
+           
+            //Damos mensaje y agregamos datos a sesion
+           
         }
-        parametros="";
-        return SUCCESS;
         
+          return ERROR;
+
     }
 
-    public String logOut(){
+    public String logOut() {
         System.out.println("salio de sesion");
         session = ActionContext.getContext().getSession();
         session.clear();
         return SUCCESS;
     }
-    
+
     @Override
     public void setSession(Map<String, Object> session) {
         this.session = session;
@@ -66,7 +79,6 @@ public class ControlLogin extends ActionSupport implements SessionAware{
     public void setBeanUsuario(BeanUsuario beanUsuario) {
         this.beanUsuario = beanUsuario;
     }
-
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
@@ -91,6 +103,5 @@ public class ControlLogin extends ActionSupport implements SessionAware{
     public void setParametros(String parametros) {
         this.parametros = parametros;
     }
-    
-    
+
 }

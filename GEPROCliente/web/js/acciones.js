@@ -1,7 +1,7 @@
 var peticion = new XMLHttpRequest();
 
 
-var raiz = window.location.origin + '/GEPROCliente/';
+var raiz = window.location.origin + '/GEPROServidor/';
 function variaciondelCronograma() {
 
     Swal.fire(
@@ -58,13 +58,8 @@ function login() {
     peticion.onreadystatechange = function () {
         if (this.status === 200) {
             var respuesta = JSON.parse(this.responseText);
-//            Swal.fire({
-//                    respuesta.mensaje,
-//                    '',
-//                    respuesta.respuesta.tipo
-//                }).then((result) => {
+
                     window.location.href = "http://localhost:8080/GEPROCliente"+respuesta.dir;
-//                });
 
         }
     };
@@ -105,7 +100,7 @@ function registrarProyecto() {
                     ).then((value) => {
                 if (respuesta.respuesta.registro) {
 
-                    window.location.href = "http://localhost:8080/GEPROCliente/Vistas/Administrador/inicioAdministrador.jsp";
+                    window.location.href = "http://localhost:8080/GEPROServidor/Vistas/Administrador/inicioAdministrador.jsp";
                 }
             });
 
@@ -113,7 +108,7 @@ function registrarProyecto() {
 
         }
     }
-    peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/registroProyecto?proyecto="
+    peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
             + JSON.stringify(beanProyecto) + "&usuario=" + JSON.stringify(beanUsuario), true);
     peticion.send();
 }
@@ -138,7 +133,7 @@ function eliminarProyecto(idProyecto) {
                     );
         }
     }
-    peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/eliminarProyecto?proyecto="
+    peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/eliminarProyecto?proyecto="
             + JSON.stringify(id), true);
     peticion.send();
 
@@ -150,10 +145,10 @@ function consultarProyectoAdmin(idProyecto) {
     var id = {idProyecto};
     peticion.onreadystatechange = function () {
         if (this.status === 200 && this.readyState === 4) {
-            window.location.replace("http://localhost:8080/GEPROCliente/Vistas/Administrador/seguimientoAdministrador.jsp");
+            window.location.replace("http://localhost:8080/GEPROServidor/Vistas/Administrador/seguimientoAdministrador.jsp");
         }
     }
-    peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/consultarProyecto?proyecto="
+    peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/consultarProyecto?proyecto="
             + JSON.stringify(id), true);
     peticion.send();
 }
@@ -162,10 +157,10 @@ function consultarProyectoLider(idProyecto) {
     var id = {idProyecto};
     peticion.onreadystatechange = function () {
         if (this.status === 200 && this.readyState === 4) {
-            window.location.replace("http://localhost:8080/GEPROCliente/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp");
+            window.location.replace("http://localhost:8080/GEPROServidor/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp");
         }
     }
-    peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/consultarProyecto?proyecto="
+    peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/consultarProyecto?proyecto="
             + JSON.stringify(id), true);
     peticion.send();
 }
@@ -199,7 +194,7 @@ function registrarRecursoHumano() {
                     ).then((value) => {
                 if (respuesta.respuesta.registro) {
 
-                    window.location.href = "http://localhost:8080/GEPROCliente/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp";
+                    window.location.href = "http://localhost:8080/GEPROServidor/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp";
                 }
             });
 
@@ -207,7 +202,7 @@ function registrarRecursoHumano() {
 
         }
     }
-    peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/registroRecursoHumano?usuario=" + JSON.stringify(beanUsuario), true);
+    peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroRecursoHumano?usuario=" + JSON.stringify(beanUsuario), true);
     peticion.send();
 }
 
@@ -237,28 +232,28 @@ function registrarRecursoMaterial() {
         }
     }
     
-     peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/registroRecursoMaterial?material=" + JSON.stringify(beanRecursoMaterial), true);
+     peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroRecursoMaterial?material=" + JSON.stringify(beanRecursoMaterial), true);
     peticion.send();
 }
 
-//
-//
-//peticion.onreadystatechange = function () {
-//    if (this.status === 200 && this.readyState === 4) {
-//        var respuesta = JSON.parse(this.responseText);
-//        var proyectos = respuesta.respuesta.proyectos;
-//        if (proyectos !== null) {
-//            for (var i = 0; i < proyectos.length; i++) {
-//                $('#cardsProyectos').append(' <div class="col-md-4"><div class="card" style="width: 18rem;"><div class="card-header" style="background-color: #009475">' + proyectos[i].nombre + '</div><div class="card-body"><h5 class="card-title" >' + proyectos[i].lider.nombre + ' ' + proyectos[i].lider.primerApellido + ' ' + proyectos[i].lider.segundoApellido + '</h5><p class="card-text">' + 'Semanas ' + proyectos[i].semanas + '<br/>' + 'Prespuesto ' + proyectos[i].presupuestoInicial + '</p><center><button class="btn-azul" onclick="consultarProyectoAdmin(' + proyectos[i].idProyecto + ')">Seguimiento</button><button class="btn-rojo" onclick="eliminarProyecto(' + proyectos[i].idProyecto + ')">Eliminar</button></center></div></div><br/></div>');
-//            }
-//        }
-//    }
-//}
-//
-//peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/consultarProyectos", true);
-//peticion.send();
 
+function cargarProyectos(){
+peticion.onreadystatechange = function () {
+    if (this.status === 200) {
+        var respuesta = JSON.parse(this.responseText);
+        var proyectos = respuesta.respuesta.proyectos;
+        if (proyectos !== null) {
+            for (var i = 0; i < proyectos.length; i++) {
+                $('#cardsProyectos').append(' <div class="col-md-4"><div class="card" style="width: 18rem;"><div class="card-header" style="background-color: #009475">' + proyectos[i].nombre + '</div><div class="card-body"><h5 class="card-title" >' + proyectos[i].lider.nombre + ' ' + proyectos[i].lider.primerApellido + ' ' + proyectos[i].lider.segundoApellido + '</h5><p class="card-text">' + 'Semanas ' + proyectos[i].semanas + '<br/>' + 'Prespuesto ' + proyectos[i].presupuestoInicial + '</p><center><button class="btn-azul" onclick="consultarProyectoAdmin(' + proyectos[i].idProyecto + ')">Seguimiento</button><button class="btn-rojo" onclick="eliminarProyecto(' + proyectos[i].idProyecto + ')">Eliminar</button></center></div></div><br/></div>');
+            }
+        }
+    }
+}
 
+peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/consultarProyectos", true);
+peticion.send();
+
+}
 
 
 
