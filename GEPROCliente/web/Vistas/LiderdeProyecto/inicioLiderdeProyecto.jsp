@@ -177,7 +177,7 @@
                 $('#valorGanado').html('');
                 $('#valorGanado').append('$' + proyecto.valorGanado);
                 $('#semanas').html('');
-                $('#senamanas').append(semana);
+                $('#semanas').append(semana);
                 $('#tablaRecursosHumanos').html('');
                 if (recursoHumanos === null) {
                     $('#tablaRecursosHumanos').append('<h2>No hay recursos registrados</h2>');
