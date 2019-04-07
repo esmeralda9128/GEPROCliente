@@ -5,6 +5,9 @@
 --%>
 <%
     String context = request.getContextPath();
+    if (session.getAttribute("user") == null) {
+        response.sendRedirect(context + "/index");
+    }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -32,8 +35,8 @@
             <div class="side-Elements" >                
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/Administrador/inicioAdministrador.jsp'"><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/Administrador/perfilAdministrador.jsp'"><center><img src="<%=context%>/imagenes/user.png" height="22" style="padding: 0px 21px" />Perfil</center></button>
-                <button class="btn-sidebar2"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></button>
-
+                <button class="btn-sidebar2" onclick="cerrarSesion()"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></button>
+            
             </div>
         </div>
         <div class="offset-md-2 container">
@@ -139,7 +142,7 @@
                 $('#valorGanado').append('$' + proyecto.valorGanado);
 
             }
-            peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/seguimientoProyecto", true);
+            peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/seguimientoAdmin", true);
             peticion.send();
         </script>
 

@@ -38,8 +38,7 @@
 
                 <button  class="btn-sidebar active"><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
                 <button onclick="location.href = '<%=context%>/Vistas/Administrador/perfilAdministrador.jsp'" class="btn-sidebar"><center><img src="<%=context%>/imagenes/user.png" height="22" style="padding: 0px 21px" />Perfil</center></button>
-                <button class="btn-sidebar2"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></button>
-
+                <button class="btn-sidebar2" onclick="cerrarSesion()"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></button>
             </div>
         </div>
 
@@ -54,8 +53,6 @@
 
                 </div>
             </div>
-
-          
             <script>
                 peticion.onreadystatechange = function () {
                     if (this.status === 200 && this.readyState === 4) {
@@ -68,19 +65,80 @@
                         }
                     }
                 }
-
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/consultarProyectos", true);
                 peticion.send();
             </script>
+            <script>
+                function eliminarProyecto(idProyecto) {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'Cancel'
+                    }).then((result) => {
+                        if (result.value) {
+                            Swal.fire({
+                                title: 'Are you sure?',
+                                text: "You won't be able to revert this!",
+                                type: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes, delete it!',
+                                cancelButtonText: 'Cancel'
+                            }).then((result) => {
+                                if (result.value) {
+                                    var id = {idProyecto};
+                                    peticion.onreadystatechange = function () {
+                                        if (this.status === 200 && this.readyState === 4) {
+                                            var respuesta = JSON.parse(this.responseText);
+                                            $('#cardsProyectos').html('');
+                                            var proyectos = respuesta.respuesta.proyectos;
+                                            if (proyectos !== null) {
+                                                for (var i = 0; i < proyectos.length; i++) {
+                                                    $('#cardsProyectos').append(' <div class="col-md-4"><div class="card" style="width: 18rem;"><div class="card-header" style="background-color: #009475">' + proyectos[i].nombre + '</div><div class="card-body"><h5 class="card-title" >' + proyectos[i].lider.nombre + ' ' + proyectos[i].lider.primerApellido + ' ' + proyectos[i].lider.segundoApellido + '</h5><p class="card-text">' + 'Semanas ' + proyectos[i].semanas + '<br/>' + 'Prespuesto ' + proyectos[i].presupuestoInicial + '</p><center><button class="btn-azul" onclick="consultarProyectoAdmin(' + proyectos[i].idProyecto + ')">Seguimiento</button><button class="btn-rojo" onclick="eliminarProyecto(' + proyectos[i].idProyecto + ')">Eliminar</button></center></div></div><br/></div>');
+                                                }
+                                            }
+                                            Swal.fire(
+                                                    respuesta.respuesta.mensaje,
+                                                    '',
+                                                    respuesta.respuesta.tipo,
+                                                    );
+                                        }
+                                    }
+                                    peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/eliminarProyecto?proyecto="
+                                            + JSON.stringify(id), true);
+                                    peticion.send();
+                                }
+                            })
+                        }
+                    })
+                }
 
-       
+                function consultarProyectoAdmin(idProyecto) {
+                    var id = {idProyecto};
+                    peticion.onreadystatechange = function () {
+                        if (this.status === 200 && this.readyState === 4) {
+                            window.location.replace("http://localhost:8080/GEPROCliente/Vistas/Administrador/seguimientoAdministrador.jsp");
+                        }
+                    }
+                    peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/consultarProyecto?proyecto="
+                            + JSON.stringify(id), true);
+                    peticion.send();
+                }
+            </script>
+
         </div>
 
 
 
 
 
-      
+
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

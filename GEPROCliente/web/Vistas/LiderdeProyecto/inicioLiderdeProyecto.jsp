@@ -7,7 +7,7 @@
     String context = request.getContextPath();
 
     if (session.getAttribute("user") == null){
-    response.sendRedirect(context + "/index");
+        response.sendRedirect(context + "/index");
     }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -37,7 +37,8 @@
             <div class="side-Elements" >                
                 <button class="btn-sidebar"  ><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/perfilLiderdeProyecto.jsp'"><center><img src="<%=context%>/imagenes/user.png" height="22" style="padding: 0px 21px" />Perfil</center></button>
-                <a class="btn-sidebar2" href="<%=context%>/cerrarSesion"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></a>
+                <!--<a class="btn-sidebar" href="<%=context%>/cerrarSesion"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></a>-->
+                <button class="btn-sidebar2" onclick="cerrarSesion()"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></button>
             </div>
         </div>
 
@@ -199,6 +200,37 @@
             peticion.send();
         </script>
 
+        <script>
+            function registrarRecursoMaterial() {
+                var beanRecursoMaterial = {
+                    idProyecto: document.getElementById("idProyecto").value,
+                    nombre: document.getElementById("nombre").value,
+                    cantidad: document.getElementById("cantidad").value,
+                    precio: document.getElementById("precio").value
+                };
+                peticion.onreadystatechange = function () {
+                    if (this.status === 200) {
+                        var respuesta = JSON.parse(this.responseText);
+                        var recursoHumanos = respuesta.respuesta.recursosMateriales;
+                        Swal.fire(
+                                respuesta.respuesta.mensaje,
+                                '',
+                                respuesta.respuesta.tipo,
+                                );
+                    }
+                    $('#tablaRecursosMateriales').html('');
+                    if (recursoHumanos === null) {
+                        $('#tablaRecursosMateriales').append('<h2>No hay recursos registrados</h2>');
+                    } else {
+                        for (var i = 0; i < recursoHumanos.length; i++) {
+                            $('#tablaRecursosMateriales').append('<tr><td>' + recursoHumanos[i].nombreRecursoMat + '</td><td>' + recursoHumanos[i].costoUnitario + '</td><td>' + recursoHumanos[i].cantidad + '</td><td>' + recursoHumanos[i].total + '</td></tr>');
+                        }
+                    }
+                }
 
+                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroRecursoMaterial?material=" + JSON.stringify(beanRecursoMaterial), true);
+                peticion.send();
+            }
+        </script>
     </body>
 </html>

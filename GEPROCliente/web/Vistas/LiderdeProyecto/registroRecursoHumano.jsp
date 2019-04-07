@@ -5,6 +5,9 @@
 --%>
 <%
     String context = request.getContextPath();
+    if (session.getAttribute("user") == null){
+        response.sendRedirect(context + "/index");
+    }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -26,12 +29,13 @@
         <div id="sidebar">
             <p></p>
             <center><img src="<%=context%>/imagenes/geprologo.png" height="92"/></center>
+            
             </br>
             <h1>Líder de Proyecto</h1>
             <div class="side-Elements" >                
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp'"  ><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/perfilLiderdeProyecto.jsp'"><center><img src="<%=context%>/imagenes/user.png" height="22" style="padding: 0px 21px" />Perfil</center></button>
-                <button class="btn-sidebar2"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></button>
+                <button class="btn-sidebar2" onclick="cerrarSesion()"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></button>
             </div>
         </div>
               <div class="offset-md-2 container">
@@ -42,6 +46,7 @@
                     <h2>Información personal de Líder de Proyecto</h2>
                     <br/>
                 </div>
+                <input type="text" value="<%=session.getAttribute("idProyecto")%>"  id="idProyecto" hidden="true">
                 <div class="form-row">
                     <div class="form-group  col-md-4">
                         <label for="nombreL">Nombre(s)</label>
@@ -121,4 +126,42 @@
             </form>
         </div> 
     </body>
+    <script>
+        function registrarRecursoHumano() {
+            var beanUsuario = {
+                nombre: document.getElementById("nombreL").value,
+                apellidoP: document.getElementById("apellidoP").value,
+                apellidoM: document.getElementById("apellidoM").value,
+                grado: document.getElementById("grado").value,
+                rfc: document.getElementById("rfc").value,
+                carrera: document.getElementById("carrera").value,
+                email: document.getElementById("email").value,
+                usuario: document.getElementById("usuario").value,
+                pass: document.getElementById("pass").value,
+                conpass: document.getElementById("conpass").value,
+                salario: document.getElementById("salario").value,
+                rol: document.getElementById("rol").value,
+                idProyecto: document.getElementById("idProyecto").value
+            };
+            peticion.onreadystatechange = function () {
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(this.responseText);
+                    Swal.fire(
+                            respuesta.respuesta.mensaje,
+                            '',
+                            respuesta.respuesta.tipo,
+                            ).then((value) => {
+                        if (respuesta.respuesta.registro) {
+
+                            window.location.href = "http://localhost:8080/GEPROCliente/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp";
+                        }
+                    });
+                }
+            }
+            peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroRecursoHumano?usuario=" + JSON.stringify(beanUsuario), true);
+            peticion.send();
+        }
+    </script>
+    
+    
 </html>
