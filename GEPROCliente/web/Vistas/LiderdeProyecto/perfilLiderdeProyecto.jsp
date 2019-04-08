@@ -16,8 +16,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Perfil Líder de Proyecto-GEPRO</title>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         <script src="<%=context%>/js/jqBootstrapValidation.js"></script>
+=======
+         <script src="<%=context%>/js/jqBootstrapValidation.js"></script>
+>>>>>>> parent of 7034004... registros
 =======
          <script src="<%=context%>/js/jqBootstrapValidation.js"></script>
 >>>>>>> parent of 7034004... registros

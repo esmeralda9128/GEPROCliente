@@ -41,11 +41,10 @@
         <div class="offset-md-2 container">
             <h1>Registrar Proyecto</h1>
             <br/>
-<<<<<<< HEAD
+
             <form action="#" id="formRegistroProyecto" onsubmit="return false" >
-=======
-            <form action="#" onsubmit="return false" >
->>>>>>> parent of 7034004... registros
+
+
                 <div class="form-row">
                     <h2>Información del Proyecto</h2>
                     <br/>
@@ -134,22 +133,14 @@
                         <input type="password" placeholder="Confirmar Contraseña" pattern="[A-Za-z0-9]+" class="form-control" id="conpass" required>
                     </div>
                 </div>
-<<<<<<< HEAD
-                <input type="submit" disabled value="Registrar" id="btnRegistrar" onclick="" class="btn-verde" />
-=======
-                <input type="submit"  value="Registrar" onclick="registrarProyecto()" class="btn-verde" />
->>>>>>> parent of 7034004... registros
+              <input type="submit" disabled value="Registrar" id="btnRegistrar" onclick="" class="btn-verde" />
+
             </form>
         </div> 
 
         <script>
-<<<<<<< HEAD
+
         $("#formRegistroProyecto").submit(function(e) {
-            var peticion = new XMLHttpRequest();
-=======
-        var peticion = new XMLHttpRequest();
-        function registrarProyecto() {
->>>>>>> parent of 7034004... registros
             var beanProyecto = {
                 nombre: document.getElementById("nombreP").value,
                 presupuesto: document.getElementById("presupuesto").value,
@@ -184,11 +175,6 @@
                         }
                     });
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> parent of 7034004... registros
                 }
             }
             peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
