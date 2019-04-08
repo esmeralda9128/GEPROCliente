@@ -16,7 +16,7 @@ and open the template in the editor.
         </action>
         <action name="iniciarSesion" class="com.utez.edu.control.ControlLogin" method="loginWeb">
             <result type="json" name="success"/>
-            <result name="error">/login.jsp</result>
+            <result name="error" type="json">/login.jsp</result>
         </action>
         <action name="cerrarSesion" class="com.utez.edu.control.ControlLogin" method="logOut">
             <result name="success">/login.jsp</result>

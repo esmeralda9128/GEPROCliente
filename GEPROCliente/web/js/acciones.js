@@ -1,6 +1,6 @@
 var peticion = new XMLHttpRequest();
 // comentario
-
+var raizVista = window.location.origin + '/GEPROCliente';
 
 var raiz = window.location.origin + '/GEPROServidor/';
 function variaciondelCronograma() {
@@ -52,6 +52,7 @@ function indicedeDesempexodelCosto() {
 
 
 function login() {
+
     var usuario = {
         usuario: document.getElementById("UserName").value,
         pass: document.getElementById("Passwod").value
@@ -59,9 +60,18 @@ function login() {
     peticion.onreadystatechange = function () {
         if (this.status === 200) {
             var respuesta = JSON.parse(this.responseText);
-
-            window.location.href = "http://localhost:8080/GEPROCliente" + respuesta.dir;
-
+            var dir = respuesta.dir;
+            if (dir === "/index.jsp") {
+                Swal.fire({
+                    title: 'Sesion incorrecta',
+                    text: "Usuario y/o contraseña incorrecotos.",
+                    type: 'info',
+                    confirmButtonColor: '#009475',
+                    confirmButtonText: 'Aceptar'
+                })
+            } else {
+                window.location.href = raizVista + dir;
+            }
         }
     };
     peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/iniciarSesion?parametros="
