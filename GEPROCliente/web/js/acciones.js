@@ -71,13 +71,13 @@ function login() {
 
 function cerrarSesion() {
     Swal.fire({
-        title: 'Cerrar sesión?',
+        title: 'Cerrar sesi\u00f3n?',
         text: "Seguro?",
-        type: 'warning',
+        type: 'question',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, cerrar sesión'
+        confirmButtonColor: '#009475',
+        cancelButtonColor: '#E61A1A',
+        confirmButtonText: 'Si, cerrar sesi\u00f3n'
     }).then((result) => {
         if (result.value) {
             window.location.replace("http://localhost:8080/GEPROCliente/cerrarSesion");

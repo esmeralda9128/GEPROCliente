@@ -109,7 +109,7 @@
 
                         </thead>
                         <tbody id="bodyTablaRecursos">
-                       
+
                         </tbody>
                     </table>  
                 </div>
@@ -179,20 +179,20 @@
                 $('#txt4').html('');
                 $('#txt4').append('Empleados');
                 $('#opcion').html('');
-                $('#opcion').append('<button class="btn-verde" onclick="pagarNominas()">Pagar</button>');
+                $('#opcion').append('');
                 $('#cabeceraTablaRecursos').html('');
-                $('#cabeceraTablaRecursos').append('<tr><th style="width: 500px">Nombre</th><th>Rol</th><th>Pagar</th></tr>');
+                $('#cabeceraTablaRecursos').append('<tr><th style="width: 400px">Nombre</th><th style="width: 200px">Rol</th><th style="width: 122px">Valor Ganado</th><th style="width: 122px">Pagar</th></tr>');
                 $('#bodyTablaRecursos').html('');
                 if (recursoHumanos != null) {
                     for (var i = 0; i < recursoHumanos.length; i++) {
-                        $('#bodyTablaRecursos').append('<tr><th>' + recursoHumanos[i].nombre+' '+recursoHumanos[i].primerApellido+' '+recursoHumanos[i].segundoApellido+'</th><th>'+recursoHumanos[i].rol+'</th><th><input type="checkbox" class="form-check-input" value="' +recursoHumanos[i].id+'"></th></tr>');
+                        $('#bodyTablaRecursos').append('<tr><th>' + recursoHumanos[i].nombre + ' ' + recursoHumanos[i].primerApellido + ' ' + recursoHumanos[i].segundoApellido + '</th><th>' + recursoHumanos[i].rol + '</th><th><input size="3"  maxlength="5" pattern="[ 0-9.]+" type="text" placeholder="%"  id="' + i + '"></th><th><button class="btn-verde" onclick="pagarNominas(' + i + ',' + recursoHumanos[i].id + ')">Pagar</button></th></tr>');
                     }
                 }
             }
 
             function verMateriales() {
                 $('#opcion').html('');
-                $('#opcion').append('<button class="btn-verde" onclick="comprarMateriales()">Comprar</button>');
+                $('#opcion').append('<button class="btn-verde" id="enviar" onclick="comprarMateriales()">Comprar</button>');
                 $('#txt4').html('');
                 $('#txt4').append('Materiales');
                 $('#cabeceraTablaRecursos').html('');
@@ -200,9 +200,54 @@
                 $('#bodyTablaRecursos').html('');
                 if (materiales != null) {
                     for (var i = 0; i < materiales.length; i++) {
-                        $('#bodyTablaRecursos').append('<tr><th>' + materiales[i].nombreRecursoMat + '</th><th>' + materiales[i].costoUnitario + '</th><th>' + materiales[i].cantidad + '</th><th>' + materiales[i].total + '</th> <th><input type="checkbox" class="form-check-input" value="' + materiales[i].idRecuroMat + '"></th></tr>');
+                        $('#bodyTablaRecursos').append('<tr><th>' + materiales[i].nombreRecursoMat + '</th><th>' + materiales[i].costoUnitario + '</th><th>' + materiales[i].cantidad + '</th><th>' + materiales[i].total + '</th> <th><input name="checks[]" type="checkbox" value="' + materiales[i].idRecuroMat + '"></th></tr>');
                     }
                 }
+            }
+            function pagarNominas(indice, id) {
+
+            }
+
+            function comprarMateriales() {
+                let valoresCheck = [];
+
+                $("input[type=checkbox]:checked").each(function () {
+                    valoresCheck.push(this.value);
+                });
+                peticion.onreadystatechange = function () {
+                    var respuesta = JSON.parse(this.responseText);
+                    mensaje = respuesta.respuesta.mensaje;
+                    mensaje1 = respuesta.respuesta.mensaje2;
+                    total = respuesta.respuesta.total;
+                   if(total>0){
+                    Swal.fire({
+                        title: mensaje,
+                        text: mensaje1,
+                        type: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#009475',
+                        cancelButtonColor: '#E61A1A',
+                        confirmButtonText: 'Si, deseo comprarlos!'
+                    }).then((result) => {
+                        if (result.value) {
+                            Swal.fire(
+                                    '¡Comprados!',
+                                    'Se han comprado los Recursos Materiales, se descontaron del presupuesto.',
+                                    'success'
+                                    )
+                        }
+                    })
+                    }else{
+                        Swal.fire(
+                                    '¡Error!',
+                                    'Debes seleccionar los Recursos a Comprar',
+                                    'error'
+                                    )
+                    }
+
+                }
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/comprarRecurso?materiales=" + JSON.stringify(valoresCheck), true);
+                peticion.send();
             }
         </script>
     </body>

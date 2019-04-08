@@ -38,7 +38,7 @@
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/Administrador/inicioAdministrador.jsp'"><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/Administrador/perfilAdministrador.jsp'"><center><img src="<%=context%>/imagenes/user.png" height="22" style="padding: 0px 21px" />Perfil</center></button>
                 <button class="btn-sidebar2" onclick="cerrarSesion()"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></button>
-            
+
             </div>
         </div>
         <div class="offset-md-2 container">
@@ -158,50 +158,50 @@
         </div> 
 
         <script>
-                var peticion = new XMLHttpRequest();
-            function registrarProyecto() {
-                var beanProyecto = {
-                    nombre: document.getElementById("nombreP").value,
-                    presupuesto: document.getElementById("presupuesto").value,
-            reserva: document.getElementById("reserva").value,
-            fecha: document.getElementById("fechaInicio").value,
-               semanas: document.getElementById("semanas").value
-           };
-           var beanUsuario = {
-               nombre: document.getElementById("nombreL").value,
-               apellidoP: document.getElementById("apellidoP").value,
-               apellidoM: document.getElementById("apellidoM").value,
-               grado: document.getElementById("grado").value,
-               rfc: document.getElementById("rfc").value,
-               carrera: document.getElementById("carrera").value,
-               email: document.getElementById("email").value,
-               usuario: document.getElementById("usuario").value,
-               pass: document.getElementById("pass").value,
-               conpass: document.getElementById("conpass").value,
-               salario: document.getElementById("salario").value
-           };
-           peticion.onreadystatechange = function () {
-               if (this.status === 200) {
-                   var respuesta = JSON.parse(this.responseText);
-                   Swal.fire(
-                           respuesta.respuesta.mensaje,
-                           '',
-                           respuesta.respuesta.tipo,
-                           ).then((value) => {
-                       if (respuesta.respuesta.registro) {
+        var peticion = new XMLHttpRequest();
+        function registrarProyecto() {
+            var beanProyecto = {
+                nombre: document.getElementById("nombreP").value,
+                presupuesto: document.getElementById("presupuesto").value,
+                reserva: document.getElementById("reserva").value,
+                fecha: document.getElementById("fechaInicio").value,
+                semanas: document.getElementById("semanas").value
+            };
+            var beanUsuario = {
+                nombre: document.getElementById("nombreL").value,
+                apellidoP: document.getElementById("apellidoP").value,
+                apellidoM: document.getElementById("apellidoM").value,
+                grado: document.getElementById("grado").value,
+                rfc: document.getElementById("rfc").value,
+                carrera: document.getElementById("carrera").value,
+                email: document.getElementById("email").value,
+                usuario: document.getElementById("usuario").value,
+                pass: document.getElementById("pass").value,
+                conpass: document.getElementById("conpass").value,
+                salario: document.getElementById("salario").value
+            };
+            peticion.onreadystatechange = function () {
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(this.responseText);
+                    Swal.fire(
+                            respuesta.respuesta.mensaje,
+                            '',
+                            respuesta.respuesta.tipo,
+                            ).then((value) => {
+                        if (respuesta.respuesta.registro) {
 
-                           window.location.href = "http://localhost:8080/GEPROCliente/Vistas/Administrador/inicioAdministrador.jsp";
-                       }
-                 });
+                            window.location.href = "http://localhost:8080/GEPROCliente/Vistas/Administrador/inicioAdministrador.jsp";
+                        }
+                    });
 
 
 
-               }
-           }
-           peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
-                   + JSON.stringify(beanProyecto) + "&usuario=" + JSON.stringify(beanUsuario), true);
-           peticion.send();
-       
+                }
+            }
+            peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
+                    + JSON.stringify(beanProyecto) + "&usuario=" + JSON.stringify(beanUsuario), true);
+            peticion.send();
+
         }
         </script>
 
