@@ -44,7 +44,7 @@
 
         <div class="offset-md-2 container">
             
-            <input type="text" value="<%=session.getAttribute("idProyecto")%>"  id="idProyecto" hidden="true">
+            <input type="text" value="<%=session.getAttribute("idProyecto")%>"  id="idProyecto" hidden="false">
             <br/>
             <div id="nombrePS">
             </div>

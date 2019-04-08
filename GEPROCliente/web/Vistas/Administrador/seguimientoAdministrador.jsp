@@ -124,7 +124,8 @@
                     var proyecto = respuesta.respuesta.proyecto;
                     var lider = respuesta.respuesta.lider;
                     var semana = respuesta.respuesta.semana;
-                    var valorPlaneado =respuesta.respuesta.valorPlaneado;
+                    var costoReal = respuesta.respuesta.presuPuestoGastado;
+                    
                 }
                 $('#nombrePS').html('');
                 $('#nombrePS').append(' <h2 style="float: left">' + proyecto.nombre + '</h2>');
@@ -137,9 +138,12 @@
                 $('#fechaInicioSeguimiento').html('');
                 $('#fechaInicioSeguimiento').append(proyecto.inicioProyecto);
                 $('#presupuestoPlaneado').html('');
-                $('#presupuestoPlaneado').append('$' + valorPlaneado);
+                $('#presupuestoPlaneado').append('$' + proyecto.valorPlaneado);
                 $('#valorGanado').html('');
                 $('#valorGanado').append('$' + proyecto.valorGanado);
+                $('#costoReal').html('');
+                $('#costoReal').append('$' + costoReal);
+                
 
             }
             peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/seguimientoAdmin", true);

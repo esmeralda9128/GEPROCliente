@@ -81,16 +81,7 @@
                         cancelButtonText: 'Cancel'
                     }).then((result) => {
                         if (result.value) {
-                            Swal.fire({
-                                title: 'Are you sure?',
-                                text: "You won't be able to revert this!",
-                                type: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'Yes, delete it!',
-                                cancelButtonText: 'Cancel'
-                            }).then((result) => {
+                           
                                 if (result.value) {
                                     var id = {idProyecto};
                                     peticion.onreadystatechange = function () {
@@ -114,7 +105,7 @@
                                             + JSON.stringify(id), true);
                                     peticion.send();
                                 }
-                            })
+                            
                         }
                     })
                 }

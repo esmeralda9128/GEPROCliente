@@ -5,7 +5,7 @@
 --%>
 <%
     String context = request.getContextPath();
-    if (session.getAttribute("user") == null){
+    if (session.getAttribute("user") == null) {
         response.sendRedirect(context + "/index");
     }
 %>
@@ -58,7 +58,7 @@
                     <button class="btn-azul-grande" onclick="iniciarSeguimiento()">Iniciar Seguimiento </button>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn-azul-grande">Dar Seguimiento </button>
+                    <button class="btn-azul-grande" onclick="darSeguimiento()">Dar Seguimiento </button>
                 </div>
                 <div class="col-md-4">
                     <button class="btn-azul-grande">Seguimiento de Empleados </button>
@@ -84,24 +84,24 @@
                         <h2 style="float: left" id="presupuestoInicial"></h2>
                     </div>
                     <div class="col-md-4">
-                        <h2 style="float: left" id="PresupuestoActual"></h2>
+                        <h2 style="float: left" id="presupuestoActual"></h2>
                     </div>
                     <div class="col-md-4">
                         <h2 style="float: left" id="totalPagado"></h2>
                     </div>
                 </div>
                 <br/>
-
-                <div class="row" id="botones"></div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <br/>
-                        <br/>
-                        <h2 style="float: left" id="txt4"></h2>
-                    </div>
+                <div class="row" id="botones">
                 </div>
                 <br/>
-                <br/>
+                <div class="row">
+                    <div class="col-md-6">                     
+                        <h2 style="float: left" id="txt4"></h2>
+                    </div>
+                    <div class="col-md-6">  
+                        <div id="opcion"></div>
+                    </div>
+                </div>
                 <br/>
                 <div id="tablaRecursos" class="row">
                     <table class="table" style="color: white">
@@ -109,6 +109,7 @@
 
                         </thead>
                         <tbody id="bodyTablaRecursos">
+                       
                         </tbody>
                     </table>  
                 </div>
@@ -120,14 +121,15 @@
         <script>
             var peticion = new XMLHttpRequest();
             var idProyecto = {proyecto: document.getElementById("idProyecto").value};
-            var semana;
-            var materialesPorComprar;
             peticion.onreadystatechange = function () {
                 if (this.status === 200 && this.readyState === 4) {
                     var respuesta = JSON.parse(this.responseText);
-                    var proyecto = respuesta.respuesta.proyecto;
+                    proyecto = respuesta.respuesta.proyecto;
                     semana = respuesta.respuesta.semana;
-                    materialesPorComprar = respuesta.respuesta.materialesPorComprar;
+                    materiales = respuesta.respuesta.recursosMateriales;
+                    humanos = respuesta.respuesta.recursosHumanos;
+                    costoReal = respuesta.respuesta.presuPuestoGastado;
+                    recursoHumanos = respuesta.respuesta.recursosHumanos;
                 }
                 $('#nombrePS').html('');
                 $('#nombrePS').append('<h1 style="float: left">' + proyecto.nombre + '</h1>');
@@ -140,33 +142,65 @@
             function iniciarSeguimiento() {
                 $('#cabeceraTablaRecursos').html('');
                 $('#bodyTablaRecursos').html('');
+                $('#opcion').html('');
                 $('#botones').html('');
+                $('#presupuestoInicial').html('');
+                $('#presupuestoActual').html('');
+                $('#totalPagado').html('');
                 $('#botones').append('<div class="col-md-3"><button class="btn-azul-largo" onclick="verEmpleados()">Pagar Nóminas</button></div><div class="col-md-3"><button class="btn-azul-largo" onclick="verMateriales()">Comprar Materiales</button></div>');
                 $('#txt1').html('');
+                $('#txt2').html('');
+                $('#txt3').html('');
+                $('#txt4').html('');
                 $('#txt1').append('Semana ' + semana);
             }
+            function darSeguimiento() {
+                $('#cabeceraTablaRecursos').html('');
+                $('#bodyTablaRecursos').html('');
+                $('#botones').html('');
+                $('#botones').append('<div class="col-md-6"><button class="btn-azul-largo" onclick="verNominasPDF()">Ver Nóminas</button></div><div class="col-md-6"><button class="btn-azul-largo" onclick="verMaterialesPDF()">Ver Materiales</button></div>');
+                $('#opcion').html('');
+                $('#txt4').html('');
+                $('#txt1').html('');
+                $('#txt1').append('Presupuesto Inicial');
+                $('#txt2').html('');
+                $('#txt2').append('Presupuesto Actual');
+                $('#txt3').html('');
+                $('#txt3').append('Presupuesto Planeado');
+                $('#presupuestoInicial').html('');
+                $('#presupuestoInicial').append('$ ' + proyecto.presupuestoInicial);
+                $('#presupuestoActual').html('');
+                $('#presupuestoActual').append('$ ' + proyecto.presupustoActual);
+                $('#totalPagado').html('');
+                $('#totalPagado').append('$ ' + costoReal);
+            }
+
             function verEmpleados() {
                 $('#txt4').html('');
                 $('#txt4').append('Empleados');
+                $('#opcion').html('');
+                $('#opcion').append('<button class="btn-verde" onclick="pagarNominas()">Pagar</button>');
                 $('#cabeceraTablaRecursos').html('');
-                $('#cabeceraTablaRecursos').append('<tr><th>Nombre</th><th>Rol</th><th>Pagar</th><th>Nómina</th></tr>');
+                $('#cabeceraTablaRecursos').append('<tr><th style="width: 500px">Nombre</th><th>Rol</th><th>Pagar</th></tr>');
                 $('#bodyTablaRecursos').html('');
-                if (materialesPorComprar != null) {
-                     for (var i = 0; i < materialesPorComprar.length; i++) {
-                        $('#bodyTablaRecursos').append('<tr><th>'+materialesPorComprar[i].nombreRecursoMat+'</th></tr>');
+                if (recursoHumanos != null) {
+                    for (var i = 0; i < recursoHumanos.length; i++) {
+                        $('#bodyTablaRecursos').append('<tr><th>' + recursoHumanos[i].nombre+' '+recursoHumanos[i].primerApellido+' '+recursoHumanos[i].segundoApellido+'</th><th>'+recursoHumanos[i].rol+'</th><th><input type="checkbox" class="form-check-input" value="' +recursoHumanos[i].id+'"></th></tr>');
                     }
                 }
             }
-            
+
             function verMateriales() {
+                $('#opcion').html('');
+                $('#opcion').append('<button class="btn-verde" onclick="comprarMateriales()">Comprar</button>');
                 $('#txt4').html('');
-                $('#txt4').append('Empleados');
+                $('#txt4').append('Materiales');
                 $('#cabeceraTablaRecursos').html('');
-                $('#cabeceraTablaRecursos').append('<tr><th>Nombre</th><th>Rol</th><th>Pagar</th><th>Nómina</th></tr>');
+                $('#cabeceraTablaRecursos').append('<tr><th>Nombre</th><th>Precio Unitario</th><th>Cantidad</th><th>Subtotal</th><th>Comprar</th></tr>');
                 $('#bodyTablaRecursos').html('');
-                if (materialesPorComprar != null) {
-                     for (var i = 0; i < materialesPorComprar.length; i++) {
-                        $('#bodyTablaRecursos').append('<tr><th>'+materialesPorComprar[i].nombreRecursoMat+'</th></tr>');
+                if (materiales != null) {
+                    for (var i = 0; i < materiales.length; i++) {
+                        $('#bodyTablaRecursos').append('<tr><th>' + materiales[i].nombreRecursoMat + '</th><th>' + materiales[i].costoUnitario + '</th><th>' + materiales[i].cantidad + '</th><th>' + materiales[i].total + '</th> <th><input type="checkbox" class="form-check-input" value="' + materiales[i].idRecuroMat + '"></th></tr>');
                     }
                 }
             }
