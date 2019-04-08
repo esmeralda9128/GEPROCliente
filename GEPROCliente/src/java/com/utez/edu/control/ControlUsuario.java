@@ -38,6 +38,19 @@ public class ControlUsuario extends ActionSupport{
       return SUCCESS;
     }
     
+    public String reporteMaterialesComprados(){
+      try{
+            conexion = Conexion.getConexion();
+            myList = new ArrayList<>();
+            parametros = new HashMap<String,Object>();
+            parametros.put("idProyecto", idProyectoReporte);
+        }catch (Exception r){
+            System.out.println("Error en metodo reporteNominas 'GetMyList' " +r);
+        }  
+      
+      return SUCCESS;
+    }
+    
     public String redireccion(){
         System.out.println(respuesta.get("numero"));
         

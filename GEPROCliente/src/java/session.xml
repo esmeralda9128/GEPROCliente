@@ -32,5 +32,15 @@ and open the template in the editor.
                 <param name="format">PDF</param>
             </result>
         </action>
+        
+        <action name="reporteMaterialesComprados" class="com.utez.edu.control.ControlUsuario" method="reporteMaterialesComprados">
+            <result name="success" type="jasper">
+                <param name="location">/Reporte/Materiales.jasper</param>
+                <param name="dataSource">myList</param>
+                <param name="reportParameters">parametros</param>
+                <param name="connection">conexion</param>
+                <param name="format">PDF</param>
+            </result>
+        </action>
     </package>
 </struts>
