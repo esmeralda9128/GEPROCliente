@@ -41,7 +41,11 @@
         <div class="offset-md-2 container">
             <h1>Registrar Proyecto</h1>
             <br/>
+<<<<<<< HEAD
             <form action="#" id="formRegistroProyecto" onsubmit="return false" >
+=======
+            <form action="#" onsubmit="return false" >
+>>>>>>> parent of 7034004... registros
                 <div class="form-row">
                     <h2>Información del Proyecto</h2>
                     <br/>
@@ -105,7 +109,7 @@
                     </div>
                     <div class="form-group  col-md-3">
                         <label for="rfc">RFC</label>
-                        <input type="text" placeholder="RFC" minlength="12" maxlength="13" pattern="[A-Z0-9]+" class="form-control" id="rfc" required>
+                        <input type="text" placeholder="RFC" minlength="12" maxlength="13" pattern="[A-Z0-9]+" class="form-control" id="rfc2" required>
                     </div>
                     <div class="form-group  col-md-3">
                         <label for="email">Email</label>
@@ -130,13 +134,22 @@
                         <input type="password" placeholder="Confirmar Contraseña" pattern="[A-Za-z0-9]+" class="form-control" id="conpass" required>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <input type="submit" disabled value="Registrar" id="btnRegistrar" onclick="" class="btn-verde" />
+=======
+                <input type="submit"  value="Registrar" onclick="registrarProyecto()" class="btn-verde" />
+>>>>>>> parent of 7034004... registros
             </form>
         </div> 
 
         <script>
+<<<<<<< HEAD
         $("#formRegistroProyecto").submit(function(e) {
             var peticion = new XMLHttpRequest();
+=======
+        var peticion = new XMLHttpRequest();
+        function registrarProyecto() {
+>>>>>>> parent of 7034004... registros
             var beanProyecto = {
                 nombre: document.getElementById("nombreP").value,
                 presupuesto: document.getElementById("presupuesto").value,
@@ -149,7 +162,7 @@
                 apellidoP: document.getElementById("apellidoP").value,
                 apellidoM: document.getElementById("apellidoM").value,
                 grado: document.getElementById("grado").value,
-                rfc: document.getElementById("rfc").value,
+                rfc: document.getElementById("rfc2").value,
                 carrera: document.getElementById("carrera").value,
                 email: document.getElementById("email").value,
                 usuario: document.getElementById("usuario").value,
@@ -166,34 +179,25 @@
                             respuesta.respuesta.tipo,
                             ).then((value) => {
                         if (respuesta.respuesta.registro) {
+
                             window.location.href = "http://localhost:8080/GEPROCliente/Vistas/Administrador/inicioAdministrador.jsp";
                         }
                     });
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> parent of 7034004... registros
                 }
             }
             peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
                         + JSON.stringify(beanProyecto) + "&usuario=" + JSON.stringify(beanUsuario), true);
             peticion.send();
-        });
-        
-        // Añadir event listener al documento para detectar una tecla presionada
-        document.addEventListener("keyup", validar);
-        
-        function validar() {
-            var flag = true; // bandera
-            // Obtener todos los inputs
-            var inputs = document.getElementsByClassName("form-control");
-            for (var i = 0; i < inputs.length; i++) {
-                if(inputs[i].value.length == 0){
-                    flag = false;
-                }
-            }
-            if(flag){
-                document.getElementById("btnRegistrar").disabled = false;
-            }
+
         }
 
         </script>
+
     </body>
 </html>
