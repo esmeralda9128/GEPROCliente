@@ -44,7 +44,7 @@
         </div>
         <div class="offset-md-2 container">
             <br/>
-            <h1 style="float:left">Perfil</h1>
+            <h1 style="float:left">Seguimiento de Empleados</h1>
             <table class="table" style="color: white">
                 <thead>
                     <tr>
