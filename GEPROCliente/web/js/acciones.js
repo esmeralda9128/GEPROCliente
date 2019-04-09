@@ -58,18 +58,21 @@ function login() {
         pass: document.getElementById("Passwod").value
     };
     peticion.onreadystatechange = function () {
+        
         if (this.status === 200) {
             var respuesta = JSON.parse(this.responseText);
             var dir = respuesta.dir;
+            var nom = respuesta.mensaje;
             if (dir === "/index.jsp") {
                 Swal.fire({
                     title: 'Sesion incorrecta',
                     text: "Usuario y/o contraseña incorrecotos.",
-                    type: 'info',
+                    type: 'warning',
                     confirmButtonColor: '#009475',
                     confirmButtonText: 'Aceptar'
                 })
             } else {
+                
                 window.location.href = raizVista + dir;
             }
         }

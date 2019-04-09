@@ -29,6 +29,7 @@
             <center><img src="<%=context%>/imagenes/geprologo.png" height="92"/></center>
             </br>
             <h1>Líder de Proyecto</h1>
+            <h1><%=session.getAttribute("nombre")%></h1>
             <div class="side-Elements" >                
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp'" ><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
                 <button class="btn-sidebar"><center><img src="<%=context%>/imagenes/user.png" height="22" style="padding: 0px 21px" />Perfil</center></button>
