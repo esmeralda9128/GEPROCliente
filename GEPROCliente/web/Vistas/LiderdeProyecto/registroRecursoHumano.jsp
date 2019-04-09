@@ -43,7 +43,7 @@
             <br/>
             <form action="#" onsubmit="return false" >
                 <div class="form-row">
-                    <h2>Información personal de Líder de Proyecto</h2>
+                    <h2>Información personal del Recurso Humano</h2>
                     <br/>
                 </div>
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>"  id="idProyecto" hidden="true">
@@ -101,7 +101,7 @@
                     </div>
                 </div>
                   <div class="form-row">
-                    <h2>Información de usuario de Líder de Proyecto</h2>
+                    <h2>Información de usuario de Recurso Humano</h2>
                     <br/>
                 </div>
                 <div class="form-row">
