@@ -38,6 +38,7 @@
             <center><img src="<%=context%>/imagenes/geprologo.png" height="92"/></center>
             </br>
             <h1>Líder de Proyecto</h1>
+            <h1><%=session.getAttribute("nombre")%></h1>
             <div class="side-Elements" >                
                 <button class="btn-sidebar"  onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp'"><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/perfilLiderdeProyecto.jsp'"><center><img src="<%=context%>/imagenes/user.png" height="22" style="padding: 0px 21px" />Perfil</center></button>
@@ -61,7 +62,7 @@
                     <button class="btn-azul-grande" onclick="darSeguimiento()">Dar Seguimiento </button>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn-azul-grande">Seguimiento de Empleados </button>
+                    <button class="btn-azul-grande" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/seguimientoEmpleado.jsp'">Seguimiento de Empleados </button>
                 </div>
             </div>
             <br/>
@@ -113,10 +114,7 @@
                         </tbody>
                     </table>  
                 </div>
-
-
             </div>
-
         </div>
         <script>
             var peticion = new XMLHttpRequest();
@@ -249,6 +247,8 @@
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/comprarRecurso?materiales=" + JSON.stringify(valoresCheck), true);
                 peticion.send();
             }
+            
+            
         </script>
     </body>
 </html>
