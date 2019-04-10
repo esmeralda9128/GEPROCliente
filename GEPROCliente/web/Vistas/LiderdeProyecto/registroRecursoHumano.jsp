@@ -44,7 +44,7 @@
             <br/>
             <form action="#" onsubmit="return false" >
                 <div class="form-row">
-                    <h2>Información personal de Líder de Proyecto</h2>
+                    <h2>Información personal del Recurso Humano</h2>
                     <br/>
                 </div>
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>"  id="idProyecto" hidden="true">
@@ -52,75 +52,60 @@
                     <div class="form-group  col-md-4">
                         <label for="nombreL">Nombre(s)</label>
                         <input type="text" placeholder="Nombre"  pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="nombreL" required>
-                        <p class="help-block"></p>
                     </div>
                     <div class="form-group  col-md-4">
                         <label for="apellidoP">Apellido Paterno</label>
                         <input type="text" placeholder="Apellido Paterno" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="apellidoP" required>
-                        <p class="help-block"></p>
                     </div>
                     <div class="form-group  col-md-4">
                         <label for="apellidoM">Apellido Materno</label>
                         <input type="text" placeholder="Apellido Materno" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="apellidoM" required>
-                        <p class="help-block"></p>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group  col-md-2">
                         <label for="grado">Grado Académico</label>
                         <input type="text" placeholder="Grado Académico" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.]+" class="form-control" id="grado" required>
-                        <p class="help-block"></p>
                     </div>
                     <div class="form-group  col-md-7">
                         <label for="carrera">Carrera</label>
                         <input type="text" placeholder="Carrera" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="carrera" required>
-                        <p class="help-block"></p>
                     </div>
                 </div>
                 <div class="form-row">
                      <div class="form-group  col-md-3">
                         <label for="rol">Rol</label>
                         <input type="text" placeholder="Rol"  pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="rol" required>
-                        <p class="help-block"></p>
                     </div>
                     <div class="form-group  col-md-2">
                         <label for="salario">Salario por hora</label>
                         <input type="text" placeholder="Salario"  pattern="[0-9.]+" class="form-control" id="salario" required>
-                        <p class="help-block"></p>
                     </div>
                     <div class="form-group  col-md-3">
                         <label for="rfc">RFC</label>
-
-                        <input type="text" placeholder="RFC" minlength="12" maxlength="13" pattern="[A-Z0-9]+" class="form-control" id="rfc" required>
-                        <p class="help-block"></p>
+                        <input type="text" placeholder="RFC" minlength="12" maxlength="13" pattern="[A-Z0-9]+" class="form-control" id="rfc1" required>
                     </div>
                     <div class="form-group  col-md-3">
                         <label for="email">Email</label>
-
                         <input type="email" placeholder="Email" class="form-control" id="email" required>
-                        <p class="help-block"></p>
                     </div>
                 </div>
                   <div class="form-row">
-                    <h2>Información de usuario de Líder de Proyecto</h2>
+                    <h2>Información de usuario de Recurso Humano</h2>
                     <br/>
                 </div>
                 <div class="form-row">
                     <div class="form-group  col-md-3">
                         <label for="usuario">Usuario</label>
                         <input type="text" placeholder="Usuario" pattern="[A-Za-z0-9]+" class="form-control" id="usuario" required>
-                        <p class="help-block"></p>
                     </div>
-
                     <div class="form-group  col-md-3">
                         <label for="pass">Contraseña</label>
                         <input type="password" placeholder="Contraseña" pattern="[A-Za-z0-9]+" class="form-control" id="pass" required>
-                        <p class="help-block"></p>
                     </div>
                     <div class="form-group  col-md-3">
                         <label for="conpass">Confirmar contraseña</label>
                         <input type="password" placeholder="Confirmar Contraseña" pattern="[A-Za-z0-9]+" class="form-control" id="conpass" required>
-                        <p class="help-block"></p>
                     </div>
                 </div>
                 <input type="submit"  value="Registrar"  onclick="registrarRecursoHumano()" class ="btn-verde" />
@@ -134,7 +119,7 @@
                 apellidoP: document.getElementById("apellidoP").value,
                 apellidoM: document.getElementById("apellidoM").value,
                 grado: document.getElementById("grado").value,
-                rfc: document.getElementById("rfc").value,
+                rfc: document.getElementById("rfc1").value,
                 carrera: document.getElementById("carrera").value,
                 email: document.getElementById("email").value,
                 usuario: document.getElementById("usuario").value,

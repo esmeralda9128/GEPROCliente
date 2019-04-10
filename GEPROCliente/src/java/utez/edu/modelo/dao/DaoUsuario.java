@@ -212,6 +212,7 @@ public class DaoUsuario {
         try {
             con = Conexion.getConexion();
             psm = con.prepareStatement("update administrador set nombre=?,pass=?,usuario=?,carrera=?,gradoEstudios?");
+            
             rs = psm.executeQuery();
 
         } catch (SQLException ex) {
