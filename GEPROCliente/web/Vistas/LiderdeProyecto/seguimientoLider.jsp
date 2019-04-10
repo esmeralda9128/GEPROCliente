@@ -191,9 +191,6 @@
                 }
                 $('#nombrePS').html('');
                 $('#nombrePS').append('<h1 style="float: left">' + proyecto.nombre + '</h1>');
-
-
-
             }
             peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/seguimientoProyecto?proyecto=" + JSON.stringify(idProyecto), true);
             peticion.send();
@@ -263,7 +260,6 @@
                     }
                 }
             }
-<<<<<<< HEAD
             function pagarNominas(indice, id) {
                 
             }
@@ -271,7 +267,6 @@
             function verNominasPDF(){
                 $("#formReporte").submit();
             }
-=======
             function modalNomina(i) {
                 document.getElementById('nombre').value = (recursoHumanos[i].nombre + ' ' + recursoHumanos[i].primerApellido + ' ' + recursoHumanos[i].segundoApellido);
                 document.getElementById('rol').value = recursoHumanos[i].rol;
@@ -291,8 +286,6 @@
             }
             
             function pagarNomina(){
-                
->>>>>>> df48667e14df4916e36f4fd54c5826837cd09200
             }
 
             function iniciarMateriales() {
