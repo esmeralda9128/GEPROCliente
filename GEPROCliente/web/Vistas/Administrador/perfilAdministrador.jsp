@@ -120,11 +120,11 @@
             function actualizarPerfil() {
                 Swal.fire({
                     title: 'Confirmar solicitud',
-                    text: "Actualizar informacióno",
+                    text: "¿Desea actualizar la informaci\u00f3n?",
                     type: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
+                    confirmButtonColor: '#009475',
+                    cancelButtonColor: '#E61A1A',
                     confirmButtonText: 'Si',
                     cancelButtonText: 'No'
                 }).then((result) => {
