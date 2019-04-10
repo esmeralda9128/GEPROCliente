@@ -115,6 +115,9 @@
                     </table>  
                 </div>
             </div>
+            <form action="<%=context%>/reporteNominas" target="_blank" id="formReporte" method="post">
+                <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
+            </form>
         </div>
         <script>
             var peticion = new XMLHttpRequest();
@@ -203,7 +206,11 @@
                 }
             }
             function pagarNominas(indice, id) {
-
+                
+            }
+            
+            function verNominasPDF(){
+                $("#formReporte").submit();
             }
 
             function comprarMateriales() {
