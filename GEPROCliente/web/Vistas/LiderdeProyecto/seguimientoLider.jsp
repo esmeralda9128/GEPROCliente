@@ -115,6 +115,9 @@
                     </table>  
                 </div>
             </div>
+            <form action="<%=context%>/reporteNominas" target="_blank" id="formReporte" method="post">
+                <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
+            </form>
         </div>
 
         <%---
@@ -259,6 +262,11 @@
                         $('#bodyTablaRecursos').append('<tr><th>' + materiales[i].nombreRecursoMat + '</th><th>' + materiales[i].costoUnitario + '</th><th>' + materiales[i].cantidad + '</th><th>' + materiales[i].total + '</th> <th><input name="checks[]" type="checkbox" value="' + materiales[i].idRecuroMat + '"></th></tr>');
                     }
                 }
+            }
+
+            
+            function verNominasPDF(){
+                $("#formReporte").submit();
             }
             function modalNomina(i) {
                 document.getElementById('nombre').value = (recursoHumanos[i].nombre + ' ' + recursoHumanos[i].primerApellido + ' ' + recursoHumanos[i].segundoApellido);
