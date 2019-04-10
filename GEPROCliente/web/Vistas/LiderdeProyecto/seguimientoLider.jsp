@@ -38,6 +38,7 @@
             <center><img src="<%=context%>/imagenes/geprologo.png" height="92"/></center>
             </br>
             <h1>Líder de Proyecto</h1>
+            <h1><%=session.getAttribute("nombre")%></h1>
             <div class="side-Elements" >                
                 <button class="btn-sidebar"  onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp'"><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/perfilLiderdeProyecto.jsp'"><center><img src="<%=context%>/imagenes/user.png" height="22" style="padding: 0px 21px" />Perfil</center></button>
@@ -61,7 +62,7 @@
                     <button class="btn-azul-grande" onclick="darSeguimiento()">Dar Seguimiento </button>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn-azul-grande">Seguimiento de Empleados </button>
+                    <button class="btn-azul-grande" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/seguimientoEmpleado.jsp'">Seguimiento de Empleados </button>
                 </div>
             </div>
             <br/>
@@ -113,11 +114,65 @@
                         </tbody>
                     </table>  
                 </div>
-
-
             </div>
-
         </div>
+
+        <%---
+        Empieza Modal para pagar nóminas
+        ---%>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Registrar Valor Ganado</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" onsubmit="return false">
+                            <div class="form-row">
+                                <div class="form-group  col-md-10">
+                                    <label style="color:black" for="nombre">Nombre</label >
+                                    <input type="text"  class="form-control" id="nombre" readonly="true">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group  col-md-5">
+                                    <label  style="color:black" for="rol">Rol</label>
+                                    <input type="text" class="form-control" id="rol" readonly="true">
+
+                                </div>
+                                <div class="form-group  col-md-3">
+                                    <label style="color:black" for="salario">Salario Bruto</label>
+                                    <input type="text" class="form-control" id="salario" readonly="true">
+
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group  col-md-3">
+                                    <label style="color:black" for="valorGanado">Valor Ganado</label>
+                                    <input type="text" class="form-control"  pattern="[0-9.]+" id="valorGanado" required>
+
+                                </div>
+                            </div>
+
+
+                            <div style="float:right">
+                                <button type="button" class="btn-rojo" data-dismiss="modal">Cerrar</button>
+                                <input type="submit"  value="Registrar"  onclick="registrarRecursoMaterial()" class ="btn-verde" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <script>
             var peticion = new XMLHttpRequest();
             var idProyecto = {proyecto: document.getElementById("idProyecto").value};
@@ -133,6 +188,7 @@
                 }
                 $('#nombrePS').html('');
                 $('#nombrePS').append('<h1 style="float: left">' + proyecto.nombre + '</h1>');
+
 
 
             }
@@ -181,18 +237,18 @@
                 $('#opcion').html('');
                 $('#opcion').append('');
                 $('#cabeceraTablaRecursos').html('');
-                $('#cabeceraTablaRecursos').append('<tr><th style="width: 400px">Nombre</th><th style="width: 200px">Rol</th><th style="width: 122px">Valor Ganado</th><th style="width: 122px">Pagar</th></tr>');
+                $('#cabeceraTablaRecursos').append('<tr><th style="width: 200px">Nombre</th><th style="width: 200px">Rol</th><th style="width: 50px">Pagar</th></tr>');
                 $('#bodyTablaRecursos').html('');
                 if (recursoHumanos != null) {
                     for (var i = 0; i < recursoHumanos.length; i++) {
-                        $('#bodyTablaRecursos').append('<tr><th>' + recursoHumanos[i].nombre + ' ' + recursoHumanos[i].primerApellido + ' ' + recursoHumanos[i].segundoApellido + '</th><th>' + recursoHumanos[i].rol + '</th><th><input size="3"  maxlength="5" pattern="[ 0-9.]+" type="text" placeholder="%"  id="' + i + '"></th><th><button class="btn-verde" onclick="pagarNominas(' + i + ',' + recursoHumanos[i].id + ')">Pagar</button></th></tr>');
+                        $('#bodyTablaRecursos').append('<tr><th>' + recursoHumanos[i].nombre + ' ' + recursoHumanos[i].primerApellido + ' ' + recursoHumanos[i].segundoApellido + '</th><th>' + recursoHumanos[i].rol + '</th><th><button onclick="modalNomina(' + i + ')" class="btn-verde">Pagar</button></th></tr>');
                     }
                 }
             }
 
             function verMateriales() {
                 $('#opcion').html('');
-                $('#opcion').append('<button class="btn-verde" id="enviar" onclick="comprarMateriales()">Comprar</button>');
+                $('#opcion').append('<button class="btn-verde" id="enviar" onclick="iniciarMateriales()">Comprar</button>');
                 $('#txt4').html('');
                 $('#txt4').append('Materiales');
                 $('#cabeceraTablaRecursos').html('');
@@ -204,13 +260,30 @@
                     }
                 }
             }
-            function pagarNominas(indice, id) {
+            function modalNomina(i) {
+                document.getElementById('nombre').value = (recursoHumanos[i].nombre + ' ' + recursoHumanos[i].primerApellido + ' ' + recursoHumanos[i].segundoApellido);
+                document.getElementById('rol').value = recursoHumanos[i].rol;
+                document.getElementById('salario').value = ((recursoHumanos[i].salario) * 40);
+                $('#exampleModal').modal('show');
 
+                var usuario = {
+                    idUsurio: recursoHumanos[i].id,
+                    idProyecto: recursoHumanos[i].idProyecto
+                     }
+                   peticion.onreadystatechange = function () {
+                    if (this.status === 200) {
+                    }
+                }
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/usuarioPagar?usuario="+ JSON.stringify(usuario), true);
+                peticion.send();
+            }
+            
+            function pagarNomina(){
+                
             }
 
-            function comprarMateriales() {
+            function iniciarMateriales() {
                 let valoresCheck = [];
-
                 $("input[type=checkbox]:checked").each(function () {
                     valoresCheck.push(this.value);
                 });
@@ -219,36 +292,58 @@
                     mensaje = respuesta.respuesta.mensaje;
                     mensaje1 = respuesta.respuesta.mensaje2;
                     total = respuesta.respuesta.total;
-                   if(total>0){
-                    Swal.fire({
-                        title: mensaje,
-                        text: mensaje1,
-                        type: 'question',
-                        showCancelButton: true,
-                        confirmButtonColor: '#009475',
-                        cancelButtonColor: '#E61A1A',
-                        confirmButtonText: 'Si, deseo comprarlos!'
-                    }).then((result) => {
-                        if (result.value) {
+                    bandera = respuesta.respuesta.bandera;
+                    tipo = respuesta.respuesta.tipo;
+                    if (!bandera) {
+                        if (total > 0) {
+                            Swal.fire({
+                                title: mensaje,
+                                text: mensaje1,
+                                type: tipo,
+                                showCancelButton: true,
+                                confirmButtonColor: '#009475',
+                                cancelButtonColor: '#E61A1A',
+                                confirmButtonText: 'Si, deseo comprarlos!'
+                            }).then((
+                                    result) => {
+                                if (result.value) {
+                                    comprarMateriales();
+
+                                }
+                            })
+                        } else {
                             Swal.fire(
-                                    '¡Comprados!',
-                                    'Se han comprado los Recursos Materiales, se descontaron del presupuesto.',
-                                    'success'
+                                    '¡Cuidado!',
+                                    'Debes seleccionar los Recursos a Comprar',
+                                    'warning'
                                     )
                         }
-                    })
-                    }else{
+                    } else {
                         Swal.fire(
-                                    '¡Error!',
-                                    'Debes seleccionar los Recursos a Comprar',
-                                    'error'
-                                    )
+                                mensaje,
+                                mensaje1,
+                                'warning'
+                                )
+                    }
+                }
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/mostrarAlertasRecursos?materiales=" + JSON.stringify(valoresCheck), true);
+                peticion.send();
+            }
+            function comprarMateriales() {
+                peticion.onreadystatechange = function () {
+                    if (this.status === 200) {
+                        Swal.fire(
+                                '¡Se han comprado los materiales correctamente!',
+                                '',
+                                'success'
+                                )
                     }
 
                 }
-                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/comprarRecurso?materiales=" + JSON.stringify(valoresCheck), true);
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/comprarRecursosMateriales", true);
                 peticion.send();
             }
+
         </script>
     </body>
 </html>

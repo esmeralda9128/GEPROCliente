@@ -32,6 +32,7 @@
             
             </br>
             <h1>Líder de Proyecto</h1>
+            <h1><%=session.getAttribute("nombre")%></h1>
             <div class="side-Elements" >                
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp'"  ><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/perfilLiderdeProyecto.jsp'"><center><img src="<%=context%>/imagenes/user.png" height="22" style="padding: 0px 21px" />Perfil</center></button>
@@ -43,7 +44,7 @@
             <br/>
             <form action="#" onsubmit="return false" >
                 <div class="form-row">
-                    <h2>Información personal de Líder de Proyecto</h2>
+                    <h2>Información personal del Recurso Humano</h2>
                     <br/>
                 </div>
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>"  id="idProyecto" hidden="true">
@@ -90,7 +91,7 @@
                     </div>
                 </div>
                   <div class="form-row">
-                    <h2>Información de usuario de Líder de Proyecto</h2>
+                    <h2>Información de usuario de Recurso Humano</h2>
                     <br/>
                 </div>
                 <div class="form-row">
