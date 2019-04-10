@@ -5,7 +5,7 @@
 --%>
 <%
     String context = request.getContextPath();
-    if (session.getAttribute("user") == null){
+    if (session.getAttribute("user") == null) {
         response.sendRedirect(context + "/index");
     }
 %>
@@ -15,7 +15,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Perfil Líder de Proyecto-GEPRO</title>
-         <script src="<%=context%>/js/jqBootstrapValidation.js"></script>
+        <script src="<%=context%>/js/jqBootstrapValidation.js"></script>
         <script src="<%=context%>/js/sweetalert2.all.min.js"></script>
         <link rel="shortcut icon" href="<%=context%>/imagenes/geprologo.ico"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -33,9 +33,10 @@
             <div class="side-Elements" >                
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp'" ><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
                 <button class="btn-sidebar"><center><img src="<%=context%>/imagenes/user.png" height="22" style="padding: 0px 21px" />Perfil</center></button>
-                <button class="btn-sidebar2" onclick="cerrarSesion()"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></button>
-            </div>
-        </div>
+                <button class="btn-sidebar2" onclick="cerrarSesion()"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></button>            
+            </div>            
+        </div>            
+        <input type="text" value="<%=session.getAttribute("idProyecto")%>"  id="idProyecto" hidden="false">
 
         <div class="offset-md-2 container">
             </br>
@@ -74,16 +75,17 @@
                         <p class="help-block"></p>
                     </div>
                 </div>                
-                
+
             </form>
         </div>
-             <script>
+        <script>
             var peticion = new XMLHttpRequest();
+            var idProyecto = {proyecto: document.getElementById("idProyecto").value};
             peticion.onreadystatechange = function () {
                 if (this.status === 200 && this.readyState === 4) {
                     var respuesta = JSON.parse(this.responseText);
                     var lider = respuesta.respuesta.usuario;
-                    document.getElementById('nombre').value = lider.nombre;
+                    document.getElementById('nombre').value = lider.nombre + ' ' + lider.primerApellido + ' ' + lider.segundoApellido;
                     document.getElementById('grado').value = lider.gradoEstudios;
                     document.getElementById('carrera').value = lider.carrera;
                     document.getElementById('usuario').value = lider.usuario;
@@ -91,11 +93,11 @@
                 }
 
             }
-            peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/consultarPerfilLider", true);
+            peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/consultarPerfilLider?idUsuario=" + JSON.stringify(idProyecto), true);
             peticion.send();
         </script>
-            
-            
-            
+
+
+
     </body>
 </html>

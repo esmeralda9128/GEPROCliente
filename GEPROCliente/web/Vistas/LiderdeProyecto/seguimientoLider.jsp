@@ -161,7 +161,7 @@
 
                             <div style="float:right">
                                 <button type="button" class="btn-rojo" data-dismiss="modal">Cerrar</button>
-                                <input type="submit"  value="Registrar"  onclick="registrarRecursoMaterial()" class ="btn-verde" />
+                                <input type="submit"  value="Registrar"  onclick="pagarNomina()" class ="btn-verde" />
                             </div>
                         </form>
                     </div>
@@ -269,17 +269,30 @@
                 var usuario = {
                     idUsurio: recursoHumanos[i].id,
                     idProyecto: recursoHumanos[i].idProyecto
-                     }
-                   peticion.onreadystatechange = function () {
+                }
+                peticion.onreadystatechange = function () {
                     if (this.status === 200) {
                     }
                 }
-                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/usuarioPagar?usuario="+ JSON.stringify(usuario), true);
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/usuarioPagar?usuario=" + JSON.stringify(usuario), true);
                 peticion.send();
             }
-            
-            function pagarNomina(){
-                
+
+            function pagarNomina() {
+                var valorGanado = {
+                    valorGanado: document.getElementById('valorGanado').value}
+                peticion.onreadystatechange = function () {
+                    var respuesta = JSON.parse(this.responseText);
+                    if (this.status === 200) {
+                        Swal.fire(
+                                    respuesta.respuesta.mensaje,
+                                    '',
+                                    respuesta.respuesta.tipo
+                                    )
+                    }
+                }
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/pagarNomina?valorGanado=" + JSON.stringify(valorGanado), true);
+                peticion.send();
             }
 
             function iniciarMateriales() {
