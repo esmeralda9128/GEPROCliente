@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Perfil Administrador</title>
         <link rel="shortcut icon" href="<%=context%>/imagenes/geprologo.ico"/>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="<%=context%>/css/style.css">
         <script type="text/javascript" src="<%=context%>/js/acciones.js"></script> 
-        
+
     </head>
     <body>
         <div id="sidebar">
@@ -45,7 +45,7 @@
             <h1 style="float:left">Perfil</h1>
             </br>
             </br>
-            <form action="#" onsubmit="return false">
+            <form action="#" onsubmit="return false" >
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="nombre">Nombre</label>
@@ -72,8 +72,8 @@
                         <p class="help-block"></p>
                     </div>
                     <div class="form-group col-md-3">
-                        <label for="contrasenia">Contraseña</label>
-                        <input type="password"  pattern="[a-zA-Z0-9]+" class="form-control" id="contrasenia" required>
+                        <label for="contrasenia">Contraseña actual</label>
+                        <input type="text"  pattern="[a-zA-Z0-9]+" class="form-control" id="contrasenia" required readonly>
                         <p class="help-block"></p>
                     </div>
                 </div>
@@ -92,9 +92,8 @@
 
                 </div>
                 <center>
-
                     <button  style="margin-right: 200px" class="btn-rojo">Cancelar</button>
-                    <button type="submit" class="btn-verde">Enviar</button>
+                    <button type="submit" class="btn-verde" onclick="actualizarPerfil()">Enviar</button>
                 </center>
             </form>
 
@@ -117,16 +116,61 @@
             peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/consultarPerfilAdmin", true);
             peticion.send();
         </script>
-<!--        <script>
-            $(document).ready(function () {
-                var vidFile = document.getElementById('nuevaContrasenia').value.toString().length;
-                if (vidFile === 0) {
-                    $("nuevaConfirmarContrasenia").attr('disabled', 'disabled');
-                } else {
-                    d$("nuevaConfirmarContrasenia").removeAttr('disabled');
-                }
-            });
-        </script>-->
+        <script>
+            function actualizarPerfil() {
+                Swal.fire({
+                    title: 'Confirmar solicitud',
+                    text: "Actualizar informacióno",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si',
+                    cancelButtonText: 'No'
+                }).then((result) => {
+                    if (result.value) {
+                        var beanUsuario = {
+                            nombre: document.getElementById("nombre").value,
+                            gradoEstudios: document.getElementById("grado").value,
+                            carrera: document.getElementById("carrera").value,
+                            usuario: document.getElementById("usuario").value,
+                            pass: document.getElementById("contrasenia").value,
+                            newPass: document.getElementById("nuevaContrasenia").value,
+                            confirmNewPass: document.getElementById("nuevaConfirmarContrasenia").value
+                        };
+                        var peticion = new XMLHttpRequest();
+                        peticion.onreadystatechange = function () {
+                            if (this.status === 200) {
+                                var respuesta = JSON.parse(this.responseText);
+                                Swal.fire(
+                                        respuesta.respuesta.mensaje,
+                                        '',
+                                        respuesta.respuesta.tipo,
+                                        ).then((value) => {
+                                            if (respuesta.respuesta.registro) {
+                                                window.location.href = "http://localhost:8080/GEPROCliente/Vistas/Administrador/perfilAdministrador.jsp";
+                                            }
+                                        });
+                            }
+                        }
+
+                        peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/actualizarPerfilAdmin?perfilAdmin="
+                                + JSON.stringify(beanUsuario), true);
+                        peticion.send();
+                    }
+                })
+            }
+        </script>
+        <!--        <script>
+                    $(document).ready(function () {
+                        var vidFile = document.getElementById('nuevaContrasenia').value.toString().length;
+                        if (vidFile === 0) {
+                            $("nuevaConfirmarContrasenia").attr('disabled', 'disabled');
+                        } else {
+                            d$("nuevaConfirmarContrasenia").removeAttr('disabled');
+                        }
+                    });
+                </script>-->
 
 
     </body>

@@ -81,31 +81,30 @@
                         cancelButtonText: 'Cancel'
                     }).then((result) => {
                         if (result.value) {
-                           
-                                if (result.value) {
-                                    var id = {idProyecto};
-                                    peticion.onreadystatechange = function () {
-                                        if (this.status === 200 && this.readyState === 4) {
-                                            var respuesta = JSON.parse(this.responseText);
-                                            $('#cardsProyectos').html('');
-                                            var proyectos = respuesta.respuesta.proyectos;
-                                            if (proyectos !== null) {
-                                                for (var i = 0; i < proyectos.length; i++) {
-                                                    $('#cardsProyectos').append(' <div class="col-md-4"><div class="card" style="width: 18rem;"><div class="card-header" style="background-color: #009475">' + proyectos[i].nombre + '</div><div class="card-body"><h5 class="card-title" >' + proyectos[i].lider.nombre + ' ' + proyectos[i].lider.primerApellido + ' ' + proyectos[i].lider.segundoApellido + '</h5><p class="card-text">' + 'Semanas ' + proyectos[i].semanas + '<br/>' + 'Prespuesto ' + proyectos[i].presupuestoInicial + '</p><center><button class="btn-azul" onclick="consultarProyectoAdmin(' + proyectos[i].idProyecto + ')">Seguimiento</button><button class="btn-rojo" onclick="eliminarProyecto(' + proyectos[i].idProyecto + ')">Eliminar</button></center></div></div><br/></div>');
-                                                }
+                            if (result.value) {
+                                var id = {idProyecto};
+                                peticion.onreadystatechange = function () {
+                                    if (this.status === 200 && this.readyState === 4) {
+                                        var respuesta = JSON.parse(this.responseText);
+                                        $('#cardsProyectos').html('');
+                                        var proyectos = respuesta.respuesta.proyectos;
+                                        if (proyectos !== null) {
+                                            for (var i = 0; i < proyectos.length; i++) {
+                                                $('#cardsProyectos').append(' <div class="col-md-4"><div class="card" style="width: 18rem;"><div class="card-header" style="background-color: #009475">' + proyectos[i].nombre + '</div><div class="card-body"><h5 class="card-title" >' + proyectos[i].lider.nombre + ' ' + proyectos[i].lider.primerApellido + ' ' + proyectos[i].lider.segundoApellido + '</h5><p class="card-text">' + 'Semanas ' + proyectos[i].semanas + '<br/>' + 'Prespuesto ' + proyectos[i].presupuestoInicial + '</p><center><button class="btn-azul" onclick="consultarProyectoAdmin(' + proyectos[i].idProyecto + ')">Seguimiento</button><button class="btn-rojo" onclick="eliminarProyecto(' + proyectos[i].idProyecto + ')">Eliminar</button></center></div></div><br/></div>');
                                             }
-                                            Swal.fire(
-                                                    respuesta.respuesta.mensaje,
-                                                    '',
-                                                    respuesta.respuesta.tipo,
-                                                    );
                                         }
+                                        Swal.fire(
+                                                respuesta.respuesta.mensaje,
+                                                '',
+                                                respuesta.respuesta.tipo,
+                                                );
                                     }
-                                    peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/eliminarProyecto?proyecto="
-                                            + JSON.stringify(id), true);
-                                    peticion.send();
                                 }
-                            
+                                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/eliminarProyecto?proyecto="
+                                        + JSON.stringify(id), true);
+                                peticion.send();
+                            }
+
                         }
                     })
                 }

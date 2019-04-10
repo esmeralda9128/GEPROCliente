@@ -90,7 +90,7 @@
                 }
 
             }
-            peticion.open("GET", "http://localhost:8080/GEPROCliente/servicioGEPRO/proyecto/consultarPerfilLider", true);
+            peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/consultarPerfilLider", true);
             peticion.send();
         </script>
             
