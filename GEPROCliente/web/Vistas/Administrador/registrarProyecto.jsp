@@ -41,7 +41,7 @@
         <div class="offset-md-2 container">
             <h1>Registrar Proyecto</h1>
             <br/>
-            <form action="#" id="myform" onsubmit="return false" >
+            <form action="#" id="formRegistroProyecto" onsubmit="return false" >
                 <div class="form-row">
                     <h2>Información del Proyecto</h2>
                     <br/>
@@ -130,12 +130,12 @@
                         <input type="password" placeholder="Confirmar Contraseña" pattern="[A-Za-z0-9]+" class="form-control" id="conpass" required>
                     </div>
                 </div>
-                <input type="submit" disabled value="Registrar" id="btnRegistrar" class="btn-verde" />
+                <input type="submit" disabled value="Registrar" id="btnRegistrar" onclick="" class="btn-verde" />
             </form>
         </div> 
 
         <script>
-        $("#myform").submit(function(e) {
+        $("#formRegistroProyecto").submit(function(e) {
             var peticion = new XMLHttpRequest();
             var beanProyecto = {
                 nombre: document.getElementById("nombreP").value,
@@ -171,10 +171,10 @@
                     });
 
                 }
-                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
-                        + JSON.stringify(beanProyecto) + "&usuario=" + JSON.stringify(beanUsuario), true);
-                peticion.send();
             }
+            peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
+                        + JSON.stringify(beanProyecto) + "&usuario=" + JSON.stringify(beanUsuario), true);
+            peticion.send();
         });
         
         // Añadir event listener al documento para detectar una tecla presionada
