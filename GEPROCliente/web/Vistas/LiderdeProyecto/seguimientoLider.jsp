@@ -52,7 +52,23 @@
             </div>
             <br/>
             <br/>
-            <br/>
+            <div class="row">
+                <div class="col-md-3">
+                    <h2 style="float: left">Presupuesto Inicial</h2>
+                </div>
+                <div class="col-md-3">
+                    <h2 style="float: left">Presupuesto Actual</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <h2 style="float: left" id="presupuestoInicial"></h2>
+                </div>
+                <div class="col-md-3">
+                    <h2 style="float: left" id="presupuestoActual"></h2>
+                </div>
+            </div>
+
             <br/>
             <div class="row">
                 <div class="col-md-4">
@@ -70,30 +86,24 @@
 
             <div class="container" >
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <h2 style="float: left" id="txt1"></h2>
                     </div>
-                    <div class="col-md-3">
-                        <h2 style="float: left" id="txt2"></h2>
-                    </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <h2 style="float: left" id="txt3"></h2>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <h2 style="float: left" id="txt4"></h2>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <h2 style="float: left" id="presupuestoInicial"></h2>
+                    <div class="col-md-4">
+                        <h2 style="float: left" id="valorPlaneado"></h2>
                     </div>
-                    <div class="col-md-3">
-                        <h2 style="float: left" id="presupuestoActual"></h2>
-                    </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <h2 style="float: left" id="totalPagado"></h2>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <h2 style="float: left" id="valorGanadoVer"></h2>
                     </div>
                 </div>
@@ -228,9 +238,13 @@
                     humanos = respuesta.respuesta.recursosHumanos;
                     costoReal = respuesta.respuesta.presuPuestoGastado;
                     recursoHumanos = respuesta.respuesta.recursosHumanos;
+                    valorPlaneado = respuesta.respuesta.valorPlaneado;
+                    gastado = respuesta.respuesta.gastado;
                 }
                 $('#nombrePS').html('');
                 $('#nombrePS').append('<h1 style="float: left">' + proyecto.nombre + '</h1>');
+                $('#presupuestoInicial').append('$ ' + proyecto.presupuestoInicial);
+                $('#presupuestoActual').append('$ ' + proyecto.presupustoActual);
             }
             peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/seguimientoProyecto?proyecto=" + JSON.stringify(idProyecto), true);
             peticion.send();
@@ -240,16 +254,18 @@
                 $('#bodyTablaRecursos').html('');
                 $('#opcion').html('');
                 $('#botones').html('');
-                $('#presupuestoInicial').html('');
-                $('#presupuestoActual').html('');
                 $('#totalPagado').html('');
                 $('#botones').append('<div class="col-md-3"><button class="btn-azul-largo" onclick="verEmpleados()">Pagar Nóminas</button></div><div class="col-md-3"><button class="btn-azul-largo" onclick="verMateriales()">Comprar Materiales</button></div>');
                 $('#txt1').html('');
-                $('#txt2').html('');
                 $('#txt3').html('');
                 $('#txt5').html('');
+                $('#txt4').html('');
                 $('#txt1').append('Semana ' + semana);
                 $('#valoresAcumulados').html('');
+                $('#totalPagado').html('');
+                $('#valorGanadoVer').html('');
+                $('#valorPlaneado').html('');
+
             }
             function darSeguimiento() {
                 $('#cabeceraTablaRecursos').html('');
@@ -257,25 +273,21 @@
                 $('#botones').html('');
                 $('#botones').append('<div class="col-md-4"><button class="btn-azul-largo" onclick="verNominasPDF()">Ver Nóminas</button></div><div class="col-md-4"><button class="btn-azul-largo" onclick="verMaterialesPDF()">Ver Materiales</button></div><div class="col-md-4"><button class="btn-azul-largo" onclick="solicitarReserva()">Solicitar Reserva</button></div>');
                 $('#opcion').html('');
-                $('#txt5').html('');
                 $('#txt1').html('');
-                $('#txt1').append('Presupuesto Inicial');
-                $('#txt2').html('');
-                $('#txt2').append('Presupuesto Actual');
+                $('#txt1').append('Presupuesto Planeado');
+                $('#txt5').html('');
                 $('#txt3').html('');
-                $('#txt3').append('Presupuesto Planeado');
+                $('#txt3').append('Presupuesto Gastado');
                 $('#txt4').html('');
                 $('#txt4').append('Valor Ganado');
-                $('#presupuestoInicial').html('');
-                $('#presupuestoInicial').append('$ ' + proyecto.presupuestoInicial);
-                $('#presupuestoActual').html('');
-                $('#presupuestoActual').append('$ ' + proyecto.presupustoActual);
                 $('#totalPagado').html('');
-                $('#totalPagado').append('$ ' + proyecto.valorPlaneado);
+                $('#totalPagado').append('$ ' + gastado );
                 $('#valorGanadoVer').html('');
                 $('#valorGanadoVer').append('$ ' + proyecto.valorGanado);
                 $('#valoresAcumulados').html('');
-                $('#valoresAcumulados').append('<div class="dropdown"><button class="btn btn-secondary dropdown-toggle" style="background-color:  #002E60" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Elige el valor acumulado</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="dropdown-item" onclick="variaciondelCronograma()"> Variación del Cronograma</button><button class="dropdown-item" onclick="variaciondelCosto()"> Variación del Costo</button><button class="dropdown-item" onclick="indicedeDesempenodelCronograma()"> Índice de Desempeño del Cronograma</button><button class="dropdown-item" onclick="indicedeDesempeñodelCosto()"> Índice de Desempeño del Costo</button></div></div>');
+                $('#valoresAcumulados').append('<div class="dropdown"><button class="btn btn-secondary dropdown-toggle" style="background-color:  #002E60" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Elige el valor acumulado</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="dropdown-item" onclick="variaciondelCronograma()"> Variación del Cronograma</button><button class="dropdown-item" onclick="variaciondelCosto()"> Variación del Costo</button><button class="dropdown-item" onclick="indicedeDesempenodelCronograma()"> Índice de Desempeño del Cronograma</button><button class="dropdown-item" onclick="indicedeDesempexodelCosto()"> Índice de Desempeño del Costo</button></div></div>');
+                $('#valorPlaneado').html('');
+                $('#valorPlaneado').append('$ '+valorPlaneado);
             }
 
             function verEmpleados() {
@@ -307,9 +319,7 @@
                     }
                 }
             }
-//            function pagarNominas(indice, id) {
-//                
-//            }
+
 
             function verNominasPDF() {
                 $("#formReporte").submit();
@@ -424,7 +434,7 @@
             function variaciondelCronograma() {
                 peticion.onreadystatechange = function () {
                     if (this.status === 200) {
-                         var respuesta = JSON.parse(this.responseText);
+                        var respuesta = JSON.parse(this.responseText);
                         Swal.fire(
                                 respuesta.respuesta.mensaje,
                                 respuesta.respuesta.mensaje2,
@@ -436,12 +446,12 @@
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/variacionCronogramaLider?idProyecto=" + JSON.stringify(idProyecto), true);
                 peticion.send();
             }
-            
-            
-               function variaciondelCosto(){
+
+
+            function variaciondelCosto() {
                 peticion.onreadystatechange = function () {
                     if (this.status === 200) {
-                         var respuesta = JSON.parse(this.responseText);
+                        var respuesta = JSON.parse(this.responseText);
                         Swal.fire(
                                 respuesta.respuesta.mensaje,
                                 respuesta.respuesta.mensaje2,
@@ -451,6 +461,40 @@
                 }
 
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/variaciondelCostoLider?idProyecto=" + JSON.stringify(idProyecto), true);
+                peticion.send();
+            }
+            
+            
+            function indicedeDesempenodelCronograma(){
+                peticion.onreadystatechange = function () {
+                    if (this.status === 200) {
+                        var respuesta = JSON.parse(this.responseText);
+                        Swal.fire(
+                                respuesta.respuesta.mensaje,
+                                respuesta.respuesta.mensaje2,
+                                respuesta.respuesta.tipo
+                                );
+                    }
+                }
+
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/desempeniodelCronogranaLider?idProyecto=" + JSON.stringify(idProyecto), true);
+                peticion.send();
+            }
+            
+            
+            function indicedeDesempexodelCosto(){
+                peticion.onreadystatechange = function () {
+                    if (this.status === 200) {
+                        var respuesta = JSON.parse(this.responseText);
+                        Swal.fire(
+                                respuesta.respuesta.mensaje,
+                                respuesta.respuesta.mensaje2,
+                                respuesta.respuesta.tipo
+                                );
+                    }
+                }
+
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/desempeniodelCostoLider?idProyecto=" + JSON.stringify(idProyecto), true);
                 peticion.send();
             }
 

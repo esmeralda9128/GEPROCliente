@@ -4,28 +4,6 @@ var raizVista = window.location.origin + '/GEPROCliente';
 
 var raiz = window.location.origin + '/GEPROServidor/';
 
-function indicedeDesempenodelCronograma() {
-
-    Swal.fire(
-            'Good job!',
-            'You clicked the button!',
-            'success'
-            );
-    document.getElementById('valores').innerHTML = '';
-    $('#valores').append('<h3>' + "Índice de Desempeño del Cronograma" + '</h3><h3>' + "Valor>0" + '</h3>');
-
-}
-function indicedeDesempexodelCosto() {
-
-    Swal.fire(
-            'Good job!',
-            'You clicked the button!',
-            'success'
-            );
-    document.getElementById('valores').innerHTML = '';
-    $('#valores').append('<h3>' + "Índice de Desempeño del Costo" + '</h3><h3>' + "Valor>0" + '</h3>');
-
-}
 
 
 function login() {

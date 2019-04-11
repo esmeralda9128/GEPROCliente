@@ -171,6 +171,7 @@
                 $('#fechaFinSeguimiento').append(proyecto.finalProyecto);
                 $('#presupuestoPlaneado').html('');
                 $('#presupuestoPlaneado').append('$' + proyecto.valorPlaneado);
+                 $('#presupuestoActual').append('$ ' + proyecto.presupustoActual);
                 $('#valorGanado').html('');
                 $('#valorGanado').append('$' + proyecto.valorGanado);
                 $('#semanas').html('');
