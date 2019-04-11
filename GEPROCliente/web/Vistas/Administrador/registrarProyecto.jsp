@@ -180,9 +180,24 @@
             peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
                         + JSON.stringify(beanProyecto) + "&usuario=" + JSON.stringify(beanUsuario), true);
             peticion.send();
-
+        });
+        
+        // Añadir event listener al documento para detectar una tecla presionada
+        document.addEventListener("keyup", validar);
+        
+        function validar() {
+            var flag = true; // bandera
+            // Obtener todos los inputs
+            var inputs = document.getElementsByClassName("form-control");
+            for (var i = 0; i < inputs.length; i++) {
+                if(inputs[i].value.length == 0){
+                    flag = false;
+                }
+            }
+            if(flag){
+                document.getElementById("btnRegistrar").disabled = false;
+            }
         }
-
         </script>
 
     </body>
