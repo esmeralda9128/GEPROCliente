@@ -118,17 +118,13 @@
             <form action="<%=context%>/reporteNominas" target="_blank" id="formReporte" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
             </form>
-<<<<<<< HEAD
             
             <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
             </form>
-=======
             <div id="valoresAcumulados">
          
             </div>
-            
->>>>>>> 2f314b41507940e5c792c7bcfd1ca4e2be1e7dd4
         </div>
 
         <%---
