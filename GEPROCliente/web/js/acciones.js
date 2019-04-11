@@ -3,18 +3,16 @@ var peticion = new XMLHttpRequest();
 var raizVista = window.location.origin + '/GEPROCliente';
 
 var raiz = window.location.origin + '/GEPROServidor/';
-function variaciondelCronograma() {
-
-    Swal.fire(
-            'Good job!',
-            'You clicked the button!',
-            'success'
-            );
-    document.getElementById('valores').innerHTML = '';
-    $('#valores').append('<h3>' + "Variacion del cronograma" + '</h3><h3>' + "Valor>0" + '</h3>');
-
-}
-
+ function variaciondelCronograma() {
+            Swal.fire(
+                    'Acorde a lo planeado',
+                    'Todo va deacuerdo a lo planeado',
+                    'info'
+                    );
+            document.getElementById('valores').innerHTML = '';
+            $('#valores').append('<h3>' + "Variacion del cronograma" + '</h3><h3>' + "Valor>0" + '</h3>');
+        
+    }
 
 function variaciondelCosto() {
 

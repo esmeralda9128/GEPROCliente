@@ -36,7 +36,7 @@
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/Administrador/inicioAdministrador.jsp'"><center><img src="<%=context%>/imagenes/house-black-silhouette-without-door.png" height="22" style="padding: 0px 21px" />Inicio</center></button>
                 <button class="btn-sidebar" onclick="location.href = '<%=context%>/Vistas/Administrador/perfilAdministrador.jsp'"><center><img src="<%=context%>/imagenes/user.png" height="22" style="padding: 0px 21px" />Perfil</center></button>
                 <button class="btn-sidebar2" onclick="cerrarSesion()"><center><img src="<%=context%>/imagenes/logout.png" height="22" style="padding: 0px 15px" />Cerrar Sesión</center></button>
-            
+
             </div>
         </div>
         <div class="offset-md-2 container">
@@ -117,37 +117,36 @@
         <script src="<%=context%>/js/acciones.js"></script>
 
         <script>
-            var peticion = new XMLHttpRequest();
-            peticion.onreadystatechange = function () {
-                if (this.status === 200 && this.readyState === 4) {
-                    var respuesta = JSON.parse(this.responseText);
-                    var proyecto = respuesta.respuesta.proyecto;
-                    var lider = respuesta.respuesta.lider;
-                    var semana = respuesta.respuesta.semana;
-                    var costoReal = respuesta.respuesta.presuPuestoGastado;
-                    
-                }
-                $('#nombrePS').html('');
-                $('#nombrePS').append(' <h2 style="float: left">' + proyecto.nombre + '</h2>');
-                $('#semanas').html('');
-                $('#semanas').append(semana);
-                $('#liderPro').html('');
-                $('#liderPro').append('  <h2 style="float: left;  margin-left: 15px">' + lider.nombre + ' ' + lider.primerApellido + ' ' + lider.segundoApellido + '</h2>');
-                $('#presupuestoInicial').html('');
-                $('#presupuestoInicial').append('$' + proyecto.presupuestoInicial);
-                $('#fechaInicioSeguimiento').html('');
-                $('#fechaInicioSeguimiento').append(proyecto.inicioProyecto);
-                $('#presupuestoPlaneado').html('');
-                $('#presupuestoPlaneado').append('$' + proyecto.valorPlaneado);
-                $('#valorGanado').html('');
-                $('#valorGanado').append('$' + proyecto.valorGanado);
-                $('#costoReal').html('');
-                $('#costoReal').append('$' + costoReal);
-                
+                            var peticion = new XMLHttpRequest();
+                            peticion.onreadystatechange = function () {
+                                if (this.status === 200 && this.readyState === 4) {
+                                    var respuesta = JSON.parse(this.responseText);
+                                    var proyecto = respuesta.respuesta.proyecto;
+                                    var lider = respuesta.respuesta.lider;
+                                    var semana = respuesta.respuesta.semana;
+                                    var costoReal = respuesta.respuesta.presuPuestoGastado;
+                                }
+                                $('#nombrePS').html('');
+                                $('#nombrePS').append(' <h2 style="float: left">' + proyecto.nombre + '</h2>');
+                                $('#semanas').html('');
+                                $('#semanas').append(semana);
+                                $('#liderPro').html('');
+                                $('#liderPro').append('  <h2 style="float: left;  margin-left: 15px">' + lider.nombre + ' ' + lider.primerApellido + ' ' + lider.segundoApellido + '</h2>');
+                                $('#presupuestoInicial').html('');
+                                $('#presupuestoInicial').append('$' + proyecto.presupuestoInicial);
+                                $('#fechaInicioSeguimiento').html('');
+                                $('#fechaInicioSeguimiento').append(proyecto.inicioProyecto);
+                                $('#presupuestoPlaneado').html('');
+                                $('#presupuestoPlaneado').append('$' + proyecto.valorPlaneado);
+                                $('#valorGanado').html('');
+                                $('#valorGanado').append('$' + proyecto.valorGanado);
+                                $('#costoReal').html('');
+                                $('#costoReal').append('$' + proyecto.presupustoActual);
+                               
+                            }
+                            peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/seguimientoAdmin", true);
+                            peticion.send();
 
-            }
-            peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/seguimientoAdmin", true);
-            peticion.send();
         </script>
 
     </body>
