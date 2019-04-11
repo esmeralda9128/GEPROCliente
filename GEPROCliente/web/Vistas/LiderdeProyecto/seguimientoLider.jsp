@@ -118,6 +118,10 @@
             <form action="<%=context%>/reporteNominas" target="_blank" id="formReporte" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
             </form>
+            <div id="valoresAcumulados">
+         
+            </div>
+            
         </div>
 
         <%---
@@ -209,12 +213,13 @@
                 $('#txt3').html('');
                 $('#txt4').html('');
                 $('#txt1').append('Semana ' + semana);
+                $('#valoresAcumulados').html('');
             }
             function darSeguimiento() {
                 $('#cabeceraTablaRecursos').html('');
                 $('#bodyTablaRecursos').html('');
                 $('#botones').html('');
-                $('#botones').append('<div class="col-md-6"><button class="btn-azul-largo" onclick="verNominasPDF()">Ver Nóminas</button></div><div class="col-md-6"><button class="btn-azul-largo" onclick="verMaterialesPDF()">Ver Materiales</button></div>');
+                $('#botones').append('<div class="col-md-4"><button class="btn-azul-largo" onclick="verNominasPDF()">Ver Nóminas</button></div><div class="col-md-4"><button class="btn-azul-largo" onclick="verMaterialesPDF()">Ver Materiales</button></div><div class="col-md-4"><button class="btn-azul-largo" onclick="solicitarReserva()">Solicitar Reserva</button></div>');
                 $('#opcion').html('');
                 $('#txt4').html('');
                 $('#txt1').html('');
@@ -229,6 +234,8 @@
                 $('#presupuestoActual').append('$ ' + proyecto.presupustoActual);
                 $('#totalPagado').html('');
                 $('#totalPagado').append('$ ' + costoReal);
+                $('#valoresAcumulados').html('');
+                $('#valoresAcumulados').append('<div class="dropdown"><button class="btn btn-secondary dropdown-toggle" style="background-color:  #002E60" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Elige el valor acumulado</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="dropdown-item" onclick="variaciondelCronograma()"> Variación del Cronograma</button><button class="dropdown-item" onclick="variaciondelCosto()"> Variación del Costo</button><button class="dropdown-item" onclick="indicedeDesempenodelCronograma()"> Índice de Desempeño del Cronograma</button><button class="dropdown-item" onclick="indicedeDesempeñodelCosto()"> Índice de Desempeño del Costo</button></div></div>');     
             }
 
             function verEmpleados() {
