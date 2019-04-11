@@ -118,6 +118,10 @@
             <form action="<%=context%>/reporteNominas" target="_blank" id="formReporte" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
             </form>
+            
+            <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
+                <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
+            </form>
         </div>
 
         <%---
@@ -267,6 +271,11 @@
             function verNominasPDF(){
                 $("#formReporte").submit();
             }
+            
+            function verMaterialesPDF(){
+                $("#formMaterialesComprados").submit();
+            }
+            
             function modalNomina(i) {
                 document.getElementById('nombre').value = (recursoHumanos[i].nombre + ' ' + recursoHumanos[i].primerApellido + ' ' + recursoHumanos[i].segundoApellido);
                 document.getElementById('rol').value = recursoHumanos[i].rol;
