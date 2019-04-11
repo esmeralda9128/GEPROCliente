@@ -65,7 +65,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4"><h2>Presupuesto Planeado</h2></div>
-                <div class="col-md-4"><h2>Costo Real</h2> </div>
+                <div class="col-md-4"><h2>Presupuesto Actual</h2> </div>
                 <div class="col-md-4"><h2>Valor Ganado</h2></div>  
             </div>
             <div class="row">

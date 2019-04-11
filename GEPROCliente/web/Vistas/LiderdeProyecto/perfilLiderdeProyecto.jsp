@@ -15,16 +15,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Perfil Líder de Proyecto-GEPRO</title>
-<<<<<<< HEAD
-<<<<<<< HEAD
-
         <script src="<%=context%>/js/jqBootstrapValidation.js"></script>
-=======
          <script src="<%=context%>/js/jqBootstrapValidation.js"></script>
->>>>>>> parent of 7034004... registros
-=======
+
          <script src="<%=context%>/js/jqBootstrapValidation.js"></script>
->>>>>>> parent of 7034004... registros
         <script src="<%=context%>/js/sweetalert2.all.min.js"></script>
         <link rel="shortcut icon" href="<%=context%>/imagenes/geprologo.ico"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
