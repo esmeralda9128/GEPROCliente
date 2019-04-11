@@ -41,7 +41,10 @@
         <div class="offset-md-2 container">
             <h1>Registrar Proyecto</h1>
             <br/>
-            <form action="#" id="myform" onsubmit="return false" >
+
+            <form action="#" id="formRegistroProyecto" onsubmit="return false" >
+
+
                 <div class="form-row">
                     <h2>Información del Proyecto</h2>
                     <br/>
@@ -105,7 +108,7 @@
                     </div>
                     <div class="form-group  col-md-3">
                         <label for="rfc">RFC</label>
-                        <input type="text" placeholder="RFC" minlength="12" maxlength="13" pattern="[A-Z0-9]+" class="form-control" id="rfc" required>
+                        <input type="text" placeholder="RFC" minlength="12" maxlength="13" pattern="[A-Z0-9]+" class="form-control" id="rfc2" required>
                     </div>
                     <div class="form-group  col-md-3">
                         <label for="email">Email</label>
@@ -130,13 +133,14 @@
                         <input type="password" placeholder="Confirmar Contraseña" pattern="[A-Za-z0-9]+" class="form-control" id="conpass" required>
                     </div>
                 </div>
-                <input type="submit" disabled value="Registrar" id="btnRegistrar" class="btn-verde" />
+              <input type="submit" disabled value="Registrar" id="btnRegistrar" onclick="" class="btn-verde" />
+
             </form>
         </div> 
 
         <script>
-        $("#myform").submit(function(e) {
-            var peticion = new XMLHttpRequest();
+
+        $("#formRegistroProyecto").submit(function(e) {
             var beanProyecto = {
                 nombre: document.getElementById("nombreP").value,
                 presupuesto: document.getElementById("presupuesto").value,
@@ -149,7 +153,7 @@
                 apellidoP: document.getElementById("apellidoP").value,
                 apellidoM: document.getElementById("apellidoM").value,
                 grado: document.getElementById("grado").value,
-                rfc: document.getElementById("rfc").value,
+                rfc: document.getElementById("rfc2").value,
                 carrera: document.getElementById("carrera").value,
                 email: document.getElementById("email").value,
                 usuario: document.getElementById("usuario").value,
@@ -166,15 +170,16 @@
                             respuesta.respuesta.tipo,
                             ).then((value) => {
                         if (respuesta.respuesta.registro) {
+
                             window.location.href = "http://localhost:8080/GEPROCliente/Vistas/Administrador/inicioAdministrador.jsp";
                         }
                     });
 
                 }
-                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
-                        + JSON.stringify(beanProyecto) + "&usuario=" + JSON.stringify(beanUsuario), true);
-                peticion.send();
             }
+            peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
+                        + JSON.stringify(beanProyecto) + "&usuario=" + JSON.stringify(beanUsuario), true);
+            peticion.send();
         });
         
         // Añadir event listener al documento para detectar una tecla presionada
@@ -193,7 +198,7 @@
                 document.getElementById("btnRegistrar").disabled = false;
             }
         }
-
         </script>
+
     </body>
 </html>
