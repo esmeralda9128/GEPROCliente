@@ -70,25 +70,31 @@
 
             <div class="container" >
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h2 style="float: left" id="txt1"></h2>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h2 style="float: left" id="txt2"></h2>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h2 style="float: left" id="txt3"></h2>
+                    </div>
+                    <div class="col-md-3">
+                        <h2 style="float: left" id="txt4"></h2>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h2 style="float: left" id="presupuestoInicial"></h2>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h2 style="float: left" id="presupuestoActual"></h2>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <h2 style="float: left" id="totalPagado"></h2>
+                    </div>
+                    <div class="col-md-3">
+                        <h2 style="float: left" id="valorGanadoVer"></h2>
                     </div>
                 </div>
                 <br/>
@@ -97,7 +103,7 @@
                 <br/>
                 <div class="row">
                     <div class="col-md-6">                     
-                        <h2 style="float: left" id="txt4"></h2>
+                        <h2 style="float: left" id="txt5"></h2>
                     </div>
                     <div class="col-md-6">  
                         <div id="opcion"></div>
@@ -118,6 +124,17 @@
             <form action="<%=context%>/reporteNominas" target="_blank" id="formReporte" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
             </form>
+
+            
+            <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
+                <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
+            </form>
+
+            <div id="valoresAcumulados">
+         
+            </div>
+            
+
         </div>
 
         <%---
@@ -207,33 +224,40 @@
                 $('#txt1').html('');
                 $('#txt2').html('');
                 $('#txt3').html('');
-                $('#txt4').html('');
+                $('#txt5').html('');
                 $('#txt1').append('Semana ' + semana);
+                $('#valoresAcumulados').html('');
             }
             function darSeguimiento() {
                 $('#cabeceraTablaRecursos').html('');
                 $('#bodyTablaRecursos').html('');
                 $('#botones').html('');
-                $('#botones').append('<div class="col-md-6"><button class="btn-azul-largo" onclick="verNominasPDF()">Ver Nóminas</button></div><div class="col-md-6"><button class="btn-azul-largo" onclick="verMaterialesPDF()">Ver Materiales</button></div>');
+                $('#botones').append('<div class="col-md-4"><button class="btn-azul-largo" onclick="verNominasPDF()">Ver Nóminas</button></div><div class="col-md-4"><button class="btn-azul-largo" onclick="verMaterialesPDF()">Ver Materiales</button></div><div class="col-md-4"><button class="btn-azul-largo" onclick="solicitarReserva()">Solicitar Reserva</button></div>');
                 $('#opcion').html('');
-                $('#txt4').html('');
+                $('#txt5').html('');
                 $('#txt1').html('');
                 $('#txt1').append('Presupuesto Inicial');
                 $('#txt2').html('');
                 $('#txt2').append('Presupuesto Actual');
                 $('#txt3').html('');
                 $('#txt3').append('Presupuesto Planeado');
+                $('#txt4').html('');
+                $('#txt4').append('Valor Ganado');
                 $('#presupuestoInicial').html('');
                 $('#presupuestoInicial').append('$ ' + proyecto.presupuestoInicial);
                 $('#presupuestoActual').html('');
                 $('#presupuestoActual').append('$ ' + proyecto.presupustoActual);
                 $('#totalPagado').html('');
                 $('#totalPagado').append('$ ' + costoReal);
+                $('#valorGanadoVer').html('');
+                $('#valorGanadoVer').append('$ ' +  proyecto.valorGanado);
+                $('#valoresAcumulados').html('');
+                $('#valoresAcumulados').append('<div class="dropdown"><button class="btn btn-secondary dropdown-toggle" style="background-color:  #002E60" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Elige el valor acumulado</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="dropdown-item" onclick="variaciondelCronograma()"> Variación del Cronograma</button><button class="dropdown-item" onclick="variaciondelCosto()"> Variación del Costo</button><button class="dropdown-item" onclick="indicedeDesempenodelCronograma()"> Índice de Desempeño del Cronograma</button><button class="dropdown-item" onclick="indicedeDesempeñodelCosto()"> Índice de Desempeño del Costo</button></div></div>');     
             }
 
             function verEmpleados() {
-                $('#txt4').html('');
-                $('#txt4').append('Empleados');
+                $('#txt5').html('');
+                $('#txt5').append('Empleados');
                 $('#opcion').html('');
                 $('#opcion').append('');
                 $('#cabeceraTablaRecursos').html('');
@@ -267,6 +291,11 @@
             function verNominasPDF(){
                 $("#formReporte").submit();
             }
+            
+            function verMaterialesPDF(){
+                $("#formMaterialesComprados").submit();
+            }
+            
             function modalNomina(i) {
                 document.getElementById('nombre').value = (recursoHumanos[i].nombre + ' ' + recursoHumanos[i].primerApellido + ' ' + recursoHumanos[i].segundoApellido);
                 document.getElementById('rol').value = recursoHumanos[i].rol;
