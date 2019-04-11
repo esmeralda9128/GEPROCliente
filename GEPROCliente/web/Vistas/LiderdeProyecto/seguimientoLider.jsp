@@ -134,14 +134,40 @@
             <form action="<%=context%>/reporteNominas" target="_blank" id="formReporte" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
             </form>
+
+<<<<<<< HEAD
+            <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
+                <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
+            </form>
+            <div id="valoresAcumulados">
+
+            </div>
+            <div id="valoresAcumulados">
+
+            </div>
+=======
+
+            
             <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
             </form>
 
             <div id="valoresAcumulados">
+         
+            </div>
+
+
+            <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
+                <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
+            </form>
+
+
+            <div id="valoresAcumulados">
 
             </div>
 
+
+>>>>>>> 265357334f340f1b9e512dbd86597165903e8baf
         </div>
 
         <%---
