@@ -88,7 +88,7 @@
                         <button class="dropdown-item" onclick="variaciondelCronograma()"> Variación del Cronograma</button>
                         <button class="dropdown-item" onclick="variaciondelCosto()"> Variación del Costo</button>
                         <button class="dropdown-item" onclick="indicedeDesempenodelCronograma()"> Índice de Desempeño del Cronograma</button>
-                        <button class="dropdown-item" onclick="indicedeDesempeñodelCosto()"> Índice de Desempeño del Costo</button>
+                        <button class="dropdown-item" onclick="indicedeDesempexodelCosto()"> Índice de Desempeño del Costo</button>
                     </div>
                 </div>
                 <div style=" padding-left: 200px" id="valores">
@@ -100,8 +100,7 @@
             <h1 style="float: left">Peticiones</h1>
             <br>
             <br>
-            <p style="color: white">
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            <p style="color: white" id="peticiones">
             </p>
             <br>
             <center>
@@ -142,10 +141,82 @@
                                 $('#valorGanado').append('$' + proyecto.valorGanado);
                                 $('#costoReal').html('');
                                 $('#costoReal').append('$' + proyecto.presupustoActual);
-                               
+
                             }
                             peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/seguimientoAdmin", true);
                             peticion.send();
+
+
+
+                            function variaciondelCronograma() {
+                                peticion.onreadystatechange = function () {
+                                    if (this.status === 200) {
+                                        var respuesta = JSON.parse(this.responseText);
+                                        Swal.fire(
+                                                respuesta.respuesta.mensaje,
+                                                respuesta.respuesta.mensaje2,
+                                                respuesta.respuesta.tipo
+                                                );
+                                    }
+                                }
+
+                                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/variacionCronogramaAdministrador", true);
+                                peticion.send();
+                            }
+
+
+                            function variaciondelCosto() {
+                                peticion.onreadystatechange = function () {
+                                    if (this.status === 200) {
+                                        var respuesta = JSON.parse(this.responseText);
+                                        Swal.fire(
+                                                respuesta.respuesta.mensaje,
+                                                respuesta.respuesta.mensaje2,
+                                                respuesta.respuesta.tipo
+                                                );
+                                    }
+                                }
+
+                                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/variaciondelCostoAdministrador", true);
+                                peticion.send();
+                            }
+
+
+                            function indicedeDesempenodelCronograma() {
+                                peticion.onreadystatechange = function () {
+                                    if (this.status === 200) {
+                                        var respuesta = JSON.parse(this.responseText);
+                                        Swal.fire(
+                                                respuesta.respuesta.mensaje,
+                                                respuesta.respuesta.mensaje2,
+                                                respuesta.respuesta.tipo
+                                                );
+                                    }
+                                }
+
+                                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/desempeniodelCronogranaAdministrador", true);
+                                peticion.send();
+                            }
+
+
+                            function indicedeDesempexodelCosto() {
+                                peticion.onreadystatechange = function () {
+                                    if (this.status === 200) {
+                                        var respuesta = JSON.parse(this.responseText);
+                                        Swal.fire(
+                                                respuesta.respuesta.mensaje,
+                                                respuesta.respuesta.mensaje2,
+                                                respuesta.respuesta.tipo
+                                                );
+                                    }
+                                }
+
+                                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/desempeniodelCostoAdministrador", true);
+                                peticion.send();
+                            }
+
+
+
 
         </script>
 
