@@ -124,26 +124,14 @@
             <form action="<%=context%>/reporteNominas" target="_blank" id="formReporte" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
             </form>
-<<<<<<< HEAD
-=======
-
->>>>>>> 591046cbc01b5657ccb5b820912d8009e9b62752
-            
             <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
             </form>
-<<<<<<< HEAD
-            <div id="valoresAcumulados">
-         
-            </div>
-=======
 
             <div id="valoresAcumulados">
-         
-            </div>
-            
 
->>>>>>> 591046cbc01b5657ccb5b820912d8009e9b62752
+            </div>
+
         </div>
 
         <%---
@@ -257,11 +245,11 @@
                 $('#presupuestoActual').html('');
                 $('#presupuestoActual').append('$ ' + proyecto.presupustoActual);
                 $('#totalPagado').html('');
-                $('#totalPagado').append('$ ' + costoReal);
+                $('#totalPagado').append('$ ' + proyecto.valorPlaneado);
                 $('#valorGanadoVer').html('');
-                $('#valorGanadoVer').append('$ ' +  proyecto.valorGanado);
+                $('#valorGanadoVer').append('$ ' + proyecto.valorGanado);
                 $('#valoresAcumulados').html('');
-                $('#valoresAcumulados').append('<div class="dropdown"><button class="btn btn-secondary dropdown-toggle" style="background-color:  #002E60" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Elige el valor acumulado</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="dropdown-item" onclick="variaciondelCronograma()"> Variación del Cronograma</button><button class="dropdown-item" onclick="variaciondelCosto()"> Variación del Costo</button><button class="dropdown-item" onclick="indicedeDesempenodelCronograma()"> Índice de Desempeño del Cronograma</button><button class="dropdown-item" onclick="indicedeDesempeñodelCosto()"> Índice de Desempeño del Costo</button></div></div>');     
+                $('#valoresAcumulados').append('<div class="dropdown"><button class="btn btn-secondary dropdown-toggle" style="background-color:  #002E60" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Elige el valor acumulado</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="dropdown-item" onclick="variaciondelCronograma()"> Variación del Cronograma</button><button class="dropdown-item" onclick="variaciondelCosto()"> Variación del Costo</button><button class="dropdown-item" onclick="indicedeDesempenodelCronograma()"> Índice de Desempeño del Cronograma</button><button class="dropdown-item" onclick="indicedeDesempeñodelCosto()"> Índice de Desempeño del Costo</button></div></div>');
             }
 
             function verEmpleados() {
@@ -296,15 +284,15 @@
 //            function pagarNominas(indice, id) {
 //                
 //            }
-            
-            function verNominasPDF(){
+
+            function verNominasPDF() {
                 $("#formReporte").submit();
             }
-            
-            function verMaterialesPDF(){
+
+            function verMaterialesPDF() {
                 $("#formMaterialesComprados").submit();
             }
-            
+
             function modalNomina(i) {
                 document.getElementById('nombre').value = (recursoHumanos[i].nombre + ' ' + recursoHumanos[i].primerApellido + ' ' + recursoHumanos[i].segundoApellido);
                 document.getElementById('rol').value = recursoHumanos[i].rol;
@@ -322,7 +310,7 @@
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/usuarioPagar?usuario=" + JSON.stringify(usuario), true);
                 peticion.send();
             }
-            
+
 //            function pagarNomina(){
 //                
 //            }
@@ -334,10 +322,10 @@
                     var respuesta = JSON.parse(this.responseText);
                     if (this.status === 200) {
                         Swal.fire(
-                                    respuesta.respuesta.mensaje,
-                                    '',
-                                    respuesta.respuesta.tipo
-                                    )
+                                respuesta.respuesta.mensaje,
+                                '',
+                                respuesta.respuesta.tipo
+                                )
                     }
                 };
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/pagarNomina?valorGanado=" + JSON.stringify(valorGanado), true);
@@ -403,6 +391,40 @@
 
                 }
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/comprarRecursosMateriales", true);
+                peticion.send();
+            }
+
+
+            function variaciondelCronograma() {
+                peticion.onreadystatechange = function () {
+                    if (this.status === 200) {
+                         var respuesta = JSON.parse(this.responseText);
+                        Swal.fire(
+                                respuesta.respuesta.mensaje,
+                                respuesta.respuesta.mensaje2,
+                                respuesta.respuesta.tipo
+                                );
+                    }
+                }
+
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/variacionCronogramaLider?idProyecto=" + JSON.stringify(idProyecto), true);
+                peticion.send();
+            }
+            
+            
+               function variaciondelCosto(){
+                peticion.onreadystatechange = function () {
+                    if (this.status === 200) {
+                         var respuesta = JSON.parse(this.responseText);
+                        Swal.fire(
+                                respuesta.respuesta.mensaje,
+                                respuesta.respuesta.mensaje2,
+                                respuesta.respuesta.tipo
+                                );
+                    }
+                }
+
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/variaciondelCostoLider?idProyecto=" + JSON.stringify(idProyecto), true);
                 peticion.send();
             }
 
