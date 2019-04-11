@@ -42,7 +42,7 @@
               <div class="offset-md-2 container">
             <h1>Registrar Recurso Humano</h1>
             <br/>
-            <form action="#" onsubmit="return false" >
+            <form action="#" id="myform" onsubmit="return false" >
                 <div class="form-row">
                     <h2>Información personal del Recurso Humano</h2>
                     <br/>
@@ -108,12 +108,12 @@
                         <input type="password" placeholder="Confirmar Contraseña" pattern="[A-Za-z0-9]+" class="form-control" id="conpass" required>
                     </div>
                 </div>
-                <input type="submit"  value="Registrar"  onclick="registrarRecursoHumano()" class ="btn-verde" />
+                <input type="submit" disabled id="btnRegistrar"  value="Registrar"  onclick="" class ="btn-verde" />
             </form>
         </div> 
     </body>
     <script>
-        function registrarRecursoHumano() {
+        $("#myform").submit(function(e) {
             var beanUsuario = {
                 nombre: document.getElementById("nombreL").value,
                 apellidoP: document.getElementById("apellidoP").value,
@@ -146,7 +146,25 @@
             }
             peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroRecursoHumano?usuario=" + JSON.stringify(beanUsuario), true);
             peticion.send();
+        });
+        
+        // Añadir event listener al documento para detectar una tecla presionada
+        document.addEventListener("keyup", validar);
+        
+        function validar() {
+            var flag = true; // bandera
+            // Obtener todos los inputs
+            var inputs = document.getElementsByClassName("form-control");
+            for (var i = 0; i < inputs.length; i++) {
+                if(inputs[i].value.length == 0){
+                    flag = false;
+                }
+            }
+            if(flag){
+                document.getElementById("btnRegistrar").disabled = false;
+            }
         }
+        
     </script>
     
     

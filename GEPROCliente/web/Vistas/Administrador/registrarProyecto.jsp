@@ -41,7 +41,7 @@
         <div class="offset-md-2 container">
             <h1>Registrar Proyecto</h1>
             <br/>
-            <form action="#" onsubmit="return false" >
+            <form action="#" id="myform" onsubmit="return false" >
                 <div class="form-row">
                     <h2>Información del Proyecto</h2>
                     <br/>
@@ -105,7 +105,7 @@
                     </div>
                     <div class="form-group  col-md-3">
                         <label for="rfc">RFC</label>
-                        <input type="text" placeholder="RFC" minlength="12" maxlength="13" pattern="[A-Z0-9]+" class="form-control" id="rfc2" required>
+                        <input type="text" placeholder="RFC" minlength="12" maxlength="13" pattern="[A-Z0-9]+" class="form-control" id="rfc" required>
                     </div>
                     <div class="form-group  col-md-3">
                         <label for="email">Email</label>
@@ -130,53 +130,70 @@
                         <input type="password" placeholder="Confirmar Contraseña" pattern="[A-Za-z0-9]+" class="form-control" id="conpass" required>
                     </div>
                 </div>
-                <input type="submit" id="button-registrar"  value="Registrar" onclick="registrarProyecto()" class="btn-verde" />
+                <input type="submit" disabled value="Registrar" id="btnRegistrar" class="btn-verde" />
             </form>
         </div> 
 
-        <script>            
+        <script>
+        $("#myform").submit(function(e) {
             var peticion = new XMLHttpRequest();
-            function registrarProyecto() {
-                var beanProyecto = {
-                    nombre: document.getElementById("nombreP").value,
-                    presupuesto: document.getElementById("presupuesto").value,
-                    reserva: document.getElementById("reserva").value,
-                    fecha: document.getElementById("fechaInicio").value,
-                    semanas: document.getElementById("semanas").value
-                };
-                var beanUsuario = {
-                    nombre: document.getElementById("nombreL").value,
-                    apellidoP: document.getElementById("apellidoP").value,
-                    apellidoM: document.getElementById("apellidoM").value,
-                    grado: document.getElementById("grado").value,
-                    rfc: document.getElementById("rfc2").value,
-                    carrera: document.getElementById("carrera").value,
-                    email: document.getElementById("email").value,
-                    usuario: document.getElementById("usuario").value,
-                    pass: document.getElementById("pass").value,
-                    conpass: document.getElementById("conpass").value,
-                    salario: document.getElementById("salario").value
-                };
-                peticion.onreadystatechange = function () {
-                    if (this.status === 200) {
-                        var respuesta = JSON.parse(this.responseText);
-                        Swal.fire(
-                                respuesta.respuesta.mensaje,
-                                '',
-                                respuesta.respuesta.tipo,
-                                ).then((value) => {
-                            if (respuesta.respuesta.registro) {
+            var beanProyecto = {
+                nombre: document.getElementById("nombreP").value,
+                presupuesto: document.getElementById("presupuesto").value,
+                reserva: document.getElementById("reserva").value,
+                fecha: document.getElementById("fechaInicio").value,
+                semanas: document.getElementById("semanas").value
+            };
+            var beanUsuario = {
+                nombre: document.getElementById("nombreL").value,
+                apellidoP: document.getElementById("apellidoP").value,
+                apellidoM: document.getElementById("apellidoM").value,
+                grado: document.getElementById("grado").value,
+                rfc: document.getElementById("rfc").value,
+                carrera: document.getElementById("carrera").value,
+                email: document.getElementById("email").value,
+                usuario: document.getElementById("usuario").value,
+                pass: document.getElementById("pass").value,
+                conpass: document.getElementById("conpass").value,
+                salario: document.getElementById("salario").value
+            };
+            peticion.onreadystatechange = function () {
+                if (this.status === 200) {
+                    var respuesta = JSON.parse(this.responseText);
+                    Swal.fire(
+                            respuesta.respuesta.mensaje,
+                            '',
+                            respuesta.respuesta.tipo,
+                            ).then((value) => {
+                        if (respuesta.respuesta.registro) {
+                            window.location.href = "http://localhost:8080/GEPROCliente/Vistas/Administrador/inicioAdministrador.jsp";
+                        }
+                    });
 
-                                window.location.href = "http://localhost:8080/GEPROCliente/Vistas/Administrador/inicioAdministrador.jsp";
-                            }
-                        });
-                    }
                 }
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
                         + JSON.stringify(beanProyecto) + "&usuario=" + JSON.stringify(beanUsuario), true);
                 peticion.send();
             }
-        </script>
+        });
+        
+        // Añadir event listener al documento para detectar una tecla presionada
+        document.addEventListener("keyup", validar);
+        
+        function validar() {
+            var flag = true; // bandera
+            // Obtener todos los inputs
+            var inputs = document.getElementsByClassName("form-control");
+            for (var i = 0; i < inputs.length; i++) {
+                if(inputs[i].value.length == 0){
+                    flag = false;
+                }
+            }
+            if(flag){
+                document.getElementById("btnRegistrar").disabled = false;
+            }
+        }
 
+        </script>
     </body>
 </html>
