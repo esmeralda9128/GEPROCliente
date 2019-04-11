@@ -124,26 +124,23 @@
             <form action="<%=context%>/reporteNominas" target="_blank" id="formReporte" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
             </form>
-<<<<<<< HEAD
-=======
 
->>>>>>> 591046cbc01b5657ccb5b820912d8009e9b62752
             
             <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
             </form>
-<<<<<<< HEAD
+
             <div id="valoresAcumulados">
          
             </div>
-=======
+
 
             <div id="valoresAcumulados">
          
             </div>
             
 
->>>>>>> 591046cbc01b5657ccb5b820912d8009e9b62752
+
         </div>
 
         <%---
