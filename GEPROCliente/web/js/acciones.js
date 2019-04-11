@@ -58,22 +58,32 @@ function login() {
         pass: document.getElementById("Passwod").value
     };
     peticion.onreadystatechange = function () {
-        
+
         if (this.status === 200) {
             var respuesta = JSON.parse(this.responseText);
             var dir = respuesta.dir;
             var nom = respuesta.mensaje;
-            if (dir === "/index.jsp") {
+            if (usuario.usuario.length == 0 || usuario.pass.length==0) {
                 Swal.fire({
-                    title: 'Sesion incorrecta',
-                    text: "Usuario y/o contraseña incorrecotos.",
-                    type: 'warning',
+                    title: 'Error',
+                    text: 'No puedes dejar campos vac\u00EDos',
+                    type: 'error',
                     confirmButtonColor: '#009475',
                     confirmButtonText: 'Aceptar'
                 })
             } else {
-                
-                window.location.href = raizVista + dir;
+                if (dir === "/index.jsp") {
+                    Swal.fire({
+                        title: 'Sesi\u00f3n incorrecta',
+                        text: "Usuario y/o contrase\u00F1a incorrectos",
+                        type: 'error',
+                        confirmButtonColor: '#009475',
+                        confirmButtonText: 'Aceptar'
+                    })
+                } else {
+
+                    window.location.href = raizVista + dir;
+                }
             }
         }
     };
@@ -84,8 +94,8 @@ function login() {
 
 function cerrarSesion() {
     Swal.fire({
-        title: 'Cerrar sesi\u00f3n?',
-        text: "Seguro?",
+        title: 'Cerrar sesi\u00f3n',
+        text: '\u00BFDeseas cerrar sesi\u00f3n?',
         type: 'question',
         showCancelButton: true,
         confirmButtonColor: '#009475',

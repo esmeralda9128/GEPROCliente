@@ -169,11 +169,12 @@
                             window.location.href = "http://localhost:8080/GEPROCliente/Vistas/Administrador/inicioAdministrador.jsp";
                         }
                     });
+
                 }
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
+                        + JSON.stringify(beanProyecto) + "&usuario=" + JSON.stringify(beanUsuario), true);
+                peticion.send();
             }
-            peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/registroProyecto?proyecto="
-                    + JSON.stringify(beanProyecto) + "&usuario=" + JSON.stringify(beanUsuario), true);
-            peticion.send();
         });
         
         // Añadir event listener al documento para detectar una tecla presionada
@@ -192,6 +193,7 @@
                 document.getElementById("btnRegistrar").disabled = false;
             }
         }
+
         </script>
     </body>
 </html>

@@ -10,7 +10,7 @@ and open the template in the editor.
 
 
 <struts>
-    <package name="packSesion" extends="struts-default,json-default">
+    <package name="packSesion" extends="struts-default,json-default,jasperreports-default">
         <action name="vistaLog">
             <result>/login.jsp</result>
         </action>
@@ -21,6 +21,16 @@ and open the template in the editor.
         <action name="cerrarSesion" class="com.utez.edu.control.ControlLogin" method="logOut">
             <result name="success">/login.jsp</result>
             <result name="error">/login.jsp</result>
+        </action>
+    
+        <action name="reporteNominas" class="com.utez.edu.control.ControlUsuario" method="reporteNominas">
+            <result name="success" type="jasper">
+                <param name="location">/Reporte/Nominas.jasper</param>
+                <param name="dataSource">myList</param>
+                <param name="reportParameters">parametros</param>
+                <param name="connection">conexion</param>
+                <param name="format">PDF</param>
+            </result>
         </action>
     </package>
 </struts>
