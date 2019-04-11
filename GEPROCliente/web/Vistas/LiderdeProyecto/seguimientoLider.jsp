@@ -125,6 +125,7 @@
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
             </form>
 
+<<<<<<< HEAD
             <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
             </form>
@@ -134,6 +135,29 @@
             <div id="valoresAcumulados">
 
             </div>
+=======
+
+            
+            <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
+                <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
+            </form>
+
+            <div id="valoresAcumulados">
+         
+            </div>
+
+
+            <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
+                <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
+            </form>
+
+
+            <div id="valoresAcumulados">
+
+            </div>
+
+
+>>>>>>> 265357334f340f1b9e512dbd86597165903e8baf
         </div>
 
         <%---
@@ -247,7 +271,7 @@
                 $('#presupuestoActual').html('');
                 $('#presupuestoActual').append('$ ' + proyecto.presupustoActual);
                 $('#totalPagado').html('');
-                $('#totalPagado').append('$ ' + costoReal);
+                $('#totalPagado').append('$ ' + proyecto.valorPlaneado);
                 $('#valorGanadoVer').html('');
                 $('#valorGanadoVer').append('$ ' + proyecto.valorGanado);
                 $('#valoresAcumulados').html('');
@@ -393,6 +417,40 @@
 
                 }
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/comprarRecursosMateriales", true);
+                peticion.send();
+            }
+
+
+            function variaciondelCronograma() {
+                peticion.onreadystatechange = function () {
+                    if (this.status === 200) {
+                         var respuesta = JSON.parse(this.responseText);
+                        Swal.fire(
+                                respuesta.respuesta.mensaje,
+                                respuesta.respuesta.mensaje2,
+                                respuesta.respuesta.tipo
+                                );
+                    }
+                }
+
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/variacionCronogramaLider?idProyecto=" + JSON.stringify(idProyecto), true);
+                peticion.send();
+            }
+            
+            
+               function variaciondelCosto(){
+                peticion.onreadystatechange = function () {
+                    if (this.status === 200) {
+                         var respuesta = JSON.parse(this.responseText);
+                        Swal.fire(
+                                respuesta.respuesta.mensaje,
+                                respuesta.respuesta.mensaje2,
+                                respuesta.respuesta.tipo
+                                );
+                    }
+                }
+
+                peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/variaciondelCostoLider?idProyecto=" + JSON.stringify(idProyecto), true);
                 peticion.send();
             }
 
