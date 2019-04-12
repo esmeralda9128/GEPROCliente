@@ -306,8 +306,8 @@
             function verMateriales() {
                 $('#opcion').html('');
                 $('#opcion').append('<button class="btn-verde" id="enviar" onclick="iniciarMateriales()">Comprar</button>');
-                $('#txt4').html('');
-                $('#txt4').append('Materiales');
+                $('#txt5').html('');
+                $('#txt5').append('Materiales');
                 $('#cabeceraTablaRecursos').html('');
                 $('#cabeceraTablaRecursos').append('<tr><th>Nombre</th><th>Precio Unitario</th><th>Cantidad</th><th>Subtotal</th><th>Comprar</th></tr>');
                 $('#bodyTablaRecursos').html('');
@@ -339,27 +339,33 @@
                 }
                 peticion.onreadystatechange = function () {
                     if (this.status === 200) {
+                        
                     }
                 }
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/usuarioPagar?usuario=" + JSON.stringify(usuario), true);
                 peticion.send();
             }
 
-//            function pagarNomina(){
-//                
-//            }
+
 
             function pagarNomina() {
                 var valorGanado = {
                     valorGanado: document.getElementById('valorGanado').value}
                 peticion.onreadystatechange = function () {
                     var respuesta = JSON.parse(this.responseText);
+                     gastado = respuesta.respuesta.gastado;
+                        proyecto = respuesta.respuesta.proyecto;
+                         $('#presupuestoActual').html('');
+                         $('#presupuestoActual').append('$ ' + proyecto.presupustoActual);
                     if (this.status === 200) {
                         Swal.fire(
                                 respuesta.respuesta.mensaje,
                                 '',
                                 respuesta.respuesta.tipo
-                                )
+                                ).then((value) => {                                           
+                                               location.reload();
+                                        });
+                        $('#exampleModal').modal('hide');
                     }
                 };
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/pagarNomina?valorGanado=" + JSON.stringify(valorGanado), true);
@@ -416,11 +422,18 @@
             function comprarMateriales() {
                 peticion.onreadystatechange = function () {
                     if (this.status === 200) {
+                        var respuesta = JSON.parse(this.responseText);
+                        gastado = respuesta.respuesta.gastado;
+                        proyecto = respuesta.respuesta.proyecto;
+                        
                         Swal.fire(
                                 '¡Se han comprado los materiales correctamente!',
                                 '',
                                 'success'
-                                )
+                                ).then((value) => {                                           
+                                               location.reload();
+                                        });
+                
                     }
 
                 }

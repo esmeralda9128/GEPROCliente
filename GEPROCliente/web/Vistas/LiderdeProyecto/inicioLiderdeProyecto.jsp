@@ -114,7 +114,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body" id="modal-body">
                         <form action="#" onsubmit="return false">
                             <div class="form-row">
                                 <div class="form-group  col-md-10">
@@ -127,7 +127,7 @@
                             <div class="form-row">
                                 <div class="form-group  col-md-3">
                                     <label  style="color:black" for="cantidad">Cantidad</label>
-                                    <input type="number" placeholder="Cantidad" pattern="[0-9]+" class="form-control" id="cantidad" required>
+                                    <input type="number" min="1"placeholder="Cantidad" pattern="[0-9]+" class="form-control" id="cantidad" required>
                                     <p class="help-block"></p>
                                 </div>
                                 <div class="form-group  col-md-3">
@@ -214,7 +214,10 @@
                                 respuesta.respuesta.mensaje,
                                 '',
                                 respuesta.respuesta.tipo,
-                                );
+                                )
+                                    
+                                    $('#exampleModal').modal('hide');
+                                
                     }
                     $('#tablaRecursosMateriales').html('');
                     if (recursoHumanos === null) {

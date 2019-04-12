@@ -52,7 +52,7 @@
                 <div class="form-row">
                     <div class="form-group  col-md-5">
                         <label for="nombreP">Nombre de Proyecto</label>
-                        <input type="text" placeholder="Nombre del Proyecto" pattern="[ A-Za-z0-9-äÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ.]+" class="form-control" id="nombreP" required>
+                        <input type="text" placeholder="Nombre del Proyecto" pattern="[ A-Za-z0-9-äÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙÑñ.]+" class="form-control" id="nombreP" required>
                     </div>
                     <div class="form-group  col-md-2">
                         <label for="presupuesto">Presupuesto Inicial</label>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="form-group  col-md-2">
                         <label for="semanas">Duración en semanas</label>
-                        <input type="number"   placeholder="Semanas" class="form-control"  id="semanas"  required>                                
+                        <input type="number"  min="1" placeholder="Semanas" class="form-control"  id="semanas"  required>                                
                     </div>
                 </div>
                 <div class="form-row">
@@ -80,15 +80,15 @@
                 <div class="form-row">
                     <div class="form-group  col-md-4">
                         <label for="semanas">Nombre(s)</label>
-                        <input type="text" placeholder="Nombre"  pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="nombreL" required>
+                        <input type="text" placeholder="Nombre"  pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ]+" class="form-control" id="nombreL" required>
                     </div>
                     <div class="form-group  col-md-4">
                         <label for="apellidoP">Apellido Paterno</label>
-                        <input type="text" placeholder="Apellido Paterno" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="apellidoP" required>
+                        <input type="text" placeholder="Apellido Paterno" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ]+" class="form-control" id="apellidoP" required>
                     </div>
                     <div class="form-group  col-md-4">
                         <label for="apellidoM">Apellido Materno</label>
-                        <input type="text" placeholder="Apellido Materno" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙ]+" class="form-control" id="apellidoM" required>
+                        <input type="text" placeholder="Apellido Materno" pattern="[ A-Za-zäÄëËïÏöÖüÜáéíóúáéíóúÁÉÍÓÚÂÊÎÔÛâêîôûàèìòùÀÈÌÒÙñÑ]+" class="form-control" id="apellidoM" required>
                     </div>
                 </div>
                 <div class="form-row">
@@ -182,7 +182,10 @@
             peticion.send();
         });
         
-        // Añadir event listener al documento para detectar una tecla presionada
+        
+        
+        
+         // Añadir event listener al documento para detectar una tecla presionada
         document.addEventListener("keyup", validar);
         
         function validar() {
@@ -198,6 +201,10 @@
                 document.getElementById("btnRegistrar").disabled = false;
             }
         }
+        
+        
+        
+        
         </script>
 
     </body>
