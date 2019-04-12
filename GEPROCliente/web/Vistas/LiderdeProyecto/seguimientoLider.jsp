@@ -144,6 +144,34 @@
             <div id="valoresAcumulados">
 
             </div>
+<<<<<<< HEAD
+=======
+            <div id="valoresAcumulados">
+
+            </div>
+
+
+            <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
+                <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
+            </form>
+
+            <div id="valoresAcumulados">
+
+            </div>
+
+
+            <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
+                <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
+            </form>
+
+
+            <div id="valoresAcumulados">
+
+            </div>
+
+
+
+>>>>>>> 5feafda6389f3e850570b98dfd644d6aca6ce7fb
         </div>
 
         <%---
@@ -257,13 +285,13 @@
                 $('#txt4').html('');
                 $('#txt4').append('Valor Ganado');
                 $('#totalPagado').html('');
-                $('#totalPagado').append('$ ' + gastado );
+                $('#totalPagado').append('$ ' + gastado);
                 $('#valorGanadoVer').html('');
                 $('#valorGanadoVer').append('$ ' + proyecto.valorGanado);
                 $('#valoresAcumulados').html('');
                 $('#valoresAcumulados').append('<div class="dropdown"><button class="btn btn-secondary dropdown-toggle" style="background-color:  #002E60" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Elige el valor acumulado</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><button class="dropdown-item" onclick="variaciondelCronograma()"> Variación del Cronograma</button><button class="dropdown-item" onclick="variaciondelCosto()"> Variación del Costo</button><button class="dropdown-item" onclick="indicedeDesempenodelCronograma()"> Índice de Desempeño del Cronograma</button><button class="dropdown-item" onclick="indicedeDesempexodelCosto()"> Índice de Desempeño del Costo</button></div></div>');
                 $('#valorPlaneado').html('');
-                $('#valorPlaneado').append('$ '+valorPlaneado);
+                $('#valorPlaneado').append('$ ' + valorPlaneado);
             }
 
             function verEmpleados() {
@@ -317,7 +345,7 @@
                 }
                 peticion.onreadystatechange = function () {
                     if (this.status === 200) {
-                        
+
                     }
                 }
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/usuarioPagar?usuario=" + JSON.stringify(usuario), true);
@@ -331,19 +359,22 @@
                     valorGanado: document.getElementById('valorGanado').value}
                 peticion.onreadystatechange = function () {
                     var respuesta = JSON.parse(this.responseText);
-                     gastado = respuesta.respuesta.gastado;
-                        proyecto = respuesta.respuesta.proyecto;
-                         $('#presupuestoActual').html('');
-                         $('#presupuestoActual').append('$ ' + proyecto.presupustoActual);
+                    gastado = respuesta.respuesta.gastado;
+                    proyecto = respuesta.respuesta.proyecto;
+                    registro = respuesta.respuesta.registro;
+                    $('#presupuestoActual').html('');
+                    $('#presupuestoActual').append('$ ' + proyecto.presupustoActual);
                     if (this.status === 200) {
                         Swal.fire(
                                 respuesta.respuesta.mensaje,
                                 '',
                                 respuesta.respuesta.tipo
-                                ).then((value) => {                                           
-                                               location.reload();
-                                        });
-                        $('#exampleModal').modal('hide');
+                                ).then((value) => {
+                            location.reload(); 
+                        });
+                        if (registro) {
+                            $('#exampleModal').modal('hide');
+                        }
                     }
                 };
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/pagarNomina?valorGanado=" + JSON.stringify(valorGanado), true);
@@ -403,15 +434,15 @@
                         var respuesta = JSON.parse(this.responseText);
                         gastado = respuesta.respuesta.gastado;
                         proyecto = respuesta.respuesta.proyecto;
-                        
+
                         Swal.fire(
                                 '¡Se han comprado los materiales correctamente!',
                                 '',
                                 'success'
-                                ).then((value) => {                                           
-                                               location.reload();
-                                        });
-                
+                                ).then((value) => {
+                            location.reload();
+                        });
+
                     }
 
                 }
@@ -452,9 +483,9 @@
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/variaciondelCostoLider?idProyecto=" + JSON.stringify(idProyecto), true);
                 peticion.send();
             }
-            
-            
-            function indicedeDesempenodelCronograma(){
+
+
+            function indicedeDesempenodelCronograma() {
                 peticion.onreadystatechange = function () {
                     if (this.status === 200) {
                         var respuesta = JSON.parse(this.responseText);
@@ -469,9 +500,9 @@
                 peticion.open("GET", "http://localhost:8080/GEPROServidor/servicioGEPRO/proyecto/desempeniodelCronogranaLider?idProyecto=" + JSON.stringify(idProyecto), true);
                 peticion.send();
             }
-            
-            
-            function indicedeDesempexodelCosto(){
+
+
+            function indicedeDesempexodelCosto() {
                 peticion.onreadystatechange = function () {
                     if (this.status === 200) {
                         var respuesta = JSON.parse(this.responseText);

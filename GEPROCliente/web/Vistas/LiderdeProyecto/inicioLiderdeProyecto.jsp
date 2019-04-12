@@ -210,14 +210,16 @@
                     if (this.status === 200) {
                         var respuesta = JSON.parse(this.responseText);
                         var recursoHumanos = respuesta.respuesta.recursosMateriales;
+                        var resultado = respuesta.respuesta.registro;
                         Swal.fire(
                                 respuesta.respuesta.mensaje,
                                 '',
                                 respuesta.respuesta.tipo,
                                 )
+                                if(resultado){
                                     
                                     $('#exampleModal').modal('hide');
-                                
+                                }
                     }
                     $('#tablaRecursosMateriales').html('');
                     if (recursoHumanos === null) {
