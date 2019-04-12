@@ -364,7 +364,7 @@
                                 '',
                                 respuesta.respuesta.tipo
                                 ).then((value) => {
-                            location.reload();
+                            location.reload(); 
                         });
                         if (registro) {
                             $('#exampleModal').modal('hide');
