@@ -31,6 +31,7 @@ public class ControlUsuario extends ActionSupport{
             myList = new ArrayList<>();
             parametros = new HashMap<String,Object>();
             parametros.put("idProyecto", idProyectoReporte);
+            parametros.put("context", "http://localhost:8080/GEPROCliente/imagenes/");
         }catch (Exception r){
             System.out.println("Error en metodo reporteNominas 'GetMyList' " +r);
         }  
@@ -44,6 +45,7 @@ public class ControlUsuario extends ActionSupport{
             myList = new ArrayList<>();
             parametros = new HashMap<String,Object>();
             parametros.put("idProyecto", idProyectoReporte);
+            parametros.put("context", "http://localhost:8080/GEPROCliente/imagenes/");
         }catch (Exception r){
             System.out.println("Error en metodo reporteNominas 'GetMyList' " +r);
         }  

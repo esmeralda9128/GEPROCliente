@@ -30,6 +30,7 @@ and open the template in the editor.
                 <param name="reportParameters">parametros</param>
                 <param name="connection">conexion</param>
                 <param name="format">PDF</param>
+                <param name="context">context</param>
             </result>
         </action>
         
@@ -40,6 +41,7 @@ and open the template in the editor.
                 <param name="reportParameters">parametros</param>
                 <param name="connection">conexion</param>
                 <param name="format">PDF</param>
+                <param name="context">context</param>
             </result>
         </action>
     </package>

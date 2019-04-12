@@ -47,6 +47,7 @@
         </div>
         <div class="offset-md-2 container">
             <input type="text" value="<%=session.getAttribute("idProyecto")%>"  id="idProyecto" hidden="true">
+            
             <br/>
             <div id="nombrePS">
             </div>
@@ -133,39 +134,16 @@
             </div>
             <form action="<%=context%>/reporteNominas" target="_blank" id="formReporte" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
+                <input type="text" value="<%=session.getAttribute("context")%>"  id="imgContext" hidden="true">
             </form>
 
             <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
                 <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
+                <input type="text" value="<%=session.getAttribute("context")%>"  id="imgContext" hidden="true">
             </form>
             <div id="valoresAcumulados">
 
             </div>
-            <div id="valoresAcumulados">
-
-            </div>
-
-            
-            <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
-                <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
-            </form>
-
-            <div id="valoresAcumulados">
-         
-            </div>
-
-
-            <form action="<%=context%>/reporteMaterialesComprados" target="_blank" id="formMaterialesComprados" method="post">
-                <input type="text" value="<%=session.getAttribute("idProyecto")%>" name="idProyectoReporte"  id="idProyectoReporte" hidden="true">
-            </form>
-
-
-            <div id="valoresAcumulados">
-
-            </div>
-
-
-
         </div>
 
         <%---

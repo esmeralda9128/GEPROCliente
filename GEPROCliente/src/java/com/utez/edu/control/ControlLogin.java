@@ -49,6 +49,7 @@ public class ControlLogin extends ActionSupport implements SessionAware {
                 session.put("nombre", consultado.getNombre());
                 mensaje = "Bienvenido";
                 dir = "/Vistas/LiderdeProyecto/inicioLiderdeProyecto.jsp";
+                session.put("context", "http://localhost:8080/GEPROCliente/imagenes/");
                 parametros = "";
                 return SUCCESS;
             }
